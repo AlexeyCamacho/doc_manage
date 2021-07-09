@@ -23,9 +23,9 @@ class UsersController extends Controller
     public function create(Request $req) {
 
         $validation = $req->validate([
-            'login' => 'required|min:8|string',
+            'login' => 'required|min:5|string',
             'email' => 'email|required|min:5|string',
-            'name' => ['required','string',new nameRule,'min:'],
+            'name' => ['required','string',new nameRule,'min:8'],
             'role' => 'required|string'
         ]);
 
