@@ -43,7 +43,8 @@
             </button>
             <button type="button" class="btn btn-outline-success d-none user_add_form" 
             onclick="rm_class('is-invalid'); clear_class('errors'); 
-            ajax('user_add_form', '/doc_manage/users/create'); ">
+            ajax('user_add_form', '/doc_manage/users/create'); 
+            //document.getElementById('user_add_form').submit();">
                 <i class="bi bi-check-lg"></i>
             </button>
             <form method="POST" class="row my-3 d-none user_add_form" id="user_add_form" action="users/create">

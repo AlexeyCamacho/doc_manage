@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Users;
+use App\Models\Users;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Rules\nameRule;
+use App\Mail\UserPassword;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -29,13 +32,20 @@ class UsersController extends Controller
             'role' => 'required|string'
         ]);
 
+        $random_str = Str::random(12);
+        $hashed_random_password = Hash::make($random_str);
+
         Users::create([
             'login' => $req->input('login'),
             'email' => $req->input('email'),
-            'password' => Hash::make($req->input('login')),
+            'password' => $hashed_random_password,
             'role' => $req->input('role'),
             'name' => $req->input('name'),
         ]);
+
+
+
+        Mail::to($req->input('email'))->send(new UserPassword($random_str));
 
     }
 

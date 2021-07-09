@@ -84,8 +84,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'admin@dosamara.ru'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'cdot.mail.ssau@yandex.ru'),
+        'name' => env('MAIL_FROM_NAME', 'ДокументооборотV2.0'),
     ],
 
     /*
