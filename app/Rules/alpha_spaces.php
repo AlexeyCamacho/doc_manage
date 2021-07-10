@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class nameRule implements Rule
+class alpha_spaces implements Rule
 {
     /**
      * Create a new rule instance.

@@ -28,7 +28,7 @@ class UsersController extends Controller
         $validation = $req->validate([
             'login' => 'required|min:5|string',
             'email' => 'email|required|min:5|string',
-            'name' => ['required','string',new nameRule,'min:8'],
+            'name' => ['required','string',new alpha_spaces,'min:8'],
             'role' => 'required|string'
         ]);
 
