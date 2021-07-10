@@ -11,16 +11,20 @@ class UserPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $random_str;
+    public $name_user;
+    public $login_user;
+    public $password_user;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($random_str)
+    public function __construct($name_user, $login_user, $password_user)
     {
-        $this->random_str = $random_str;
+        $this->name_user = $name_user;
+        $this->login_user = $login_user;
+        $this->password_user = $password_user;
     }
 
     /**
@@ -31,7 +35,9 @@ class UserPassword extends Mailable
     public function build()
     {
         return $this->view('emails.password')->with([
-            'random_str' => $this->random_str,
+            'name_user' => $this->name_user,
+            'login_user' => $this->login_user,
+            'password_user' => $this->password_user,
         ]);
     }
 }

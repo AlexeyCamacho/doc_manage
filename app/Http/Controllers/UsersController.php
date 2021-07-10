@@ -45,7 +45,7 @@ class UsersController extends Controller
 
 
 
-        Mail::to($req->input('email'))->send(new UserPassword($random_str));
+        Mail::to($req->input('email'))->send(new UserPassword($req->input('name'), $req->input('login'), $random_str));
 
     }
 
