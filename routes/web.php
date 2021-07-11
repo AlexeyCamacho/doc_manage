@@ -23,9 +23,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/users', 'UsersController@index')->name('users');
 
-/*Route::get('/mail_test', function() {
-    return new App\Mail\UserPassword('name','name','name');
-});*/
-
 Route::post('/users/create', 'UsersController@create');
+
+Route::get('/mail_test', function() {
+    return new App\Mail\UserPassword('name','name','name');
+});
+
+
 

@@ -35,8 +35,9 @@ function ajax(form, url) {
 
         if (xhr.status != 200) {
             print_errors(xhr.response['errors']);
+            hide_spinner();
         } else {
-            console.log(xhr.status + ': ' + xhr.statusText);
+            location.reload();
         }
     }
 }
@@ -74,5 +75,21 @@ function clear_class(class_) {
 
     for (var i = list_class.length-1; i >= 0 ; i--) {
         list_class[i].innerText = '';
+    }
+}
+
+function show_spinner() {
+    var list_class = document.getElementsByClassName('spinner-border');
+
+    for (var i = list_class.length-1; i >= 0 ; i--) {
+        list_class[i].style.display = '';
+    }
+}
+
+function hide_spinner() {
+    var list_class = document.getElementsByClassName('spinner-border');
+
+    for (var i = list_class.length-1; i >= 0 ; i--) {
+        list_class[i].style.display = 'none';
     }
 }

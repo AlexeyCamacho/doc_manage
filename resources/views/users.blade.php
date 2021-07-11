@@ -31,7 +31,6 @@
 
                 </tbody>
             </table>            
-
             <button type="button" class="btn btn-outline-primary user_add_button"
             onclick="display_block('user_add_form', 'user_add_button');">
                 <i class="bi bi-plus-circle"></i><span class="m-1">{{ __('Добавить сотрудника') }}</span>
@@ -42,9 +41,11 @@
                 <i class="bi bi-x-lg"></i>
             </button>
             <button type="button" class="btn btn-outline-success d-none user_add_form" 
-            onclick="rm_class('is-invalid'); clear_class('errors'); 
+            onclick="rm_class('is-invalid'); clear_class('errors');
+            show_spinner(); 
             ajax('user_add_form', '/doc_manage/users/create'); 
             //document.getElementById('user_add_form').submit();">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
                 <i class="bi bi-check-lg"></i>
             </button>
             <form method="POST" class="row my-3 d-none user_add_form" id="user_add_form" action="users/create">
@@ -79,6 +80,5 @@
             </form>
         </div>
     </div>
-
 </div>
 @endsection

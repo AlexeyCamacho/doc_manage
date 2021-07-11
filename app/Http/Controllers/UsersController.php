@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Users;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Rules\nameRule;
+use App\Rules\alpha_spaces;
 use App\Mail\UserPassword;
 use Illuminate\Support\Facades\Mail;
 
@@ -26,8 +26,8 @@ class UsersController extends Controller
     public function create(Request $req) {
 
         $validation = $req->validate([
-            'login' => 'required|min:5|string',
-            'email' => 'email|required|min:5|string',
+            'login' => 'required|min:5|string|unique:users,login',
+            'email' => 'email|required|min:5|string|unique:users,email',
             'name' => ['required','string',new alpha_spaces,'min:8'],
             'role' => 'required|string'
         ]);
@@ -42,8 +42,6 @@ class UsersController extends Controller
             'role' => $req->input('role'),
             'name' => $req->input('name'),
         ]);
-
-
 
         Mail::to($req->input('email'))->send(new UserPassword($req->input('name'), $req->input('login'), $random_str));
 

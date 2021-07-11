@@ -128,6 +128,9 @@
                 height: auto !important;
             }
         }
+
+        @include('inc.style')
+        
     </style>
     <!-- [if gte mso 9]><style type=”text/css”>
         body {
@@ -256,7 +259,7 @@
                     <tr>
                         <td align="center">
                             <div class="d-grid gap-1 col-5">
-                                <a class="btn btn-primary btn-block btn-lg" 
+                                <a class="btn btn-info btn-block btn-lg" 
                                 href="https://do.ssau.ru/doc_manage/login" role="button">Войти</a>
                             </div>
                         </td>
