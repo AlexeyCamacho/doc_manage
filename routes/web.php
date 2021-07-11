@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('main');
 });
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'verify' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -25,9 +25,11 @@ Route::get('/users', 'UsersController@index')->name('users');
 
 Route::post('/users/create', 'UsersController@create');
 
-Route::get('/mail_test', function() {
+Route::post('/users/blocked', 'UsersController@blocked');
+
+/*Route::get('/mail_test', function() {
     return new App\Mail\UserPassword('name','name','name');
 });
-
+*/
 
 

@@ -19,12 +19,12 @@
                 </thead>
                 <tbody>
 
-                    @foreach($data as $el)
+                    @foreach($data as $user)
                         <tr>
-                            <th scope="row"> {{ $el->id }} </th>
-                            <td> {{ $el->name }} </td>
-                            <td> {{ $el->role }} </td>
-                            <td> {{ $el->updated_at }} </td>
+                            <th scope="row"> {{ $user->id }} </th>
+                            <td> {{ $user->name }} </td>
+                            <td> {{ $user->role }} </td>
+                            <td> {{ $user->updated_at }} </td>
                             <td> @include('inc.icons') </td>
                         </tr>    
                     @endforeach 
@@ -43,12 +43,12 @@
             <button type="button" class="btn btn-outline-success d-none user_add_form" 
             onclick="rm_class('is-invalid'); clear_class('errors');
             show_spinner(); 
-            ajax('user_add_form', '/doc_manage/users/create'); 
+            ajax('user_add_form', 'users/create'); 
             //document.getElementById('user_add_form').submit();">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
                 <i class="bi bi-check-lg"></i>
             </button>
-            <form method="POST" class="row my-3 d-none user_add_form" id="user_add_form" action="users/create">
+            <form method="POST" class="row my-3 d-none user_add_form" id="user_add_form">
                 @csrf
                 <div class="col-3">
                     <input name="login" id="login" type="text" class="form-control" placeholder="Логин" required>

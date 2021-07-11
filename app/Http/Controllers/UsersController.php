@@ -47,4 +47,19 @@ class UsersController extends Controller
 
     }
 
+    public function blocked(Request $req) {
+        $user = Users::where('id', $req->input('id'))->first();
+
+        if($user->blocked == 0) {
+            $user->blocked = 1;
+        } else {
+            $user->blocked = 0;
+        }
+
+        $user->save();
+
+
+        return 200;
+    }
+
 }

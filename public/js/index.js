@@ -93,3 +93,26 @@ function hide_spinner() {
         list_class[i].style.display = 'none';
     }
 }
+
+function ajax_(data, url) {
+
+    var xhr = new XMLHttpRequest();
+    //xhr.responseType =  "json";
+    xhr.open('POST', url, false);
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    xhr.send(data);
+
+    xhr.onreadystatechange = function() { // (3)
+        if (xhr.readyState != 4) return;  
+    }
+    return xhr.response;
+}
+
+function block_unblock_user(id, token) {
+    myData = new FormData;
+    myData.append('id', id);
+    myData.append('_token', token);
+    var resp = ajax_(myData, 'users/blocked');
+    if(resp == 200) { location.reload(); }
+}
+
