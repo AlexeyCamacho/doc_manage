@@ -2,21 +2,24 @@ function display_block(display_class, hidden_class) {
     var list_class = document.getElementsByClassName(display_class);
 
     for (var i = list_class.length-1; i >= 0 ; i--) {
+
         if (list_class[i].nodeName == "FORM") {
             list_class[i].reset();
         }
-        list_class[i].classList.remove('d-none');
+
+        if(list_class[i].classList.contains('d-none')) { list_class[i].classList.remove('d-none'); }
+        list_class[i].style.display = '';
+
     }
 
     var list_class = document.getElementsByClassName(hidden_class);
 
     for (var i = list_class.length-1; i >= 0 ; i--) {
-        list_class[i].classList.add('d-none');
+        list_class[i].style.display = 'none';
     }
-
 }
 
-function ajax(form, url) {
+function ajax(form, url, action) {
     var form = document.getElementById(form);
     myData = new FormData(form);
 
@@ -34,21 +37,21 @@ function ajax(form, url) {
 
 
         if (xhr.status != 200) {
-            print_errors(xhr.response['errors']);
-            hide_spinner();
+            print_errors(xhr.response['errors'], action);
+            display_block('none', 'spinner-border');
         } else {
             location.reload();
         }
     }
 }
 
-function print_errors(errors) {
+function print_errors(errors, action) {
     for (var property in errors) {
-
-        var error_element = document.getElementById(property);
+        field = action + property;
+        var error_element = document.getElementById(field);
         error_element.classList.add('is-invalid');
 
-        var error_element = 'error-' + property
+        var error_element = 'error-' + field;
         var error_element = document.getElementById(error_element);
         error_element.innerText = '';
 
@@ -62,11 +65,11 @@ function print_errors(errors) {
     }
 }
 
-function rm_class(class_) {
-    var list_class = document.getElementsByClassName(class_);
+function rm_class(in_class, rm_class) {
+    var list_class = document.getElementsByClassName(in_class);
 
     for (var i = list_class.length-1; i >= 0 ; i--) {
-        list_class[i].classList.remove(class_);
+        list_class[i].classList.remove(rm_class);
     }
 }
 
@@ -78,6 +81,7 @@ function clear_class(class_) {
     }
 }
 
+/* Возможно удалить
 function show_spinner() {
     var list_class = document.getElementsByClassName('spinner-border');
 
@@ -93,6 +97,7 @@ function hide_spinner() {
         list_class[i].style.display = 'none';
     }
 }
+*/
 
 function ajax_(data, url) {
 
@@ -115,4 +120,11 @@ function block_unblock_user(id, token) {
     var resp = ajax_(myData, 'users/blocked');
     if(resp == 200) { location.reload(); }
 }
+
+function set_value_modal(modal, button, atrib, id_input) {
+    var recipient = button.getAttribute(atrib);
+    var Input = modal.querySelector('#' + id_input);
+    Input.value = recipient;
+}
+
 

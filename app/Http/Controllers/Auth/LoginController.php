@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -43,5 +45,12 @@ class LoginController extends Controller
         return 'login';
     }
 
+    protected function attemptLogin(Request $request)
+    {
+        $data = $this->credentials($request);
+        $data['blocked'] = 0;
+        return $this->guard()->attempt($data, $request->filled('remember')
+        );
+    }
     
 }

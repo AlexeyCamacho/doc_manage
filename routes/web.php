@@ -27,6 +27,8 @@ Route::post('/users/create', 'UsersController@create');
 
 Route::post('/users/blocked', 'UsersController@blocked');
 
+Route::post('/users/edit', 'UsersController@edit');
+
 /*Route::get('/mail_test', function() {
     return new App\Mail\UserPassword('name','name','name');
 });
