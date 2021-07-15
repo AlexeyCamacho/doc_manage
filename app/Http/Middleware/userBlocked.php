@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use Illuminate\Support\Facades\Auth;
 use Closure;
 
 class userBlocked
@@ -14,7 +14,11 @@ class userBlocked
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
+    {   
+        if ($user = Auth::user()->blocked == 1) {
+            Auth::logout();
+            abort(403, 'Недостаточно прав.');
+        }
         return $next($request);
     }
 }

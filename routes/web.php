@@ -22,12 +22,10 @@ Auth::routes(['register' => false, 'verify' => false]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/users', 'UsersController@index')->name('users');
-
 Route::post('/users/create', 'UsersController@create');
-
 Route::post('/users/blocked', 'UsersController@blocked');
-
 Route::post('/users/edit', 'UsersController@edit');
+Route::post('/users/delete', 'UsersController@deleteUser');
 
 /*Route::get('/mail_test', function() {
     return new App\Mail\UserPassword('name','name','name');

@@ -33,18 +33,25 @@
             </table>
 
             <button type="button" class="btn btn-outline-primary user_add_button"
-            onclick="display_block('user_add_form', 'user_add_button');">
+            onclick="
+                display_block('user_add_form', 'user_add_button');">
                 <i class="bi bi-plus-circle"></i><span class="m-1">{{ __('Добавить сотрудника') }}</span>
             </button>
             <button type="button" class="btn btn-outline-danger d-none user_add_form" 
-            onclick="display_block('user_add_button', 'user_add_form');
-            rm_class('create', 'is-invalid'); clear_class('errors-create');">
+            onclick="
+                display_block('user_add_button', 'user_add_form');
+                rm_class('create', 'is-invalid'); 
+                clear_class('errors-create');"
+            data-toggle="tooltip" title="Отмена">
                 <i class="bi bi-x-lg"></i>
             </button>
             <button type="button" class="btn btn-outline-success d-none user_add_form" 
-            onclick="rm_class('create', 'is-invalid'); clear_class('errors-create');
-            display_block('spinner-border', 'none'); 
-            ajax('user_add_form', 'users/create', 'create-'); ">
+            onclick="
+                rm_class('create', 'is-invalid'); 
+                clear_class('errors-create');
+                display_block('spinner-border', 'none'); 
+                ajax('user_add_form', 'users/create', 'create-');"
+            data-toggle="tooltip" title="Добавить">
                 <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" ></span>
                 <i class="bi bi-check-lg"></i>
             </button>
@@ -76,7 +83,7 @@
     </div>
 </div>
 
-<!-- MODAL -->
+<!-- MODAL edit -->
 <div class="modal fade" id="editUsers" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -93,23 +100,17 @@
                     <div class="mb-3">
                         <label for="data-bs-login" class="col-form-label">Логин:</label>
                         <input type="text" class="form-control edit" id="edit-login" name="login">
-                        <span class="text-danger">
-                            <strong id="error-edit-login" class="errors-edit"></strong>
-                        </span>
+                        <x-print-errors action="edit" field="login"></x-print-errors>
                     </div>
                     <div class="mb-3">
                         <label for="data-bs-email" class="col-form-label">Email:</label>
                         <input type="text" class="form-control edit" id="edit-email" name="email">
-                        <span class="text-danger">
-                            <strong id="error-edit-email" class="errors-edit"></strong>
-                        </span>
+                        <x-print-errors action="edit" field="email"></x-print-errors>
                     </div>
                     <div class="mb-3">
                         <label for="data-bs-name" class="col-form-label">ФИО:</label>
                         <input type="text" class="form-control edit" id="edit-name" name="name">
-                        <span class="text-danger">
-                            <strong id="error-edit-name" class="errors-edit"></strong>
-                        </span>
+                        <x-print-errors action="edit" field="name"></x-print-errors>
                     </div>
                     <div class="mb-3">
                         <label for="data-bs-role" class="col-form-label">Должность:</label>
@@ -117,9 +118,7 @@
                             <option value="0">Тест</option>
                             <option value="1">Тест1</option>
                         </select>
-                        <span class="text-danger">
-                            <strong id="error-edit-role" class="errors-edit"></strong>
-                        </span>
+                        <x-print-errors action="edit" field="role"></x-print-errors>
                     </div>
                 </form>
             </div>
@@ -136,14 +135,50 @@
 </div>
 
 <script type="text/javascript">
-  var exampleModal = document.getElementById('editUsers');
-  exampleModal.addEventListener('show.bs.modal', function (event) {
+  var editUserModal = document.getElementById('editUsers');
+  editUserModal.addEventListener('show.bs.modal', function (event) {
   var button = event.relatedTarget;
-  set_value_modal(exampleModal, button, 'data-bs-login', 'edit-login');
-  set_value_modal(exampleModal, button, 'data-bs-email', 'edit-email');
-  set_value_modal(exampleModal, button, 'data-bs-name', 'edit-name');
-  set_value_modal(exampleModal, button, 'data-bs-role', 'edit-role');
-  set_value_modal(exampleModal, button, 'data-bs-id', 'edit-id');
+  set_value_modal(editUserModal, button, 'data-bs-login', 'edit-login');
+  set_value_modal(editUserModal, button, 'data-bs-email', 'edit-email');
+  set_value_modal(editUserModal, button, 'data-bs-name', 'edit-name');
+  set_value_modal(editUserModal, button, 'data-bs-role', 'edit-role');
+  set_value_modal(editUserModal, button, 'data-bs-id', 'edit-id');
+})
+</script>
+
+<!-- MODAL delete -->
+<div class="modal fade" id="deleteUsers" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="user_delete_form">
+                    @csrf
+                    <input name="id" id="delete-id" type="hidden" value="">
+                    <div class="mb-3">
+                        Для запрета доступа пользователю в систему, достаточно его заблокировать. Крайне не рекомендуется удалять пользователей. Делайте это только в том случае, если сотрудник  загружал мало документов в систему. При удалении пользователя будет невозможно отследить историю его действий и загруженных документов. Вы уверены, что хотите удалить пользователя?
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-danger" onclick=" 
+                ajax('user_delete_form', 'users/delete', 'delete-'); ">Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  var deleteUserModal = document.getElementById('deleteUsers');
+  deleteUserModal.addEventListener('show.bs.modal', function (event) {
+  var button = event.relatedTarget;
+  set_value_modal(deleteUserModal, button, 'data-bs-id', 'delete-id');
 })
 </script>
 

@@ -17,6 +17,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('blocked');
     } 
 
     public function index()
@@ -81,6 +82,10 @@ class UsersController extends Controller
 
         $user->save();
 
+    }
+
+    public function deleteUser(Request $req) {
+       User::destroy($req->id); 
     }
 
 }
