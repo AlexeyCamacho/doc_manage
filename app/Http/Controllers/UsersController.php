@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Users;
+use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Rules\alpha_spaces;
@@ -21,7 +21,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        return view('users', ['data' => Users::all()]);
+        return view('users', ['data' => User::all()->sortBy('blocked')]);
     }
 
     public function create(Request $req) {
@@ -36,7 +36,7 @@ class UsersController extends Controller
         $random_str = Str::random(12);
         $hashed_random_password = Hash::make($random_str);
 
-        Users::create([
+        User::create([
             'login' => $req->login,
             'email' => $req->email,
             'password' => $hashed_random_password,
@@ -49,7 +49,7 @@ class UsersController extends Controller
     }
 
     public function blocked(Request $req) {
-        $user = Users::where('id', $req->id)->first();
+        $user = User::where('id', $req->id)->first();
 
         if($user->blocked == 0) {
             $user->blocked = 1;
@@ -72,7 +72,7 @@ class UsersController extends Controller
             'role' => 'required|string'
         ]);
 
-        $user = Users::where('id', $req->id)->first();
+        $user = User::where('id', $req->id)->first();
 
         $user->login = $req->login;
         $user->email = $req->email;

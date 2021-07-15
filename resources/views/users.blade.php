@@ -10,11 +10,11 @@
             <table class="table table-striped my-4">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">ФИО</th>
-                        <th scope="col">Должность</th>
-                        <th scope="col">Последняя активность</th>
-                        <th scope="col">Действия</th>
+                        <th scope="col">{{ ('ID') }}</th>
+                        <th scope="col">{{ ('ФИО') }}</th>
+                        <th scope="col">{{ ('Должность') }}</th>
+                        <th scope="col">{{ ('Последняя активность') }}</th>
+                        <th scope="col">{{ ('Действия') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,30 +53,22 @@
                 @csrf
                 <div class="col-3">
                     <input name="login" id="create-login" type="text" class="form-control create" placeholder="Логин" required>
-                    <span class="text-danger">
-                        <strong id="error-create-login" class="errors-create"></strong>
-                    </span>
+                    <x-print-errors action="create" field="login"></x-print-errors>
                 </div>
                 <div class="col-3">
                     <input name="email" id="create-email" type="email" class="form-control create" 
                     placeholder="E-mail" required>
-                    <span class="text-danger">
-                        <strong id="error-create-email" class="errors-create"></strong>
-                    </span>
+                    <x-print-errors action="create" field="email"></x-print-errors>
                 </div>
                 <div class="col-3">
                     <input name="name" id="create-name" type="text" class="form-control create" placeholder="ФИО" required>
-                    <span class="text-danger">
-                        <strong id="error-create-name" class="errors-create"></strong>
-                    </span>
+                    <x-print-errors action="create" field="name"></x-print-errors>
                 </div>
                 <div class="col-3">
                     <select name="role" id="create-role" class="form-select create">
                         <option value="0">Тест</option>
                     </select>
-                    <span class="text-danger">
-                        <strong id="error-create-role" class="errors-create"></strong>
-                    </span>
+                    <x-print-errors action="create" field="role"></x-print-errors>
                 </div>
             </form>
 
