@@ -25,7 +25,9 @@ Route::get('/users', 'UsersController@index')->name('users');
 Route::post('/users/create', 'UsersController@create');
 Route::post('/users/blocked', 'UsersController@blocked');
 Route::post('/users/edit', 'UsersController@edit');
-Route::post('/users/delete', 'UsersController@deleteUser');
+Route::post('/users/delete', 'UsersController@delete');
+
+Route::get('/permissions', 'PermissionsController@index')->name('permissions');
 
 /*Route::get('/mail_test', function() {
     return new App\Mail\UserPassword('name','name','name');

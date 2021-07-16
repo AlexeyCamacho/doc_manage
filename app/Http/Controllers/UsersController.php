@@ -10,6 +10,7 @@ use App\Rules\alpha_spaces;
 use App\Mail\UserPassword;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
 {
@@ -22,10 +23,17 @@ class UsersController extends Controller
 
     public function index()
     {
+        if (!Gate::allows('views-users')) {
+            return view('PermError');
+        }
         return view('users', ['data' => User::all()->sortBy('blocked')]);
     }
 
     public function create(Request $req) {
+
+        if (!Gate::allows('create-users')) {
+            return abort(403, 'Нет прав');
+        }
 
         $validation = $req->validate([
             'login' => 'required|min:5|string|unique:users,login',
@@ -50,6 +58,11 @@ class UsersController extends Controller
     }
 
     public function blocked(Request $req) {
+
+        if (!Gate::allows('blocked-users')) {
+            return abort(403, 'Нет прав');
+        }
+
         $user = User::where('id', $req->id)->first();
 
         if($user->blocked == 0) {
@@ -65,6 +78,10 @@ class UsersController extends Controller
     }
 
     public function edit(Request $req) {
+
+        if (!Gate::allows('edit-users')) {
+            return abort(403, 'Нет прав');
+        }
 
         $validation = $req->validate([
             'login' => 'required|min:5|string|unique:users,login,'.$req->id,
@@ -84,7 +101,12 @@ class UsersController extends Controller
 
     }
 
-    public function deleteUser(Request $req) {
+    public function delete(Request $req) {
+
+        if (!Gate::allows('delete-users')) {
+            return abort(403, 'Нет прав');
+        }
+
        User::destroy($req->id); 
     }
 
