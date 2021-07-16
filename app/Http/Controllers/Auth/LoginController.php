@@ -49,8 +49,7 @@ class LoginController extends Controller
     {
         $data = $this->credentials($request);
         $data['blocked'] = 0;
-        return $this->guard()->attempt($data, $request->filled('remember')
-        );
+        return $this->guard()->attempt($data, $request->filled('remember'));
     }
     
 }

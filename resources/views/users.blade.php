@@ -18,12 +18,11 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    @foreach($data as $user)
+                    @foreach($users as $user)
                         <tr>
                             <th scope="row"> {{ $user->id }} </th>
                             <td> {{ $user->name }} </td>
-                            <td> {{ $user->role }} </td>
+                            <td> @foreach($user->roles as $role) {{ $role->name }} @endforeach </td>
                             <td> {{ $user->updated_at }} </td>
                             <td> @include('inc.icons') </td>
                         </tr>    
@@ -31,6 +30,7 @@
 
                 </tbody>
             </table>
+            {{ $users->links() }}
 
             @can('create-users')
                 <button type="button" class="btn btn-outline-primary user_add_button"
@@ -164,7 +164,7 @@
                     @csrf
                     <input name="id" id="delete-id" type="hidden" value="">
                     <div class="mb-3">
-                        Для запрета доступа пользователю в систему, достаточно его заблокировать. Крайне не рекомендуется удалять пользователей. Делайте это только в том случае, если сотрудник  загружал мало документов в систему. При удалении пользователя будет невозможно отследить историю его действий и загруженных документов. Вы уверены, что хотите удалить пользователя?
+                        Для запрета доступа пользователю в систему, достаточно его заблокировать. Крайне не рекомендуется удалять пользователей. Делайте это только в том случае, если сотрудник  загружал мало документов в систему. При удалении пользователя будет невозможно отследить историю его действий и загруженных документов. Вы уверены, что хотите удалить пользователя <span id="delete-name"></span>?
                     </div>
                 </form>
             </div>
@@ -182,6 +182,7 @@
   deleteUserModal.addEventListener('show.bs.modal', function (event) {
   var button = event.relatedTarget;
   set_value_modal(deleteUserModal, button, 'data-bs-id', 'delete-id');
+  set_value_div(button, 'data-bs-name', 'delete-name');
 })
 </script>
 @endcan

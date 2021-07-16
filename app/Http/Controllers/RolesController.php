@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Support\Facades\Gate;
 
-class PermissionsController extends Controller
+class RolesController extends Controller
 {
     public function __construct()
     {
@@ -16,9 +16,9 @@ class PermissionsController extends Controller
 
     public function index()
     {   
-        if (!Gate::allows('views-permissions')) {
+        if (!Gate::allows('views-roles')) {
             return view('PermError');
         }
-        return view('permissions', ['permissions' => Permission::paginate(10)]);
+        return view('role', ['roles' => Role::paginate(10)]);
     }
 }

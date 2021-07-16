@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use App\Rules\alpha_spaces;
 use App\Mail\UserPassword;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -26,7 +27,7 @@ class UsersController extends Controller
         if (!Gate::allows('views-users')) {
             return view('PermError');
         }
-        return view('users', ['data' => User::all()->sortBy('blocked')]);
+        return view('users', ['users' => User::orderBy('blocked')->paginate(5)]);
     }
 
     public function create(Request $req) {

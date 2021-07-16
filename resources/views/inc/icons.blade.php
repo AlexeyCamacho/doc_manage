@@ -20,7 +20,7 @@
         @endcan
         @can('delete-users')
         <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteUsers"
-        data-placement="top" title="Удалить" data-bs-id="{{ $user->id }}">
+        data-placement="top" title="Удалить" data-bs-id="{{ $user->id }}" data-bs-name="{{ $user->name }}">
             <i class="bi bi-trash" data-toggle="tooltip" data-placement="top" title="Удалить"></i>
         </button>
         @endcan
