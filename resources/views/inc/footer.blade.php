@@ -1,4 +1,4 @@
-<nav class="navbar sticky-bottom navbar-light bg-light">
+<nav class="navbar navbar-light bg-light mt-auto">
     <div class="container-fluid">
         <h5 class="mx-auto text-center">Разработано в Центре дистанционных <br> 
             образовательных технологий Самарского университета 

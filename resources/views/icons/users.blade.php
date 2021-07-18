@@ -1,9 +1,10 @@
 <div class="btn-group">
-@if(Route::is('users'))
     @if($user->blocked == 0)
         @can('edit-users')
         <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#editUsers"
-        data-bs-login="{{ $user->login }}" data-bs-email="{{ $user->email }}" data-bs-name="{{ $user->name }}"data-bs-role="{{ $user->role }}" data-bs-id="{{ $user->id }}" data-placement="top" title="Редактировать">
+        data-bs-login="{{ $user->login }}" data-bs-email="{{ $user->email }}" data-bs-name="{{ $user->name }}
+        "data-bs-role="@foreach($user->roles as $role){{ $role->slug }}@endforeach" data-bs-id="{{ $user->id }}"
+        data-placement="top" title="Редактировать">
             <i class="bi bi-pencil" data-toggle="tooltip" data-placement="top" title="Редактировать"></i>
         </button>
         @endcan
@@ -25,5 +26,4 @@
         </button>
         @endcan
     @endif
-@endif
 </div>

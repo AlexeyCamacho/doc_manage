@@ -22,12 +22,18 @@
                             <th scope="row"> {{ $role->id }} </th>
                             <td> {{ $role->name }} </td>
                             <td> {{ $role->slug }}</td>
-                            <td> @include('inc.icons') </td>
+                            <td> @include('icons.roles') </td>
                         </tr>    
                     @endforeach
                 </tbody>
             </table>
             {{ $roles->links() }}
+
+            @can('create-roles')
+                <button type="button" class="btn btn-outline-primary">
+                    <i class="bi bi-plus-circle"></i><span class="m-1">{{ __('Создать роль') }}</span>
+                </button>
+            @endcan
         </div>
     </div>
 </div>

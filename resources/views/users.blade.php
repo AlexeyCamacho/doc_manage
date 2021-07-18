@@ -23,8 +23,8 @@
                             <th scope="row"> {{ $user->id }} </th>
                             <td> {{ $user->name }} </td>
                             <td> @foreach($user->roles as $role) {{ $role->name }} @endforeach </td>
-                            <td> {{ $user->updated_at }} </td>
-                            <td> @include('inc.icons') </td>
+                            <td> {{ $user->last_act }} </td>
+                            <td> @include('icons.users') </td>
                         </tr>    
                     @endforeach 
 
@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-3">
                         <select name="role" id="create-role" class="form-select create">
-                            <option value="0">Тест</option>
+                            @foreach($roles as $role)  <option value="{{ $role->slug }}">{{ $role->name }}</option> @endforeach
                         </select>
                         <x-print-errors action="create" field="role"></x-print-errors>
                     </div>
@@ -116,8 +116,7 @@
                         <div class="mb-3">
                             <label for="data-bs-role" class="col-form-label">Должность:</label>
                             <select name="role" id="edit-role" class="form-select edit" name="role">
-                                <option value="0">Тест</option>
-                                <option value="1">Тест1</option>
+                                @foreach($roles as $role)  <option value="{{ $role->slug }}">{{ $role->name }}</option> @endforeach
                             </select>
                             <x-print-errors action="edit" field="role"></x-print-errors>
                         </div>

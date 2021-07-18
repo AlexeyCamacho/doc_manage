@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->integer('role');
             $table->string('name');
             $table->boolean('blocked')->default(0);
-            $table->timestamp('lact_act')->nullable();
+            $table->timestamp('last_act')->nullable();
             $table->timestamps();
         });
     }

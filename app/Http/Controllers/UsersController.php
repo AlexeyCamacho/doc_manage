@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Models\Role;
 use App\Rules\alpha_spaces;
 use App\Mail\UserPassword;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class UsersController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('blocked');
+        $this->middleware('last_act');
     } 
 
     public function index()
@@ -27,7 +29,7 @@ class UsersController extends Controller
         if (!Gate::allows('views-users')) {
             return view('PermError');
         }
-        return view('users', ['users' => User::orderBy('blocked')->paginate(5)]);
+        return view('users', ['users' => User::orderBy('blocked')->paginate(5), 'roles' => Role::all()]);
     }
 
     public function create(Request $req) {
@@ -50,9 +52,13 @@ class UsersController extends Controller
             'login' => $req->login,
             'email' => $req->email,
             'password' => $hashed_random_password,
-            'role' => $req->role,
             'name' => $req->name,
         ]);
+
+        $role = Role::where('slug', $req->role)->first();
+        $user = User::where('login', $req->login)->first();
+
+        $user->roles()->attach($role);
 
         Mail::to($req->email)->send(new UserPassword($req->name, $req->login, $random_str));
 
@@ -96,9 +102,13 @@ class UsersController extends Controller
         $user->login = $req->login;
         $user->email = $req->email;
         $user->name = $req->name;
-        $user->role = $req->role;
 
         $user->save();
+
+        $user->roles()->detach();
+
+        $role = Role::where('slug', $req->role)->first();
+        $user->roles()->attach($role);
 
     }
 
