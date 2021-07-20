@@ -19,7 +19,7 @@ function display_block(display_class, hidden_class) {
     }
 }
 
-function ajax(form, url, action) {
+function ajax(form, url, action, redir = null) {
     var form = document.getElementById(form);
     myData = new FormData(form);
 
@@ -40,7 +40,8 @@ function ajax(form, url, action) {
             print_errors(xhr.response['errors'], action);
             display_block('none', 'spinner-border');
         } else {
-            location.reload();
+            if (redir == null) { location.reload(); }
+            else { window.location.replace('https://do.ssau.ru/doc_manage/' + redir); }
         }
     }
 }

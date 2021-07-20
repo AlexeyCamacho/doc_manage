@@ -113,7 +113,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid zone.',
-    'unique' => 'Данный :attribute уже используется.',
+    'unique' => 'Данный(ое) :attribute уже используется.',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -150,7 +150,9 @@ return [
         'login' => 'логин',
         'email' => 'E-mail',
         'name' => 'ФИО',
-        'role' => 'должность'
+        'role' => 'должность',
+        'slug' => 'обозначение',
+        'title' => 'название'
     ],
 
 ];

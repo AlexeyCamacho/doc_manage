@@ -57,22 +57,27 @@
                     <i class="bi bi-check-lg"></i>
                 </button>
 
-                <form method="POST" class="row my-3 d-none user_add_form" id="user_add_form">
+                <form class="row my-3 d-none user_add_form" id="user_add_form">
                     @csrf
                     <div class="col-3">
-                        <input name="login" id="create-login" type="text" class="form-control create" placeholder="Логин" required>
+                        <label for="create-login" class="form-label">Логин</label>
+                        <input name="login" id="create-login" type="text" class="form-control create" placeholder="alexey">
                         <x-print-errors action="create" field="login"></x-print-errors>
                     </div>
                     <div class="col-3">
+                        <label for="exampleInputPassword1" class="form-label">Email</label>
                         <input name="email" id="create-email" type="email" class="form-control create" 
-                        placeholder="E-mail" required>
+                        placeholder="cdot@ssau.ru">
                         <x-print-errors action="create" field="email"></x-print-errors>
                     </div>
                     <div class="col-3">
-                        <input name="name" id="create-name" type="text" class="form-control create" placeholder="ФИО" required>
+                        <label for="exampleInputPassword1" class="form-label">ФИО</label>
+                        <input name="name" id="create-name" type="text" class="form-control create" 
+                        placeholder="Кадацкая Мария Владимировна">
                         <x-print-errors action="create" field="name"></x-print-errors>
                     </div>
                     <div class="col-3">
+                        <label for="exampleInputPassword1" class="form-label">Должность</label>
                         <select name="role" id="create-role" class="form-select create">
                             @foreach($roles as $role)  <option value="{{ $role->slug }}">{{ $role->name }}</option> @endforeach
                         </select>

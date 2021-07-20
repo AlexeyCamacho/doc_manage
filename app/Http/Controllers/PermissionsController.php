@@ -12,6 +12,7 @@ class PermissionsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('blocked');
+        $this->middleware('last_act');
     } 
 
     public function index()

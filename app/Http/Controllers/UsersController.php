@@ -29,7 +29,9 @@ class UsersController extends Controller
         if (!Gate::allows('views-users')) {
             return view('PermError');
         }
-        return view('users', ['users' => User::orderBy('blocked')->paginate(5), 'roles' => Role::all()]);
+
+        return view('users', ['users' => User::orderBy('blocked')->paginate(10), 
+            'roles' => Role::orderBy('id', 'desc')->get()]);
     }
 
     public function create(Request $req) {
