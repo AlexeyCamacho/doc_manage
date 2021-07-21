@@ -128,6 +128,12 @@ function set_value_modal(modal, button, atrib, id_input) {
     Input.value = recipient;
 }
 
+function set_placeholder(button, atrib, id_input) {
+    var recipient = button.getAttribute(atrib);
+    var div = document.querySelector('#' + id_input);
+    div.placeholder = recipient;
+}
+
 function set_value_div(button, atrib, id_input) {
     var recipient = button.getAttribute(atrib);
     var div = document.querySelector('#' + id_input);

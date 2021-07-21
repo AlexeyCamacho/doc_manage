@@ -128,8 +128,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" 
-                    onclick="rm_class('edit', 'is-invalid'); clear_class('errors-edit');">Закрыть</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" class="btn btn-primary" onclick="rm_class('edit', 'is-invalid');
                     clear_class('errors-edit'); 
                     ajax('user_edit_form', 'users/edit', 'edit-'); 
@@ -140,15 +139,22 @@
     </div>
 
 <script type="text/javascript">
-  var editUserModal = document.getElementById('editUsers');
-  editUserModal.addEventListener('show.bs.modal', function (event) {
-  var button = event.relatedTarget;
-  set_value_modal(editUserModal, button, 'data-bs-login', 'edit-login');
-  set_value_modal(editUserModal, button, 'data-bs-email', 'edit-email');
-  set_value_modal(editUserModal, button, 'data-bs-name', 'edit-name');
-  set_value_modal(editUserModal, button, 'data-bs-role', 'edit-role');
-  set_value_modal(editUserModal, button, 'data-bs-id', 'edit-id');
-})
+    var editUserModal = document.getElementById('editUsers');
+    editUserModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        set_value_modal(editUserModal, button, 'data-bs-login', 'edit-login');
+        set_value_modal(editUserModal, button, 'data-bs-email', 'edit-email');
+        set_value_modal(editUserModal, button, 'data-bs-name', 'edit-name');
+        set_value_modal(editUserModal, button, 'data-bs-role', 'edit-role');
+        set_value_modal(editUserModal, button, 'data-bs-id', 'edit-id');
+        set_placeholder(button, 'data-bs-login', 'edit-login');
+        set_placeholder(button, 'data-bs-email', 'edit-email');
+        set_placeholder(button, 'data-bs-name', 'edit-name');
+    })
+    editUserModal.addEventListener('hide.bs.modal', function (event) {
+        rm_class('edit', 'is-invalid');
+        clear_class('errors-edit');
+    })
 </script>
 @endcan
 
@@ -182,12 +188,12 @@
 </div>
 
 <script type="text/javascript">
-  var deleteUserModal = document.getElementById('deleteUsers');
-  deleteUserModal.addEventListener('show.bs.modal', function (event) {
-  var button = event.relatedTarget;
-  set_value_modal(deleteUserModal, button, 'data-bs-id', 'delete-id');
-  set_value_div(button, 'data-bs-name', 'delete-name');
-})
+    var deleteUserModal = document.getElementById('deleteUsers');
+    deleteUserModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        set_value_modal(deleteUserModal, button, 'data-bs-id', 'delete-id');
+        set_value_div(button, 'data-bs-name', 'delete-name');
+    })
 </script>
 @endcan
 

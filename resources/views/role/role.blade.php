@@ -68,12 +68,12 @@
 </div>
 
 <script type="text/javascript">
-  var deleteUserModal = document.getElementById('deleteRoles');
-  deleteUserModal.addEventListener('show.bs.modal', function (event) {
-  var button = event.relatedTarget;
-  set_value_modal(deleteUserModal, button, 'data-bs-id', 'delete-id');
-  set_value_div(button, 'data-bs-name', 'delete-name');
-})
+    var deleteUserModal = document.getElementById('deleteRoles');
+    deleteUserModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        set_value_modal(deleteUserModal, button, 'data-bs-id', 'delete-id');
+        set_value_div(button, 'data-bs-name', 'delete-name');
+    })
 </script>
 @endcan
 
