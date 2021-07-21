@@ -134,4 +134,29 @@ function set_value_div(button, atrib, id_input) {
     div.textContent = recipient;
 }
 
+function ajax_debug(form, url, action, redir = null) {
+    var form = document.getElementById(form);
+    myData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+
+    //xhr.responseType =  "json";
+
+    xhr.open('POST', url);
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+    xhr.send(myData);
+
+    xhr.onreadystatechange = function() { // (3)
+        if (xhr.readyState != 4) return;
+
+
+        if (xhr.status != 200) {
+            document.body.innerHTML = xhr.responseText;
+        } else {
+            if (redir == null) { location.reload(); }
+            else { window.location.replace('https://do.ssau.ru/doc_manage/' + redir); }
+        }
+    }
+}
 

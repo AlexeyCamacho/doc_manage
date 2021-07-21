@@ -6,7 +6,7 @@
 <div class="container-fluid border shadow bg-white rounded p-3">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <h1>{{ ('Создание роли') }}</h1>
+            <h1 class="pb-2">{{ ('Создание роли') }}</h1>
             <form id="role_add_form">
                 @csrf
                 <div class="col-4 mb-3">

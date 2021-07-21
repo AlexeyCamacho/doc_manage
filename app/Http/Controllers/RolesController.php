@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Gate;
 class RolesController extends Controller
 {
 
-    public $items = [
+    public $role_object = [
         'users' => 'Пользователи', 
         'permissions' => 'Права',
         'roles' => 'Роли'
@@ -34,7 +34,7 @@ class RolesController extends Controller
     protected function get_all_permissions() {
         $permission = [];
 
-        foreach($this->items as $key => $value)
+        foreach($this->role_object as $key => $value)
         {
             $permission[$value] = (Permission::where('slug', 'LIKE', '%' . $key)->get());
         }
@@ -105,8 +105,43 @@ class RolesController extends Controller
 
         if ($id == null || $role == null) { return redirect()->route('role'); }
 
-        $permission = self::get_all_permissions();
+        $permissions = self::get_all_permissions();
 
-        return view('role.edit', ['role' => $role, 'permissionСategories' => $permission]);
+        $active_role_permissions = collect();
+        foreach ($role->permissions as $permission) {
+            $active_role_permissions->push($permission->slug);
+        }
+
+        return view('role.edit', [
+            'role' => $role, 
+            'permissionСategories' => $permissions, 
+            'activePermissions' => $active_role_permissions
+        ]);
+    }
+
+    public function edit(Request $req) {
+
+        if (!Gate::allows('edit-roles')) {
+            return abort(403, 'Нет прав');
+        }
+
+        $validation = $req->validate([
+            'title' => ['required', 'min:5','string','unique:roles,name,' . $req->id, new alpha_spaces],
+            'slug' => ['required', 'min:5', 'string','unique:roles,slug,' . $req->id, new alpha_spaces]
+        ]);
+
+
+        $reqPermissions = $req->except('slug', 'title', '_token', 'id');
+        foreach($reqPermissions as $key => $value)
+        {
+            $permissions[] = $value;
+        }
+
+        $role = Role::where('id', $req->id)->first();
+        $permissions = Permission::whereIn('slug', $permissions)->get();
+
+
+        $role->permissions()->detach();
+        $role->permissions()->attach($permissions);
     }
 }
