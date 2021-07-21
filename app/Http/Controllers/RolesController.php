@@ -28,7 +28,18 @@ class RolesController extends Controller
         if (!Gate::allows('views-roles')) {
             return view('PermError');
         }
-        return view('role', ['roles' => Role::paginate(10)]);
+        return view('role.role', ['roles' => Role::paginate(10)]);
+    }
+
+    protected function get_all_permissions() {
+        $permission = [];
+
+        foreach($this->items as $key => $value)
+        {
+            $permission[$value] = (Permission::where('slug', 'LIKE', '%' . $key)->get());
+        }
+
+        return $permission;
     }
 
     public function show_create() {
@@ -37,12 +48,7 @@ class RolesController extends Controller
             return view('PermError');
         }
 
-        $permission = [];
-
-        foreach($this->items as $key => $value)
-        {
-            $permission[$value] = (Permission::where('slug', 'LIKE', '%' . $key)->get());
-        }
+        $permission = self::get_all_permissions();
 
         return view('role.create', ['permissionСategories' => $permission]);
     }
@@ -84,5 +90,23 @@ class RolesController extends Controller
         }
 
         Role::destroy($req->id);
+    }
+
+    public function show_edit() {
+
+        if (!Gate::allows('edit-roles')) {
+            return view('PermError');
+        }
+
+        $route = \Route::current();
+        $id = $route->parameter('id') ?: null;
+
+        $role = Role::where('id', $id)->first();
+
+        if ($id == null || $role == null) { return redirect()->route('role'); }
+
+        $permission = self::get_all_permissions();
+
+        return view('role.edit', ['role' => $role, 'permissionСategories' => $permission]);
     }
 }

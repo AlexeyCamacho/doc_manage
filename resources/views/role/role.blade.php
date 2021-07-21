@@ -50,7 +50,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="user_delete_form">
+                <form id="role_delete_form">
                     @csrf
                     <input name="id" id="delete-id" type="hidden" value="">
                     <div class="mb-3">
@@ -61,7 +61,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn btn-danger" onclick=" 
-                ajax('user_delete_form', 'role/delete', 'delete-'); ">Удалить</button>
+                ajax('role_delete_form', 'role/delete', 'delete-'); ">Удалить</button>
             </div>
         </div>
     </div>

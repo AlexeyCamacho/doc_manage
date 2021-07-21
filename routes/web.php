@@ -32,6 +32,8 @@ Route::get('/permissions', 'PermissionsController@index')->name('permissions');
 Route::get('/role', 'RolesController@index')->name('role');
 Route::get('/role/create', 'RolesController@show_create')->name('create-role');
 Route::post('/role/create', 'RolesController@create');
+Route::get('/role/edit/{id?}', 'RolesController@show_edit')->name('edit-role');
+Route::post('/role/edit', 'RolesController@edit');
 Route::post('/role/delete', 'RolesController@delete');
 
 /*Route::get('/mail_test', function() {
