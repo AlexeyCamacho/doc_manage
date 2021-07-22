@@ -15,7 +15,8 @@ class RolesController extends Controller
     public $role_object = [
         'users' => 'Пользователи', 
         'permissions' => 'Права',
-        'roles' => 'Роли'
+        'roles' => 'Роли',
+        'categories' => 'Категории'
     ];
 
     public function __construct() {

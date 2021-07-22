@@ -17,7 +17,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">{{ __('Журнал') }}</a></li>
-                        <li><a class="dropdown-item" href="#">{{ __('Категории') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ route('categories') }}">{{ __('Категории') }}</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

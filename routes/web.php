@@ -36,6 +36,8 @@ Route::get('/role/edit/{id?}', 'RolesController@show_edit')->name('edit-role');
 Route::post('/role/edit', 'RolesController@edit');
 Route::post('/role/delete', 'RolesController@delete');
 
+Route::get('/categories/{id?}', 'CategoriesController@index')->name('categories');
+
 /*Route::get('/mail_test', function() {
     return new App\Mail\UserPassword('name','name','name');
 });

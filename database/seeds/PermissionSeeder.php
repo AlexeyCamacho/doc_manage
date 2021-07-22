@@ -14,24 +14,28 @@ class PermissionSeeder extends Seeder
     {
 
         $Permission = new Permission();
-        $Permission->name = 'Просмотр ролей';
-        $Permission->slug = 'views-roles';
+        $Permission->name = 'Просмотр категорий';
+        $Permission->slug = 'views-categories';
         $Permission->save();
 
         $Permission = new Permission();
-        $Permission->name = 'Создание ролей';
-        $Permission->slug = 'create-roles';
+        $Permission->name = 'Создание категорий';
+        $Permission->slug = 'create-categories';
         $Permission->save();
 
         $Permission = new Permission();
-        $Permission->name = 'Редактирование ролей';
-        $Permission->slug = 'edit-roles';
+        $Permission->name = 'Изменение категорий';
+        $Permission->slug = 'edit-categories';
         $Permission->save();
 
         $Permission = new Permission();
-        $Permission->name = 'Удаление ролей';
-        $Permission->slug = 'delete-roles';
+        $Permission->name = 'Удаление категорий';
+        $Permission->slug = 'delete-categories';
         $Permission->save();
 
+        $Permission = new Permission();
+        $Permission->name = 'Скрытие/показ категорий';
+        $Permission->slug = 'visible-categories';
+        $Permission->save();
     }
 }

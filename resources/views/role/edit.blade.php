@@ -29,7 +29,7 @@
                 <div class="container my-4 py-2">
                     <div class="row">
                         @foreach($permissionСategories as $permissionName => $permission)
-                            <div class="col-lg-4 col-md-6 border-right border-left pl-4">
+                            <div class="col-lg-4 col-md-6 border-right border-left pl-4 pb-4">
                                 <h3>{{ $permissionName }}</h3>
                                 @foreach($permission as $perm)
                                     <div class="form-check">
