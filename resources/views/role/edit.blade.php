@@ -54,7 +54,7 @@
                 <button type="button" class="btn btn-primary" onclick="
                 rm_class('edit', 'is-invalid'); 
                 clear_class('errors-edit');
-                ajax_debug('role_edit_form', '{{ route('edit-role')}}', 'edit-', 'role');">
+                ajax('role_edit_form', '{{ route('edit-role')}}', 'edit-', 'role');">
                 Сохранить изменения</button>
             </form>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -20,6 +21,8 @@ class CategoriesController extends Controller
             return view('PermError');
         }
 
-        return view('categories');
+        $categories = Category::whereNull('category_id')->with('childrenCategories')->get();
+
+        return view('categories.categories', compact('categories'));
     }
 }

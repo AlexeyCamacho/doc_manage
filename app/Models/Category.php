@@ -10,4 +10,9 @@ class Category extends Model
     {
         return $this->hasMany(Category::class);
     }
+
+    public function childrenCategories()
+{
+    return $this->hasMany(Category::class)->with('categories');
+}
 }
