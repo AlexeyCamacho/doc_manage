@@ -166,3 +166,29 @@ function ajax_debug(form, url, action, redir = null) {
     }
 }
 
+function session_set(key, val, array = false) {
+    var form = document.getElementById('ajax-form');
+    myData = new FormData(form);
+
+    myData.append('key', key);
+    myData.append('val', val);
+    if (array) { myData.append('array', true); }
+
+    var xhr = new XMLHttpRequest();
+    xhr.responseType =  "json";
+
+    xhr.open('POST', 'session/set');
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+    xhr.send(myData);
+
+    xhr.onreadystatechange = function() { // (3)
+        if (xhr.readyState != 4) return;
+
+
+        if (xhr.status != 200) {
+            console.log(xhr.response);
+        } 
+    }
+}
+

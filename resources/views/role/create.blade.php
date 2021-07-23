@@ -22,7 +22,6 @@
                     <x-print-errors action="create" field="slug"></x-print-errors>
                     <div class="form-text">Краткое обозначение в 1 слово на английском языке.</div>
                 </div>
-                <hr>
                 <h2 class="mt-4">{{ ('Выберите права для новой роли') }}</h2>
                 <div class="container my-4 py-2">
                     <div class="row">

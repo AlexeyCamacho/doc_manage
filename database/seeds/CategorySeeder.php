@@ -13,28 +13,13 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $Category = new Category();
-        $Category->name = 'Степик';
-        $Category->category_id = 1;
+        $Category->name = '1 категория';
+        $Category->category_id = 9;
         $Category->save();
 
         $Category = new Category();
-        $Category->name = 'Лекториум';
-        $Category->category_id = 1;
-        $Category->save();
-
-        $Category = new Category();
-        $Category->name = 'Открытое образование';
-        $Category->category_id = 1;
-        $Category->save();
-
-        $Category = new Category();
-        $Category->name = 'График отпусков';
-        $Category->category_id = 2;
-        $Category->save();
-
-        $Category = new Category();
-        $Category->name = 'Приказы';
-        $Category->category_id = 2;
+        $Category->name = '2 категория';
+        $Category->category_id = 9;
         $Category->save();
     }
 }

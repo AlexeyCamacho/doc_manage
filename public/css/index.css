@@ -1,0 +1,30 @@
+.accordion .card {
+	border: none;
+	border-radius: none;
+}
+
+.collapse .card-body {
+	padding: 0;
+}
+
+.collapsing .card-body {
+	padding: 0;
+}
+
+.accordion>.card:not(:last-of-type) {
+	border: none;
+	border-radius: none;
+}
+
+.accordion .card {
+	margin-left: 1rem;
+}
+
+.accordion .card .card-header {
+	border: 1px solid rgba(0,0,0,.125);
+	border-radius: .25rem;
+}
+
+.accordion>.card>.card-header {
+	margin-bottom: 0;
+}

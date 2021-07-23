@@ -24,7 +24,6 @@
                     <div class="form-text">Краткое обозначение в 1 слово на английском языке.
                     </div>
                 </div>
-                <hr>
                 <h2 class="mt-4">{{ ('Выберите права для данной роли') }}</h2>
                 <div class="container my-4 py-2">
                     <div class="row">
