@@ -82,24 +82,6 @@ function clear_class(class_) {
     }
 }
 
-/* Возможно удалить
-function show_spinner() {
-    var list_class = document.getElementsByClassName('spinner-border');
-
-    for (var i = list_class.length-1; i >= 0 ; i--) {
-        list_class[i].style.display = '';
-    }
-}
-
-function hide_spinner() {
-    var list_class = document.getElementsByClassName('spinner-border');
-
-    for (var i = list_class.length-1; i >= 0 ; i--) {
-        list_class[i].style.display = 'none';
-    }
-}
-*/
-
 function ajax_(data, url) {
 
     var xhr = new XMLHttpRequest();
@@ -166,7 +148,7 @@ function ajax_debug(form, url, action, redir = null) {
     }
 }
 
-function session_set(key, val, array = false) {
+function session_ajax(action, key, val = null, ajax = true, array = false) {
     var form = document.getElementById('ajax-form');
     myData = new FormData(form);
 
@@ -175,9 +157,9 @@ function session_set(key, val, array = false) {
     if (array) { myData.append('array', true); }
 
     var xhr = new XMLHttpRequest();
-    xhr.responseType =  "json";
+    //xhr.responseType =  "json";
 
-    xhr.open('POST', 'session/set');
+    xhr.open('POST', 'session/' + action, ajax);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     xhr.send(myData);
@@ -185,10 +167,31 @@ function session_set(key, val, array = false) {
     xhr.onreadystatechange = function() { // (3)
         if (xhr.readyState != 4) return;
 
-
         if (xhr.status != 200) {
-            console.log(xhr.response);
+            console.log(xhr.responseText);
         } 
+        //console.log(xhr.responseText);
+
     }
+}
+
+function session_set(key, val, ajax = true) {
+    session_ajax("set", key, val, ajax);
+}
+
+function session_delete(key, val, ajax = true) {
+    session_ajax("delete", key, val, ajax);
+}
+
+function session_set_array(key, val, ajax = true) {
+    session_ajax("set", key, val, ajax, true);
+}
+
+function session_delete_array(key, val, ajax = true) {
+    session_ajax("delete", key, val, ajax, true);
+}
+
+function session_reset(key, ajax = false) {
+    session_ajax("reset", key, null, ajax);
 }
 

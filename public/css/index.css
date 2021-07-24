@@ -28,3 +28,29 @@
 .accordion>.card>.card-header {
 	margin-bottom: 0;
 }
+
+
+.tooltip-inner {
+    color: #131313; /* цвет шрифта */
+    background-color: #f5f5f5; /* цвет фона (по умолчанию #000) */
+    border-radius: 0.25rem; /* радиус скругдения углов */
+    border: 1px solid rgba(0,0,0,.5);
+}
+
+.tooltip.show {
+	opacity: 1;
+}
+
+.bs-tooltip-auto[x-placement^=left] .tooltip-arrow::before, .bs-tooltip-start .tooltip-arrow::before {
+	border-left-color: #808080;
+}
+.bs-tooltip-auto[x-placement^=top] .tooltip-arrow::before, .bs-tooltip-top .tooltip-arrow::before {
+	border-top-color: #808080;
+}
+.bs-tooltip-auto[x-placement^=right] .tooltip-arrow::before, .bs-tooltip-right .tooltip-arrow::before {
+	border-right-color: #808080;
+}
+}
+.bs-tooltip-auto[x-placement^=bottom] .tooltip-arrow::before, .bs-tooltip-start .tooltip-arrow::before {
+	border-bottom-color: #808080;
+}

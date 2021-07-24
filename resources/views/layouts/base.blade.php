@@ -29,6 +29,10 @@
         </main>
 
         @include('inc.footer')
+
+        <form id="ajax-form">
+            @csrf
+        </form>
         
     </body>
 </html>

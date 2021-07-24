@@ -41,6 +41,7 @@ Route::get('/categories/{id?}', 'CategoriesController@index')->name('categories'
 Route::post('/session/set', 'SessionController@set');
 Route::post('/session/get', 'SessionController@get');
 Route::post('/session/delete', 'SessionController@delete');
+Route::post('/session/reset', 'SessionController@reset');
 
 /*Route::get('/mail_test', function() {
     return new App\Mail\UserPassword('name','name','name');

@@ -23,6 +23,15 @@ class CategoriesController extends Controller
 
         $categories = Category::whereNull('category_id')->with('childrenCategories')->get();
 
-        return view('categories.categories', compact('categories'));
+        $openCategories_array = session('openCategories');
+        $openCategories = collect();
+
+        if ($openCategories_array) {
+            foreach($openCategories_array as $key => $value)
+            {
+                $openCategories->prepend($value);
+            }
+        }
+        return view('categories.categories', ['categories' => $categories, 'openCategories' => $openCategories]);
     }
 }
