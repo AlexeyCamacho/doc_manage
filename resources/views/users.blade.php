@@ -42,8 +42,7 @@
                 onclick="
                     display_block('user_add_button', 'user_add_form');
                     rm_class('create', 'is-invalid'); 
-                    clear_class('errors-create');"
-                data-toggle="tooltip" title="Отмена">
+                    clear_class('errors-create');">
                     <i class="bi bi-x-lg"></i>
                 </button>
                 <button type="button" class="btn btn-outline-success d-none user_add_form" 
@@ -51,8 +50,7 @@
                     rm_class('create', 'is-invalid'); 
                     clear_class('errors-create');
                     display_block('spinner-border', 'none'); 
-                    ajax('user_add_form', 'users/create', 'create-');"
-                data-toggle="tooltip" title="Добавить">
+                    ajax('user_add_form', 'users/create', 'create-');">
                     <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" ></span>
                     <i class="bi bi-check-lg"></i>
                 </button>

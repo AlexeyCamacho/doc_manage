@@ -14,12 +14,7 @@ class CategorySeeder extends Seeder
     {
         $Category = new Category();
         $Category->name = '1 категория';
-        $Category->category_id = 9;
-        $Category->save();
-
-        $Category = new Category();
-        $Category->name = '2 категория';
-        $Category->category_id = 9;
+        $Category->category_id = 3;
         $Category->save();
     }
 }

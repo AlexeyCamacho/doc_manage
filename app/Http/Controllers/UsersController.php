@@ -50,7 +50,7 @@ class UsersController extends Controller
         $random_str = Str::random(12);
         $hashed_random_password = Hash::make($random_str);
 
-        User::create([
+        $user = User::create([
             'login' => $req->login,
             'email' => $req->email,
             'password' => $hashed_random_password,
@@ -58,7 +58,6 @@ class UsersController extends Controller
         ]);
 
         $role = Role::where('slug', $req->role)->first();
-        $user = User::where('login', $req->login)->first();
 
         $user->roles()->attach($role);
 

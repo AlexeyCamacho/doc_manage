@@ -66,16 +66,16 @@ function print_errors(errors, action) {
     }
 }
 
-function rm_class(in_class, rm_class) {
-    var list_class = document.getElementsByClassName(in_class);
+function rm_class(in_class, rm_class, element = document) {
+    var list_class = elements.getElementsByClassName(in_class);
 
     for (var i = list_class.length-1; i >= 0 ; i--) {
         list_class[i].classList.remove(rm_class);
     }
 }
 
-function clear_class(class_) {
-    var list_class = document.getElementsByClassName(class_);
+function clear_class(class_, element = document) {
+    var list_class = element.getElementsByClassName(class_);
 
     for (var i = list_class.length-1; i >= 0 ; i--) {
         list_class[i].innerText = '';

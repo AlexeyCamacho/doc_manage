@@ -65,7 +65,7 @@ class RolesController extends Controller
             'slug' => ['required', 'min:5', 'string','unique:roles,slug',new alpha_spaces]
         ]);
 
-        Role::create([
+        $role = Role::create([
             'name' => $req->title,
             'slug' => $req->slug, 
         ]);
@@ -77,7 +77,6 @@ class RolesController extends Controller
             $permissions[] = $value;
         }
 
-        $role = Role::where('slug', $req->slug)->first();
         $permissions = Permission::whereIn('slug', $permissions)->get();
 
         $role->permissions()->attach($permissions);

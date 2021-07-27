@@ -20,6 +20,11 @@
 	margin-left: 1rem;
 }
 
+#accordionMain > .card, #add-category0 > .card {
+	margin-left: 0;
+}
+
+
 .accordion .card .card-header {
 	border: 1px solid rgba(0,0,0,.125);
 	border-radius: .25rem;
@@ -29,6 +34,18 @@
 	margin-bottom: 0;
 }
 
+
+
+.card-dropdowns {
+    overflow: visible !important;
+}
+
+.no-min-width {
+	min-width: auto;
+}
+
+
+/* Всплывающие подсказки */
 
 .tooltip-inner {
     color: #131313; /* цвет шрифта */

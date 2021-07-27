@@ -1,34 +1,42 @@
-<div class="accordion" id="accordion{{$child_category->parent_id}}">
-    <div class="card" data-id="{{$child_category->id}}">
-        <div class="card-header" id="heading{{$child_category->id}}">
+<div class="accordion">
+    <div class="card card-dropdowns" data-id="{{$category->id}}" id="accordoinCard{{$category->id}}">
+        <div class="card-header" id="heading{{$category->id}}">
             <h2 class="row mb-0">
-                <div class="col-10">
+                <div class="col">
                     <button class="btn btn-block text-left" type="button">
-                        {{ $child_category->name }}
+                        {{ $category->name }}
                     </button>
                 </div>
+                @if (session('editMode'))
+                <div class="col-3">
+                @else
                 <div class="col-2">
-                    <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne{{$child_category->id}}" 
-                    aria-expanded="@if ($openCategories->contains($child_category->id)) true @else false @endif"
-                    aria-controls="collapseOne{{$child_category->id}}">
-                        @if ($child_category->categories->count())
-                            @if ($openCategories->contains($child_category->id)) 
+                @endif
+                    <div class="btn-group">
+                        @include('icons.categories')
+                        @if ($category->categories->count())
+                        <button class="btn" type="button" data-toggle="collapse" data-target="#collapseOne{{$category->id}}" 
+                        aria-expanded="@if ($openCategories->contains($category->id)) true @else false @endif" 
+                        aria-controls="collapseOne{{$category->id}}">
+                            @if ($openCategories->contains($category->id)) 
                                 <i class="bi bi-chevron-up"></i> 
                             @else 
                                 <i class="bi bi-chevron-down"></i> 
                             @endif
+                        </button>
                         @endif
-                    </button>
+                    </div>
                 </div>
             </h2>    
         </div>
-        <div id="collapseOne{{$child_category->id}}" 
-        class="collapse @if ($openCategories->contains($child_category->id)) show @endif" 
-        aria-labelledby="headingOne{{$child_category->id}}">
+        <div id="collapseOne{{$category->id}}" 
+        class="collapse @if ($openCategories->contains($category->id)) show @endif" 
+        aria-labelledby="headingOne{{$category->id}}">
             <div class="card-body">
-                @if ($child_category->categories)
-                @foreach ($child_category->categories as $childCategory)
-                @include('categories.child_category', ['child_category' => $childCategory])
+                @include('inc.hidden_accordion', ['category_id' => $category->id])
+                @if ($category->categories)
+                @foreach ($category->categories as $category)
+                @include('categories.child_category', ['category' => $category])
                 @endforeach
                 @endif
             </div>
