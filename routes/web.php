@@ -37,6 +37,9 @@ Route::post('/role/edit', 'RolesController@edit');
 Route::post('/role/delete', 'RolesController@delete');
 
 Route::get('/categories/{id?}', 'CategoriesController@index')->name('categories');
+Route::post('/categories/create', 'CategoriesController@create');
+Route::post('/categories/get_children', 'CategoriesController@get_children');
+Route::post('/categories/edit', 'CategoriesController@edit');
 
 Route::post('/session/set', 'SessionController@set');
 Route::post('/session/get', 'SessionController@get');

@@ -33,9 +33,11 @@
         class="collapse @if ($openCategories->contains($category->id)) show @endif" 
         aria-labelledby="headingOne{{$category->id}}">
             <div class="card-body">
+                @can('create-categories')
                 @include('inc.hidden_accordion', ['category_id' => $category->id])
+                @endcan
                 @if ($category->categories)
-                @foreach ($category->categories as $category)
+                @foreach ($category->categoriesOrderName as $category)
                 @include('categories.child_category', ['category' => $category])
                 @endforeach
                 @endif

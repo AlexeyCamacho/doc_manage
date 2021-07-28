@@ -42,7 +42,22 @@ function view_block_add_category(id_category) {
         var card = document.getElementById('accordoinCard' + id_category);
         show_collapse_by_card(card);
     }
-    var blod_add = document.getElementById('add-category' + id_category);
-    if(blod_add.classList.contains('d-none')) { blod_add.classList.remove('d-none'); }
-}   
+    hide_elem_by_class('accordion-add-category');
+    reset_form_by_class('add-category');
+    show_elem_by_id('add-category' + id_category);
+    focus_input_in_form('create-name', 'form-add-category' + id_category);
+}  
+
+function disabled_children_categories(select_id, category) {
+    var childrenCategories = api_get('/categories/get_children' ,category);
+    childrenCategories = JSON.parse(childrenCategories);
+    childrenCategories.push(parseInt(category));
+    var select = document.getElementById(select_id);
+    for (var i = 0; i < select.children.length; i++) {
+        if(childrenCategories.indexOf(parseInt(select.children[i].value)) != -1){
+            select.children[i].disabled = true;
+        }
+    }
+
+}
 
