@@ -20,7 +20,12 @@ class CategoriesController extends Controller
             return view('PermError');
         }
 
-        $categories = Category::whereNull('category_id')->with('childrenCategories')->orderBy('name')->get();
+
+        if (!session('editMode')) {
+        $categories = Category::where([['category_id', null], ['visible', 1]])->with('childrenCategories')->orderBy('name')->get();
+        } else {
+            $categories = Category::whereNull('category_id')->with('childrenCategories')->orderBy('name')->get();
+        }
 
         $openCategories_array = session('openCategories');
         $openCategories = collect();
@@ -31,6 +36,7 @@ class CategoriesController extends Controller
                 $openCategories->prepend($value);
             }
         }
+
         return view('categories.categories', ['categories' => $categories, 'openCategories' => $openCategories]);
     }
 
@@ -93,8 +99,6 @@ class CategoriesController extends Controller
 
         $cat = Category::where('id', $req->id)->first();
 
-
-
         $cat->name = $req->title;
 
         if ($req->category == 'null') {
@@ -104,5 +108,49 @@ class CategoriesController extends Controller
         $cat->category_id = $req->category;
 
         $cat->save();
+    }
+
+    public function hide(Request $req) {
+        if (!Gate::allows('visible-categories')) {
+            return abort(403, 'Нет прав');
+        }
+
+        $category = Category::find($req->data);
+        $category->visible = 0;
+        $category->save();
+
+
+    }
+
+    public function show(Request $req) {
+        if (!Gate::allows('visible-categories')) {
+            return abort(403, 'Нет прав');
+        }
+
+        $category = Category::find($req->data);
+        $category->visible = 1;
+        $category->save();
+    }
+
+    public function delete(Request $req) {
+        if (!Gate::allows('delete-categories')) {
+            return abort(403, 'Нет прав');
+        }
+
+        if ($req->id == 22) {
+            return abort(403);
+        }
+
+        $cat = Category::where('id', $req->id)->first();
+
+        $categories = $cat->categories;
+
+        foreach ($categories as $category) {
+            $category->category_id = $req->category;
+            $category->save();
+        } 
+
+        $cat->delete();      
+
     }
 }

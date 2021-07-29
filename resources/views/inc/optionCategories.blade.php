@@ -1,4 +1,4 @@
-@foreach ($category->categoriesOrderName as $category)
+@foreach ($category->categoriesOrderNameAll as $category)
     <option value="{{ $category->id }}">
         @for ($i = 1; $i < $loop->depth; $i++)
             -@endfor>{{ $category->name }}</option>

@@ -11,7 +11,6 @@ for (var i = collapses.length-1; i >= 0 ; i--) {
         }
         var id = card.getAttribute('data-id');
         session_delete_array('openCategories', id);
-
     });
 
     collapses[i].addEventListener('show.bs.collapse', function (event) { 
@@ -59,5 +58,31 @@ function disabled_children_categories(select_id, category) {
         }
     }
 
+}
+
+function enabled_add_children_categories(select_id) {
+    var select = document.getElementById(select_id);
+    for (var i = 0; i < select.children.length; i++) {
+        select.children[i].disabled = false;
+    }
+}
+
+function disabled_category(select_id, category) {
+    var select = document.getElementById(select_id);
+    for (var i = 0; i < select.children.length; i++) {
+        if(select.children[i].value == category){
+            select.children[i].disabled = true;
+            break;
+        }
+    }
+
+}
+
+function hide_category(id_category) {
+    api_get('/categories/hide' ,id_category);
+}
+
+function view_category(id_category) {
+    api_get('/categories/show' ,id_category);
 }
 

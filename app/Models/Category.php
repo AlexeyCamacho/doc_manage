@@ -15,9 +15,14 @@ class Category extends Model
         return $this->hasMany(Category::class);
     }
 
-    public function categoriesOrderName()
+    public function categoriesOrderNameAll()
     {
         return $this->hasMany(Category::class)->orderBy('name');
+    }
+
+    public function categoriesOrderNameVisible()
+    {
+        return $this->hasMany(Category::class)->where('visible', 1)->orderBy('name');
     }
 
     public function childrenCategories()

@@ -40,6 +40,9 @@ Route::get('/categories/{id?}', 'CategoriesController@index')->name('categories'
 Route::post('/categories/create', 'CategoriesController@create');
 Route::post('/categories/get_children', 'CategoriesController@get_children');
 Route::post('/categories/edit', 'CategoriesController@edit');
+Route::post('/categories/hide', 'CategoriesController@hide');
+Route::post('/categories/show', 'CategoriesController@show');
+Route::post('/categories/delete', 'CategoriesController@delete');
 
 Route::post('/session/set', 'SessionController@set');
 Route::post('/session/get', 'SessionController@get');

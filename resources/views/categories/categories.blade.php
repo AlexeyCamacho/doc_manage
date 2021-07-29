@@ -15,56 +15,16 @@
             </h1>
             <div class="accordion mt-4" id="accordionMain">
                 @foreach ($categories as $category)
-                <div class="card card-dropdowns" id="accordoinCard{{$category->id}}" data-id="{{$category->id}}">
-                    <div class="card-header" id="heading{{$category->id}}">
-                        <h2 class="row mb-0">
-                            <div class="col">
-                                <button class="btn btn-block text-left" type="button">
-                                    {{ $category->name }}
-                                </button>
-                            </div>
-                            @if (session('editMode'))
-                            <div class="col-3">
-                            @else
-                            <div class="col-2">
-                            @endif
-                                <div class="btn-group">
-                                    @include('icons.categories')
-                                    @if ($category->categories->count())
-                                    <button class="btn" type="button" data-toggle="collapse" data-target="#collapseOne{{$category->id}}" 
-                                    aria-expanded="@if ($openCategories->contains($category->id)) true @else false @endif" 
-                                    aria-controls="collapseOne{{$category->id}}">
-                                        @if ($openCategories->contains($category->id)) 
-                                            <i class="bi bi-chevron-up"></i> 
-                                        @else 
-                                            <i class="bi bi-chevron-down"></i> 
-                                        @endif
-                                    </button>
-                                    @endif
-                                </div>
-                            </div>
-                        </h2>    
-                    </div>
-                    <div id="collapseOne{{$category->id}}" class="collapse collapse-main @if ($openCategories->contains($category->id)) show @endif" aria-labelledby="headingOne{{$category->id}}">
-                        <div class="card-body">
-                            @can('create-categories')
-                            @include('inc.hidden_accordion', ['category_id' => $category->id])
-                            @endcan
-                            @foreach ($category->categoriesOrderName as $category)
-                            @include('categories.child_category', ['category' => $category])
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
+                    @include('categories.child_category', ['category' => $category])
                 @endforeach
             </div>
             @can('create-categories')
-            @include('inc.hidden_accordion', ['category_id' => 0])
-            @if (session('editMode'))
-            <div class="d-flex flex-row-reverse mt-4">
-                <button type="button" class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="right" title="Добавить категорию" onclick="view_block_add_category(0);"><i class="bi bi-plus-circle" data-toggle="tooltip" data-placement="right" title="Добавить категорию"></i></button>
-            </div>  
-            @endif
+                @include('inc.hidden_accordion', ['category_id' => 0])
+                @if (session('editMode'))
+                <div class="d-flex flex-row-reverse mt-4">
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="right" title="Добавить категорию" onclick="view_block_add_category(0);"><i class="bi bi-plus-circle" data-toggle="tooltip" data-placement="right" title="Добавить категорию"></i></button>
+                </div>  
+                @endif
             @endcan
         </div>
         <div class="col-lg-8">
@@ -86,7 +46,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="category_edit_form" method="POST" action="categories/edit">
+                    <form id="category_edit_form">
                         @csrf
                         <input name="id" id="edit-id" type="hidden" value="">
                         <div class="mb-3">
@@ -131,6 +91,77 @@
     editCategoriesModal.addEventListener('hide.bs.modal', function (event) {
         rm_class('edit', 'is-invalid');
         clear_class('errors-edit');
+        enabled_add_children_categories('edit-category');
+    })
+</script>
+@endcan
+
+@can('delete-categories')
+    <!-- MODAL delete -->
+    <div class="modal fade" id="deleteCategories" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Удаление категории</h5>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="category_delete_form" method="POST" action="categories/delete">
+                        @csrf
+                        <input name="id" id="delete-id" type="hidden" value="">
+                        <div class="mb-3">
+                            Вы собираетесь удалить категорию. После этого дейставия, восстановить категорию будет невозможно. Все дочерние категории и документы будут перенесены в другие категории.  Вы уверены, что хотите удалить категорию <span id="delete-name"></span>?
+                        </div>
+                        <div class="mb-3">
+                            <label for="data-bs-category" class="col-form-label">Переместить дочернии категории в</label>
+                            <select id="delete-category" class="form-select delete" name="category">
+                                <option value="null" selected>Корневой каталог</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @include('inc.optionCategories', ['category' => $category])
+                                @endforeach
+                            </select>
+                            <x-print-errors action="delete" field="category"></x-print-errors>
+                        </div>
+                        <div class="mb-3">
+                            <label for="data-bs-category" class="col-form-label">Переместить документы в</label>
+                            <select id="delete-doc-category" class="form-select delete" name="doc-category">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @include('inc.optionCategories', ['category' => $category])
+                                @endforeach
+                            </select>
+                            <x-print-errors action="delete" field="category"></x-print-errors>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-danger" onclick="rm_class('delete', 'is-invalid');
+                    clear_class('errors-delete'); 
+                    ajax_debug('category_delete_form', 'categories/delete', 'delete-');">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    var deleteCategoriesModal = document.getElementById('deleteCategories');
+    deleteCategoriesModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        set_value_modal(deleteCategoriesModal, button, 'data-bs-id', 'delete-id');
+        set_value_modal(deleteCategoriesModal, button, 'data-bs-archive', 'delete-category');
+        set_value_modal(deleteCategoriesModal, button, 'data-bs-archive', 'delete-doc-category');
+        set_value_div(button, 'data-bs-name', 'delete-name');
+        var category = button.getAttribute('data-bs-id');
+        disabled_children_categories('delete-category', category);
+        disabled_category('delete-doc-category', category);
+    })
+    deleteCategoriesModal.addEventListener('hide.bs.modal', function (event) {
+        enabled_add_children_categories('delete-category');
+        enabled_add_children_categories('delete-doc-category');
     })
 </script>
 @endcan
