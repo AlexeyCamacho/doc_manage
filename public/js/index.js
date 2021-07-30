@@ -203,7 +203,7 @@ function session_ajax(action, key, val = null, ajax = true, array = false) {
     var xhr = new XMLHttpRequest();
     //xhr.responseType =  "json";
 
-    xhr.open('POST', 'session/' + action, ajax);
+    xhr.open('POST', '/doc_manage/session/' + action, ajax);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     xhr.send(myData);

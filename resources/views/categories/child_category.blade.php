@@ -2,7 +2,7 @@
     <div class="card-header" id="heading{{$category->id}}">
         <h2 class="row mb-0">
             <div class="col">
-                <button class="btn btn-block text-left" type="button">
+                <button class="btn btn-block text-left" type="button" ondblclick="document.location.href = '/doc_manage/categories/{{$category->id}}';">
                     {{ $category->name }}
                     @if(!$category->visible)
                         <i class="bi bi-eye-slash"></i>

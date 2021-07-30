@@ -20,16 +20,19 @@ class CategoriesController extends Controller
             return view('PermError');
         }
 
-
         if (!session('editMode')) {
-        $categories = Category::where([['category_id', null], ['visible', 1]])->with('childrenCategories')->orderBy('name')->get();
-        } else {
-            $categories = Category::whereNull('category_id')->with('childrenCategories')->orderBy('name')->get();
+            $where[] = ['visible', 1];
         }
+
+        $route = \Route::current();
+        $category_id = $route->parameter('id') ?: null;
+
+        $where[] = ['category_id', $category_id];
+
+        $categories = Category::where($where)->with('childrenCategories')->orderBy('name')->get();
 
         $openCategories_array = session('openCategories');
         $openCategories = collect();
-
         if ($openCategories_array) {
             foreach($openCategories_array as $key => $value)
             {
