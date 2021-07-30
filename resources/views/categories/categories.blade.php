@@ -12,13 +12,10 @@
                 location.reload();">
                     <i class="bi bi-arrow-clockwise" data-toggle="tooltip" data-placement="right" title="Закрыть все категории"></i>
                 </button>
-                @if (Route::current()->parameter('id'))
-                <a class="btn btn-outline-secondary btn-sm ml-4 mb-2" role="button"
-                data-toggle="tooltip" data-placement="right" title="К основой категории" href="{{ route('categories')}}">
-                    <i class="bi bi-arrow-left" data-toggle="tooltip" data-placement="right" title="К основой категории"></i>
-                </a>
-                @endif
             </h1>
+            @if (Route::current()->parameter('id'))
+            @include('inc.breadcrumb', ['breadcrumbs' => $breadcrumbs])
+            @endif
             <div class="accordion mt-4" id="accordionMain">
                 @foreach ($categories as $category)
                     @include('categories.child_category', ['category' => $category])

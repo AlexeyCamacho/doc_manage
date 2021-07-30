@@ -20,7 +20,7 @@ class CategoriesController extends Controller
             return view('PermError');
         }
 
-        if (!session('editMode')) {
+        if (!session('editMode') || !Gate::allows('visible-categories')) {
             $where[] = ['visible', 1];
         }
 
@@ -40,7 +40,15 @@ class CategoriesController extends Controller
             }
         }
 
-        return view('categories.categories', ['categories' => $categories, 'openCategories' => $openCategories]);
+        $breadcrumbs = self::get_nav($category_id);
+
+        $breadcrumbs = array_reverse($breadcrumbs);
+
+        return view('categories.categories', [
+            'categories' => $categories, 
+            'openCategories' => $openCategories,
+            'breadcrumbs' => $breadcrumbs
+        ]);
     }
 
     public function create(Request $req) {
@@ -81,6 +89,22 @@ class CategoriesController extends Controller
         $categories = Category::select('id')->where('category_id', $req->data)->with('childrenCategories')->get();
         $categories = self::search_key('id', $categories);
         return $categories;
+    }
+
+    public function get_nav($id) {
+        $result = [];
+        $category = Category::find($id);
+        if($category) {
+            $result[] = collect(['href' => '/doc_manage/categories/' . $category->id, 'name' => $category->name]);
+        }
+
+        if($category && $category->category_id) {
+            $result = array_merge($result, self::get_nav($category->category_id));
+        } else {
+            $result[] = collect(['href' => '/doc_manage/categories/', 'name' => 'Главная']);
+        }
+
+        return $result;
     }
 
     public function edit(Request $req) {
