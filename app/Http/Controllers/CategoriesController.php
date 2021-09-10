@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller
 {
@@ -47,7 +48,8 @@ class CategoriesController extends Controller
         return view('categories.categories', [
             'categories' => $categories, 
             'openCategories' => $openCategories,
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumbs' => $breadcrumbs,
+            'close_child_tabs' => Auth::user()->setting('close_child_tabs')
         ]);
     }
 

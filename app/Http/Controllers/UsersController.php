@@ -55,6 +55,7 @@ class UsersController extends Controller
             'email' => $req->email,
             'password' => $hashed_random_password,
             'name' => $req->name,
+            'settings' => config('default_user_settings.settings')
         ]);
 
         $role = Role::where('slug', $req->role)->first();

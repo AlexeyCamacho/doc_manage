@@ -13,6 +13,7 @@
                     <i class="bi bi-arrow-clockwise" data-toggle="tooltip" data-placement="right" title="Закрыть все категории"></i>
                 </button>
             </h1>
+            
             @if (Route::current()->parameter('id'))
             @include('inc.breadcrumb', ['breadcrumbs' => $breadcrumbs])
             @endif
@@ -144,7 +145,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" class="btn btn-danger" onclick="rm_class('delete', 'is-invalid');
                     clear_class('errors-delete'); 
-                    ajax_debug('category_delete_form', 'categories/delete', 'delete-');">Удалить</button>
+                    ajax('category_delete_form', 'categories/delete', 'delete-');">Удалить</button>
                 </div>
             </div>
         </div>
@@ -168,6 +169,10 @@
     })
 </script>
 @endcan
+
+<script>    
+    var close_child_tabs = {!! json_encode($close_child_tabs) !!};
+</script>
 
 <script src="{{ asset('js/categories.js') }}"></script>
 @endsection

@@ -17,9 +17,9 @@
                 <div class="btn-group">
                     @include('icons.categories')
                     @if ($category->categories->count())
-                    <button class="btn" type="button" data-toggle="collapse" data-target="#collapseOne{{$category->id}}" 
+                    <button class="btn" type="button" data-toggle="collapse" data-target="#collapse{{$category->id}}" 
                     aria-expanded="@if ($openCategories->contains($category->id)) true @else false @endif" 
-                    aria-controls="collapseOne{{$category->id}}">
+                    aria-controls="collapse{{$category->id}}" onclick="//close_all_collapse({{$category->id}})";>
                         @if ($openCategories->contains($category->id)) 
                             <i class="bi bi-chevron-up"></i> 
                         @else 
@@ -31,7 +31,7 @@
             </div>
         </h2>    
     </div>
-    <div id="collapseOne{{$category->id}}" 
+    <div id="collapse{{$category->id}}" 
     class="collapse collapse-main @if ($openCategories->contains($category->id)) show @endif" 
     aria-labelledby="headingOne{{$category->id}}">
         <div class="card-body">

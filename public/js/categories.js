@@ -11,6 +11,9 @@ for (var i = collapses.length-1; i >= 0 ; i--) {
         }
         var id = card.getAttribute('data-id');
         session_delete_array('openCategories', id);
+        if (close_child_tabs) {
+            close_all_collapse(id); 
+        }
     });
 
     collapses[i].addEventListener('show.bs.collapse', function (event) { 
@@ -30,7 +33,16 @@ for (var i = collapses.length-1; i >= 0 ; i--) {
 function show_collapse_by_card (card) {
     var collapse = card.getElementsByClassName('collapse')[0];
     if(!collapse.classList.contains('show')) {
-       var bsCollapse = new bootstrap.Collapse(collapse, { 
+        var bsCollapse = new bootstrap.Collapse(collapse, { 
+            toggle: true
+        }) 
+    }
+}
+
+function hide_collapse_by_card (card) {
+    var collapse = card.getElementsByClassName('collapse')[0];
+    if(collapse.classList.contains('show')) {
+        var bsCollapse = new bootstrap.Collapse(collapse, { 
             toggle: true
         }) 
     }
@@ -84,5 +96,17 @@ function hide_category(id_category) {
 
 function view_category(id_category) {
     api_get('/categories/show' ,id_category);
+}
+
+function close_all_collapse(id) {
+    var collapse = document.getElementById("collapse" + id);
+    var childrenCollapseList = collapse.getElementsByClassName("collapse");
+    for (var i = 0; i < childrenCollapseList.length; i++) {
+        if(childrenCollapseList[i].classList.contains('show')) {
+            var bsCollapse = new bootstrap.Collapse(childrenCollapseList[i], { 
+                toggle: true
+            }) 
+        } 
+    }
 }
 

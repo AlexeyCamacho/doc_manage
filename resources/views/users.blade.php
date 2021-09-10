@@ -27,7 +27,6 @@
                             <td> @include('icons.users') </td>
                         </tr>    
                     @endforeach 
-
                 </tbody>
             </table>
             {{ $users->links() }}
@@ -50,7 +49,7 @@
                     rm_class('create', 'is-invalid'); 
                     clear_class('errors-create');
                     display_block('spinner-border', 'none'); 
-                    ajax('user_add_form', 'users/create', 'create-');">
+                    ajax_debug('user_add_form', 'users/create', 'create-');">
                     <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" ></span>
                     <i class="bi bi-check-lg"></i>
                 </button>

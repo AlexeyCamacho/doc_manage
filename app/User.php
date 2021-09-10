@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'login'
+        'name', 'email', 'password', 'login', 'settings'
     ];
 
     /**
@@ -36,5 +36,21 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        "settings" => "array"
     ];
+
+    public function setting(string $name, $default = null)
+    {
+        if (array_key_exists($name, $this->settings)) {
+            return $this->settings[$name];
+        }    return $default;
+    }
+
+    public function settings(array $revisions, bool $save = true) : self
+    {
+        $this->settings = array_merge($this->settings, $revisions);    if ($save) {
+            $this->save();
+        }    return $this;
+    }
+
 }

@@ -20,6 +20,8 @@ Route::get('/', function () {
 Auth::routes(['register' => false, 'verify' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/settings', 'HomeController@settings')->name('home-settings');
+Route::post('/home/settings/change', 'HomeController@settings_change');
 
 Route::get('/users', 'UsersController@index')->name('users');
 Route::post('/users/create', 'UsersController@create');
