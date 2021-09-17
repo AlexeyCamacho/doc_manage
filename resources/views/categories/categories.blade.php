@@ -4,11 +4,11 @@
 
 @section('content')
 <div class="container-fluid border shadow bg-white rounded p-3">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-lg-4">
             <h1>{{ ('Категории') }}
                 <button class="btn btn-outline-secondary btn-sm ml-4 mb-2" type="button"
-                data-toggle="tooltip" data-placement="right" title="Закрыть все категории" onclick="session_reset('openCategories'); 
+                data-toggle="tooltip" data-placement="right" title="Закрыть все категории" onclick="session_reset('openCategories'); session_reset('select_category');
                 location.reload();">
                     <i class="bi bi-arrow-clockwise" data-toggle="tooltip" data-placement="right" title="Закрыть все категории"></i>
                 </button>
@@ -175,4 +175,13 @@
 </script>
 
 <script src="{{ asset('js/categories.js') }}"></script>
+
+@endsection
+
+@section('running_scripts')
+
+<script type="text/javascript">
+    if({{$select_category}}) { select_documents({{$select_category}}); choice_cart({{$select_category}}); }
+</script>
+
 @endsection

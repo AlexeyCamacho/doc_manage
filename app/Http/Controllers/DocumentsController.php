@@ -27,4 +27,21 @@ class DocumentsController extends Controller
             'documents' => $documents
         ]);
     }
+
+    public function index() {
+        if (!Gate::allows('views-documents')) {
+            return view('PermError');
+        }
+
+        $route = \Route::current();
+        $documents_id = $route->parameter('id') ?: null;
+
+        if ($documents_id == null) { return redirect('categories');}
+
+        $document = Document::find($documents_id);
+
+        return view('documents.index', [
+            'document' => $document
+        ]);
+    }
 }

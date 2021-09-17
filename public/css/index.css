@@ -79,3 +79,27 @@
 .bg-choose, .btn:focus {
 	box-shadow: none;
 }
+
+a.underline {
+	display: inline-block;
+	color: black;
+	line-height: 1;
+	text-decoration:none;
+	cursor: pointer;
+	border: none;
+}
+
+a.underline:after {
+	background-color: black;
+	display: block;
+	content: "";
+	height: 1.5px;
+	width: 0%;
+	-webkit-transition: width .3s ease-in-out;
+	-moz--transition: width .3s ease-in-out;
+	transition: width .3s ease-in-out;
+}
+
+a.underline:hover:after, a.underline:focus:after {
+	width: 100%;
+}

@@ -20,6 +20,6 @@ class PermissionsController extends Controller
         if (!Gate::allows('views-permissions')) {
             return view('PermError');
         }
-        return view('permissions', ['permissions' => Permission::paginate(10)]);
+        return view('permissions', ['permissions' => Permission::paginate(20)]);
     }
 }

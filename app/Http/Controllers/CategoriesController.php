@@ -47,11 +47,15 @@ class CategoriesController extends Controller
 
         $breadcrumbs = array_reverse($breadcrumbs);
 
+        $select_category = session('select_category') ?: null;
+        if ($select_category) { session()->forget('select_category'); }
+
         return view('categories.categories', [
             'categories' => $categories, 
             'openCategories' => $openCategories,
             'breadcrumbs' => $breadcrumbs,
-            'close_child_tabs' => Auth::user()->setting('close_child_tabs')
+            'close_child_tabs' => Auth::user()->setting('close_child_tabs'),
+            'select_category' => $select_category
         ]);
     }
 

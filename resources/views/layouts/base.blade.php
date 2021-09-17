@@ -38,3 +38,5 @@
 </html>
 
 <script type="text/javascript" src="{{ asset('js/hint.js') }}"></script>
+
+@yield('running_scripts')

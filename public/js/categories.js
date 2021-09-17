@@ -124,4 +124,5 @@ function choice_cart(id_category) {
     rm_class('bg-choose', 'bg-choose');
     var card_header = document.getElementById('heading' + id_category);
     card_header.classList.add('bg-choose');
+    session_set('select_category', id_category);
 }

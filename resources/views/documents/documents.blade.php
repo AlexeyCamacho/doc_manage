@@ -6,6 +6,7 @@
             <th scope="col">Название</th>
             <th scope="col">Статус</th>
             <th scope="col">Ответственные</th>
+            <th scope="col">Дата создания</th>
             <th scope="col">Дедлайн</th>
             @can('download-documents')<th scope="col">Скачать</th>@endcan
             @if (session('editMode'))<th scope="col">Настройка</th>@endif
@@ -25,7 +26,7 @@
                     @endif
                 @endif
                     <td scope="row">{{ $document->id }}</td>
-                    <td>{{ \Illuminate\Support\Str::limit($document->name, 25, $end='...') }}</td>
+                    <td><a class="underline" href="documents/{{$document->id}}">{{ \Illuminate\Support\Str::limit($document->name, 25, $end='...') }}</a></td>
                     <td>
                         @if ($document->completed)
                             Документ завершен
@@ -41,8 +42,11 @@
                         @endif
                         @endforeach
                     </td>
-                    <td>{{ $document->deadline }}</td>
-                    @can('download-documents')<td>Скачать</td>@endcan
+                    <td>{{ $document->created_at }}</td>
+                    <td>{{ date('Y-m-d', strtotime($document->deadline)) }}</td>
+                    @can('download-documents')<td class="text-center">
+                        <button type="button" class="btn btn-outline-secondary"><i class="bi bi-download"></i></button>
+                    </td>@endcan
                     @if (session('editMode')) <td> @include('icons.documents') </td>@endif
                 </tr>
             @endforeach

@@ -23,7 +23,7 @@ class SessionController extends Controller
     }
 
     public function get(Request $req) {
-
+        return $req->session()->get($req->key);
     }
 
     public function delete(Request $req) {
@@ -43,8 +43,6 @@ class SessionController extends Controller
     public function reset(Request $req) {
         
         $req->session()->forget($req->key);
-
-        return $req->session()->get($req->key);
 
     } 
 }
