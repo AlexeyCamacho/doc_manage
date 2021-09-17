@@ -46,6 +46,8 @@ Route::post('/categories/hide', 'CategoriesController@hide');
 Route::post('/categories/show', 'CategoriesController@show');
 Route::post('/categories/delete', 'CategoriesController@delete');
 
+Route::post('/documents/select', 'DocumentsController@select');
+
 Route::post('/session/set', 'SessionController@set');
 Route::post('/session/get', 'SessionController@get');
 Route::post('/session/delete', 'SessionController@delete');

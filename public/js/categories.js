@@ -110,3 +110,18 @@ function close_all_collapse(id) {
     }
 }
 
+function select_documents(id_category) {
+    console.log(id_category);
+    myData = new FormData();
+    _token = document.getElementsByName('_token')[0];
+    myData.append('_token', _token.value);
+    myData.append('id_category', id_category);
+    var result = ajax_(myData, '/doc_manage/documents/select');
+    document.getElementById("documents").innerHTML = result;
+}
+
+function choice_cart(id_category) {
+    rm_class('bg-choose', 'bg-choose');
+    var card_header = document.getElementById('heading' + id_category);
+    card_header.classList.add('bg-choose');
+}

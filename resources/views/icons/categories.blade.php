@@ -1,5 +1,5 @@
 @if(session('editMode') && ( Gate::allows('create-categories') || Gate::allows('edit-categories') || Gate::allows('delete-categories')))
-<div class="dropdown">
+<div class="dropdown text-center">
 <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false" data-reference="#accordionMain"> 
     <i class="bi bi-gear"></i> 
 </button>

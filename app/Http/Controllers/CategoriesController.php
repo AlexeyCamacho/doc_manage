@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class CategoriesController extends Controller
 {
@@ -177,7 +179,14 @@ class CategoriesController extends Controller
         foreach ($categories as $category) {
             $category->category_id = $req->category;
             $category->save();
-        } 
+        }
+
+        $documents = $cat->documents;
+
+        foreach ($documents as $document) {
+            $document->category_id = $req->doc_category;
+            $document->save();
+        }
 
         $cat->delete();      
 

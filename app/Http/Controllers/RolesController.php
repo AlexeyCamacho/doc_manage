@@ -16,7 +16,8 @@ class RolesController extends Controller
         'users' => 'Пользователи', 
         'permissions' => 'Права',
         'roles' => 'Роли',
-        'categories' => 'Категории'
+        'categories' => 'Категории',
+        'documents' => 'Документы'
     ];
 
     public function __construct() {

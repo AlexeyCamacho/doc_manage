@@ -71,3 +71,11 @@
 .bs-tooltip-auto[x-placement^=bottom] .tooltip-arrow::before, .bs-tooltip-start .tooltip-arrow::before {
 	border-bottom-color: #808080;
 }
+
+.bg-choose {
+	background-color: #B0C4DE;
+}
+
+.bg-choose, .btn:focus {
+	box-shadow: none;
+}

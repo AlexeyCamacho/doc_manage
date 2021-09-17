@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Models\Permission;
 
@@ -14,28 +16,15 @@ class PermissionSeeder extends Seeder
     {
 
         $Permission = new Permission();
-        $Permission->name = 'Просмотр категорий';
-        $Permission->slug = 'views-categories';
+        $Permission->name = 'Скачивание документов';
+        $Permission->slug = 'download-documents';
         $Permission->save();
 
         $Permission = new Permission();
-        $Permission->name = 'Создание категорий';
-        $Permission->slug = 'create-categories';
+        $Permission->name = 'Загрузка документов';
+        $Permission->slug = 'loading-documents';
         $Permission->save();
 
-        $Permission = new Permission();
-        $Permission->name = 'Изменение категорий';
-        $Permission->slug = 'edit-categories';
-        $Permission->save();
 
-        $Permission = new Permission();
-        $Permission->name = 'Удаление категорий';
-        $Permission->slug = 'delete-categories';
-        $Permission->save();
-
-        $Permission = new Permission();
-        $Permission->name = 'Скрытие/показ категорий';
-        $Permission->slug = 'visible-categories';
-        $Permission->save();
     }
 }

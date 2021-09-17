@@ -15,7 +15,7 @@
             </h1>
             
             @if (Route::current()->parameter('id'))
-            @include('inc.breadcrumb', ['breadcrumbs' => $breadcrumbs])
+                @include('inc.breadcrumb', ['breadcrumbs' => $breadcrumbs])
             @endif
             <div class="accordion mt-4" id="accordionMain">
                 @foreach ($categories as $category)
@@ -33,7 +33,7 @@
         </div>
         <div class="col-lg-8">
             <h1 class="pl-4 mb-4">{{ ('Список документов') }}</h1>
-            СПИСОК ДОКУМЕНТОВ
+            <div id="documents"><h4>Нажмите на категорию для показа документов</h4></div>
         </div>
     </div>
 </div>
@@ -131,7 +131,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="data-bs-category" class="col-form-label">Переместить документы в</label>
-                            <select id="delete-doc-category" class="form-select delete" name="doc-category">
+                            <select id="delete-doc-category" class="form-select delete" name="doc_category">
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @include('inc.optionCategories', ['category' => $category])

@@ -26,7 +26,11 @@ class Category extends Model
     }
 
     public function childrenCategories()
-{
+    {
     return $this->hasMany(Category::class)->with('categories');
-}
+    }
+
+    public function documents() {
+        return $this->hasMany(Document::class, 'category_id');
+    }
 }
