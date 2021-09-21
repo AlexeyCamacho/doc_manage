@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Position extends Model
 {
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }

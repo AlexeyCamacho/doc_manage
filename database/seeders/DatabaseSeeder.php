@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -19,5 +20,6 @@ class DatabaseSeeder extends Seeder
         //$this->call(OptionsUsersSeeder::class);
         //$this->call(DocumentsSeeder::class);
         //$this->call(StatusSeeder::class);
+        //$this->call(PositionsSeeder::class);
     }
 }

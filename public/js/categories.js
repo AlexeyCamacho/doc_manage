@@ -125,4 +125,28 @@ function choice_cart(id_category) {
     var card_header = document.getElementById('heading' + id_category);
     card_header.classList.add('bg-choose');
     session_set('select_category', id_category);
+    if (!checking_visibility(document.getElementById('documents'))) { 
+        if (checking_element_bottom(document.getElementById('documents'))) { goDown(document.getElementById('documents')); }
+        else { goUp(document.getElementById('documents')); }
+    }
+}
+
+function goUp(target) {
+   if(!checking_visibility(target)) {
+        window.scrollBy(0,-50);
+        setTimeout(goUp,25, target);
+    } else { for (let i = 0; i < 3; i++) { 
+        setTimeout(window.scrollBy(0,-50),25);
+        }
+    }
+}
+
+function goDown(target) {
+    if(!checking_visibility(target)) {
+      window.scrollBy(0,50);
+      setTimeout(goDown,25, target);
+   } else { for (let i = 0; i < 3; i++) { 
+        setTimeout(window.scrollBy(0,50),25);
+        }
+    }
 }
