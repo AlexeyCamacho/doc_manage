@@ -30,9 +30,9 @@
                 @if ($document->completed)
                 <tr class="table-secondary">
                 @else
-                    @if ($document->deadline < date("Y-m-d"))
+                    @if ($document->deadline != null && $document->deadline < date("Y-m-d"))
                         <tr class="table-danger">
-                    @elseif (date('Y-m-d', strtotime($document->deadline)) == date("Y-m-d"))
+                    @elseif ($document->deadline != null && $document->deadline == date("Y-m-d"))
                         <tr class="table-warning">
                     @else
                         <tr>
@@ -56,7 +56,13 @@
                         @endforeach
                     </td>
                     <td>{{ $document->created_at }}</td>
-                    <td>{{ date('Y-m-d', strtotime($document->deadline)) }}</td>
+                    <td>
+                        @if ($document->deadline != null)
+                        {{ $document->deadline }}
+                        @else
+                        Неопределён
+                        @endif
+                    </td>
                     @can('download-documents')<td class="text-center">
                         <button type="button" class="btn btn-outline-secondary"><i class="bi bi-download"></i></button>
                     </td>@endcan

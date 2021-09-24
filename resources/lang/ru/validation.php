@@ -82,7 +82,7 @@ return [
         'string' => 'The :attribute may not be greater than :max characters.',
         'array' => 'The :attribute may not have more than :max items.',
     ],
-    'mimes' => 'The :attribute must be a file of type: :values.',
+    'mimes' => 'Данный :attribute должен иметь расширение: :values.',
     'mimetypes' => 'The :attribute must be a file of type: :values.',
     'min' => [
         'numeric' => 'Поле :attribute должно быть больше :min.',
@@ -97,12 +97,12 @@ return [
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
     'required' => 'Поле :attribute обязательное.',
-    'required_if' => 'The :attribute field is required when :other is :value.',
+    'required_if' => 'Поле :attribute обязательное, если поле :other имеет значение :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
     'required_with_all' => 'The :attribute field is required when :values are present.',
     'required_without' => 'The :attribute field is required when :values is not present.',
-    'required_without_all' => 'The :attribute field is required when none of :values are present.',
+    'required_without_all' => 'Поле :attribute обязательное, если нет значения полей :values.',
     'same' => 'The :attribute and :other must match.',
     'size' => [
         'numeric' => 'The :attribute must be :size.',
@@ -155,7 +155,11 @@ return [
         'title' => 'название',
         'description' => 'описание',
         'deadline' => 'дедлайн',
-        'deadline_position' => 'дедлайн файла'
+        'deadline_position' => 'дедлайн файла',
+        'document_file' => 'файл',
+        'status' => 'статус',
+        'new_status' => 'новый статус',
+        'document_ready' => 'документ готов'
     ],
 
 ];

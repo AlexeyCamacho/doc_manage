@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentsController extends Controller
 {
@@ -60,16 +61,27 @@ class DocumentsController extends Controller
             'description' => 'sometimes|nullable|min:5|string',
             'deadline' => 'sometimes|nullable|date|after_or_equal:' . date('Y-m-d'),  
             'document_file' => 'sometimes|nullable|file|mimes:pdf,jpg,doc,docx,csv,xlsx,png',
-            'new_status' => 'sometimes|nullable|string|unique:statuses,name',
-            'status' => 'required|alpha_dash',
+            'status' => 'required_unless:document_ready,on',
             'deadline_position' => 'sometimes|nullable|date|before_or_equal:deadline|after_or_equal:' . date('Y-m-d'),
-            'new_status' => 'required_if:status,null',
+            'new_status' => 'sometimes|nullable|string|unique:statuses,name',
+            'new_status' => 'required_without_all:document_ready,status'
         ]);
 
         $document = Document::make([
             'name' => $req->title,
             'description' => $req->description,
             'deadline' => $req->deadline,
-        ]); 
+            'category_id' => $req->id_category 
+        ]);
+
+        if($req->document_file && $req->document_ready) {
+            $document->completed = 1;
+        }
+
+        $document->save();
+
+
+
+        $document->users()->attach(Auth::user());
     }
 }

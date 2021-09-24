@@ -49,9 +49,10 @@
                                 <div class="mb-3">
                                     <label for="data-bs-title" class="col-form-label">Статус:</label>
                                     <select class="form-select create" id="create-status" name="status">
-                                        <option value="null" selected>Новый статус</option>
+                                        <option value="" selected>Новый статус</option>
                                         @include('inc.option', ['objects' => $statuses, 'id' => 'id', 'name' => 'name', 'childrens' => 'statuses'])
                                     </select>
+                                    <x-print-errors action="create" field="status"></x-print-errors>
                                 </div>
                                 <div class="mb-3">
                                     <input type="text" class="form-control create" id="create-new_status" name="new_status">
@@ -67,7 +68,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" class="btn btn-primary" onclick="rm_class('create', 'is-invalid');
                     clear_class('errors-create'); 
-                    ajax('document_create_form', 'documents/create', 'create-');">Создать</button>
+                    ajax_debug('document_create_form', 'documents/create', 'create-');">Создать</button>
                 </div>
             </div>
         </div>

@@ -124,7 +124,9 @@ function print_error(field, error){
     error_element.classList.add('is-invalid');
     error_element = 'error-' + field;
     error_element = document.getElementById(error_element);
-    error_element.innerHTML = error;
+    if(error_element) {
+        error_element.innerHTML = error;
+    } 
 }
 
 function rm_class(in_class, rm_class, element = document) {
