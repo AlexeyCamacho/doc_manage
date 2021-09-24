@@ -111,7 +111,6 @@ function close_all_collapse(id) {
 }
 
 function select_documents(id_category) {
-    console.log(id_category);
     myData = new FormData();
     _token = document.getElementsByName('_token')[0];
     myData.append('_token', _token.value);
@@ -123,11 +122,14 @@ function select_documents(id_category) {
 function choice_cart(id_category) {
     rm_class('bg-choose', 'bg-choose');
     var card_header = document.getElementById('heading' + id_category);
-    card_header.classList.add('bg-choose');
+    if(card_header != null) { card_header.classList.add('bg-choose'); }
     session_set('select_category', id_category);
-    if (!checking_visibility(document.getElementById('documents'))) { 
-        if (checking_element_bottom(document.getElementById('documents'))) { goDown(document.getElementById('documents')); }
-        else { goUp(document.getElementById('documents')); }
+}
+
+function go_to_tagret(target) {
+    if (!checking_visibility(target)) { 
+        if (checking_element_bottom(target)) { goDown(target); }
+        else { goUp(target); }
     }
 }
 

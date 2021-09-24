@@ -2,7 +2,7 @@
     <div class="card-header" id="heading{{$category->id}}">
         <h2 class="row mb-0">
             <div class="col">
-                <button class="btn btn-block text-left" type="button" ondblclick="document.location.href = '/doc_manage/categories/{{$category->id}}';" onclick="select_documents({{$category->id}}); choice_cart({{$category->id}});">
+                <button class="btn btn-block text-left" type="button" ondblclick="document.location.href = '/doc_manage/categories/{{$category->id}}';" onclick="select_documents({{$category->id}}); choice_cart({{$category->id}}); go_to_tagret(document.getElementById('documents'))">
                     {{ $category->name }}
                     @if(!$category->visible)
                         <i class="bi bi-eye-slash"></i>

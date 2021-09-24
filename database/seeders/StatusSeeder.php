@@ -15,15 +15,18 @@ class StatusSeeder extends Seeder
     public function run()
     {
         $Status = new Status();
-        $Status->name = 'Документ создан';
+        $Status->name = 'На подписи у';
         $Status->save();
 
         $Status = new Status();
-        $Status->name = 'Документ готов';
+        $Status->name = 'выдры';
+        $Status->status_id = '4';
         $Status->save();
 
         $Status = new Status();
-        $Status->name = 'На подписи';
+        $Status->name = 'Гавилова';
+        $Status->status_id = '4';
         $Status->save();
+
     }
 }

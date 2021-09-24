@@ -18,4 +18,5 @@ class Document extends Model
     {
         return $this->hasMany(Position::class, 'document_id');
     }
+
 }

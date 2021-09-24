@@ -170,6 +170,8 @@ function set_value_modal(modal, button, atrib, id_input) {
     var Input = modal.querySelector('#' + id_input);
     if(recipient) {
         Input.value = recipient;
+    } else {
+        Input.value = null;
     }
 }
 

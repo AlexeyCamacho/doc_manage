@@ -18,7 +18,7 @@ class CreateDocumentsTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamp('deadline')->nullable();
             $table->boolean('completed')->default(0);
             $table->timestamps();

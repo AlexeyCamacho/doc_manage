@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Category;
 use App\Models\Document;
 use Illuminate\Http\Request;
@@ -33,6 +34,8 @@ class CategoriesController extends Controller
         $where[] = ['category_id', $category_id];
 
         $categories = Category::where($where)->with('childrenCategories')->orderBy('name')->get();
+        $allCategories = Category::whereNull('category_id')->with('childrenCategories')->orderBy('name')->get();
+        $statuses = Status::whereNull('status_id')->with('childrenStatuses')->orderBy('name')->get();
 
         $openCategories_array = session('openCategories');
         $openCategories = collect();
@@ -55,7 +58,9 @@ class CategoriesController extends Controller
             'openCategories' => $openCategories,
             'breadcrumbs' => $breadcrumbs,
             'close_child_tabs' => Auth::user()->setting('close_child_tabs'),
-            'select_category' => $select_category
+            'select_category' => $select_category,
+            'statuses' => $statuses,
+            'allCategories' => $allCategories
         ]);
     }
 

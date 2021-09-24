@@ -8,4 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Status extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name', 'status_id', 'visible'
+    ];
+
+    public function statuses() 
+    {
+        return $this->hasMany(Status::class);
+    }
+
+    public function childrenStatuses()
+    {
+    return $this->hasMany(Status::class)->with('statuses');
+    }
+
+    public function parent() 
+    {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
 }

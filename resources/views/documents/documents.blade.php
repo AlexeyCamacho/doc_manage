@@ -26,12 +26,12 @@
                     @endif
                 @endif
                     <td scope="row">{{ $document->id }}</td>
-                    <td><a class="underline" href="documents/{{$document->id}}">{{ \Illuminate\Support\Str::limit($document->name, 25, $end='...') }}</a></td>
+                    <td><a class="underline" href="/doc_manage/documents/{{$document->id}}">{{ \Illuminate\Support\Str::limit($document->name, 25, $end='...') }}</a></td>
                     <td>
                         @if ($document->completed)
                             Документ завершен
                         @elseif (!$document->files->isEmpty())
-                            Статус
+                            @include('inc.parents', ['object' => $document->files->last()->status, 'name' => 'name', 'parent' => 'parent'])
                         @else
                             Файлы не найдены
                         @endif

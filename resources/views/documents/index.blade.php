@@ -39,15 +39,20 @@
                     </thead>
                     <tbody>
                             @foreach ($document->files as $file)
-                                @if ($file->deadline < date("Y-m-d"))
-                                    <tr class="table-danger">
-                                @elseif (date('Y-m-d', strtotime($file->deadline)) == date("Y-m-d"))
-                                    <tr class="table-warning">
+                                @if ($loop->last)
+                                    @if ($file->deadline < date("Y-m-d"))
+                                        <tr class="table-danger">
+                                    @elseif (date('Y-m-d', strtotime($file->deadline)) == date("Y-m-d"))
+                                        <tr class="table-warning">
+                                    @else
+                                        <tr>
+                                    @endif
                                 @else
                                     <tr>
                                 @endif
+                                
                                 <td scope="row">{{ $file->id }}</td>
-                                <td>{{ $file->status->name }}</td>
+                                <td>@include('inc.parents', ['object' => $file->status, 'name' => 'name', 'parent' => 'parent'])</td>
                                 <td>{{ $file->user->name }}</td>
                                 <td>{{ $file->created_at }}</td>
                                 <td>{{ date('Y-m-d', strtotime($file->deadline)) }}</td>

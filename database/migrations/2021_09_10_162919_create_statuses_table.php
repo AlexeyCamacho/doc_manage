@@ -15,8 +15,8 @@ class CreateStatusesTable extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('statuses_id')->nullable();
-            $table->foreign('statuses_id')->references('id')->on('statuses');
+            $table->unsignedBigInteger('status_id')->nullable();
+            $table->foreign('status_id')->references('id')->on('statuses');
             $table->string('name');
             $table->boolean('visible')->default(1);
             $table->timestamps();
