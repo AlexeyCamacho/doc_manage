@@ -15,14 +15,14 @@ return [
 
     'accepted' => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
-    'after' => 'The :attribute must be a date after :date.',
-    'after_or_equal' => 'The :attribute must be a date after or equal to :date.',
+    'after' => 'Значение поля :attribute должно быть больше, чем :date.',
+    'after_or_equal' => 'Значение поля :attribute должно быть больше или равно, чем :date.',
     'alpha' => 'Поле :attribute может содержать только буквенные символы.',
     'alpha_dash' => 'The :attribute may only contain letters, numbers, dashes and underscores.',
     'alpha_num' => 'The :attribute may only contain letters and numbers.',
     'array' => 'The :attribute must be an array.',
-    'before' => 'The :attribute must be a date before :date.',
-    'before_or_equal' => 'The :attribute must be a date before or equal to :date.',
+    'before' => 'Значение поля :attribute дожно быть раньше :date.',
+    'before_or_equal' => 'Значение поля :attribute дожно быть меньше или равно значению поля :date.',
     'between' => [
         'numeric' => 'The :attribute must be between :min and :max.',
         'file' => 'The :attribute must be between :min and :max kilobytes.',
@@ -152,7 +152,10 @@ return [
         'name' => 'ФИО',
         'role' => 'должность',
         'slug' => 'обозначение',
-        'title' => 'название'
+        'title' => 'название',
+        'description' => 'описание',
+        'deadline' => 'дедлайн',
+        'deadline_position' => 'дедлайн файла'
     ],
 
 ];

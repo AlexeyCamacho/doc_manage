@@ -32,17 +32,14 @@
             @endcan
         </div>
         <div class="col-lg-8">
-            <div class="row">
-                <div class="col">
-                    <h1 class="pl-4 mb-4">{{ ('Список документов') }}</h1>
+            <div id="documents">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="pl-4 mb-4">{{ ('Список документов') }}</h1>
+                    </div>
                 </div>
-                <div class="col text-right">
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createDocuments">
-                    <i class="bi bi-plus-circle"></i><span class="m-1">{{ __('Добавить документ') }}</span>
-                    </button>
-                </div>
+                <h4>Нажмите на категорию для показа документов</h4>
             </div>
-            <div id="documents"><h4>Нажмите на категорию для показа документов</h4></div>
         </div>
     </div>
 </div>
@@ -71,7 +68,9 @@
 @section('running_scripts')
 
 <script type="text/javascript">
-if({{$select_category}}) { select_documents({{$select_category}}); choice_cart({{$select_category}}); }
+
+var select_category = {!! json_encode($select_category) !!};
+if(select_category) { select_documents(select_category); choice_cart(select_category); }
 
 </script>
 

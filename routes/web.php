@@ -58,7 +58,9 @@ Route::prefix('categories')->group(function () {
 });
 
 Route::prefix('documents')->group(function () {
+    Route::get('/{id?}', 'DocumentsController@index');
     Route::post('/select', 'DocumentsController@select');
+    Route::post('/create', 'DocumentsController@create');
 });
 
 Route::prefix('session')->group(function () {
@@ -67,11 +69,6 @@ Route::prefix('session')->group(function () {
     Route::post('/delete', 'SessionController@delete');
     Route::post('/reset', 'SessionController@reset');
 });
-
-Route::prefix('documents')->group(function () {
-    Route::get('/{id?}', 'DocumentsController@index');
-});
-
 
 
 /*Route::get('/mail_test', function() {

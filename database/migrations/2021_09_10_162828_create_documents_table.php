@@ -19,7 +19,7 @@ class CreateDocumentsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('name');
             $table->string('description')->nullable();
-            $table->timestamp('deadline')->nullable();
+            $table->date('deadline')->nullable();
             $table->boolean('completed')->default(0);
             $table->timestamps();
         });

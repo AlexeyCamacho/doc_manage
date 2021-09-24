@@ -1,3 +1,16 @@
+<div class="row">
+    <div class="col">
+        <h1 class="pl-4 mb-4">{{ ('Список документов') }}</h1>
+    </div>
+    @can('create-documents')
+    <div class="col text-right">
+        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createDocuments">
+        <i class="bi bi-plus-circle"></i><span class="m-1">{{ __('Добавить документ') }}</span>
+        </button>
+    </div>
+    @endcan
+</div>
+
 @if (!$documents->isEmpty())
 <table class="table">
     <thead>

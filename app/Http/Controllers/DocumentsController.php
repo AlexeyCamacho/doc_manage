@@ -44,4 +44,32 @@ class DocumentsController extends Controller
             'document' => $document
         ]);
     }
+
+    public function create(Request $req) {
+        if (!Gate::allows('create-documents')) {
+            return abort(403, 'Нет прав.');
+        }
+
+        if ($req->document_file && !Gate::allows('loading-documents')) {
+            return abort(403, 'Нет прав загружать файл.');
+        }
+
+
+        $validation = $req->validate([
+            'title' => 'required|string',
+            'description' => 'sometimes|nullable|min:5|string',
+            'deadline' => 'sometimes|nullable|date|after_or_equal:' . date('Y-m-d'),  
+            'document_file' => 'sometimes|nullable|file|mimes:pdf,jpg,doc,docx,csv,xlsx,png',
+            'new_status' => 'sometimes|nullable|string|unique:statuses,name',
+            'status' => 'required|alpha_dash',
+            'deadline_position' => 'sometimes|nullable|date|before_or_equal:deadline|after_or_equal:' . date('Y-m-d'),
+            'new_status' => 'required_if:status,null',
+        ]);
+
+        $document = Document::make([
+            'name' => $req->title,
+            'description' => $req->description,
+            'deadline' => $req->deadline,
+        ]); 
+    }
 }

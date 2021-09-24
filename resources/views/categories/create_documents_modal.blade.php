@@ -9,7 +9,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="document_create_form">
+                    <form id="document_create_form" enctype="multipart/form-data">
                         @csrf
                         <input name="id_category" id="create-id_category" type="hidden" value="">
                         <div class="mb-3">
@@ -19,14 +19,16 @@
                         </div>
                         <div class="mb-3">
                             <label for="create-description" class="form-label">Описание:</label>
-                            <textarea class="form-control" id="create-description" rows="2"></textarea>
+                            <textarea class="form-control" id="create-description" rows="2" name="description"></textarea>
+                            <x-print-errors action="create" field="description"></x-print-errors>
                         </div>
                         <div class="mb-3">
                             <label for="create-deadline" class="col-form-label">Дедлайн:</label>
-                            <input type="date" class="form-control create" id="create-deadline" name="deadline">
+                            <input type="date" class="form-control create" id="create-deadline" name="deadline" min="{{ date('Y-m-d') }}">
                             <x-print-errors action="create" field="deadline"></x-print-errors>
                             <small class="text-muted">Оставьте пустым, если дедлайн неопределен.</small>
                         </div>
+                        @can('loading-documents')
                         <div class="mb-3">
                             <input class="form-control" type="file" id="create-document_file" name="document_file">
                             <x-print-errors action="create" field="document_file"></x-print-errors>
@@ -34,20 +36,20 @@
                         </div>
                         <div class="d-none" id="file_true">
                             <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="document_ready" name="create-document_ready" checked>
+                                <input class="form-check-input" type="checkbox" id="create-document_ready" name="document_ready" checked>
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Документ завершен</label>
                             </div>
                             <div class="d-none" id="document_not_ready">
                                 <div class="mb-3">
                                     <label for="create-deadline_position" class="col-form-label">Дедлайн:</label>
-                                    <input type="date" class="form-control create" id="create-deadline_position" name="deadline_position">
+                                    <input type="date" class="form-control create" id="create-deadline_position" name="deadline_position" min="{{ date('Y-m-d') }}">
                                     <x-print-errors action="create" field="deadline_position"></x-print-errors>
                                     <small class="text-muted">Оставьте пустым, если дедлайн файла совпадает с дедлайном документа.</small>
                                 </div>
                                 <div class="mb-3">
                                     <label for="data-bs-title" class="col-form-label">Статус:</label>
                                     <select class="form-select create" id="create-status" name="status">
-                                        <option value="null" selected>Создать статус</option>
+                                        <option value="null" selected>Новый статус</option>
                                         @include('inc.option', ['objects' => $statuses, 'id' => 'id', 'name' => 'name', 'childrens' => 'statuses'])
                                     </select>
                                 </div>
@@ -58,13 +60,14 @@
                                 </div>
                             </div>
                         </div>
+                        @endcan
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary" onclick="rm_class('edit', 'is-invalid');
+                    <button type="button" class="btn btn-primary" onclick="rm_class('create', 'is-invalid');
                     clear_class('errors-create'); 
-                    ajax('category_edit_form', 'categories/edit', 'edit-');">Создать</button>
+                    ajax('document_create_form', 'documents/create', 'create-');">Создать</button>
                 </div>
             </div>
         </div>
@@ -79,7 +82,7 @@
         } 
     });
 
-    document.getElementById('document_ready').addEventListener('change', function(){
+    document.getElementById('create-document_ready').addEventListener('change', function(){
         if( this.checked ){
             hide_elem_by_id('document_not_ready');
         } else { 
@@ -89,10 +92,15 @@
 
     var createDocumentsModal = document.getElementById('createDocuments');
 
-
     createDocumentsModal.addEventListener('hide.bs.modal', function (event) {
         rm_class('create', 'is-invalid');
         clear_class('errors-create');
         reset_form_by_id('document_create_form');
-    })
+    });
+
+    document.getElementById('create-deadline').addEventListener('change', function(){
+        var deadline = document.getElementById('create-deadline').value;
+        document.getElementById('create-deadline_position').max = deadline;
+    });
+
 </script>

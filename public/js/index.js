@@ -110,21 +110,21 @@ function ajax(form, url, action, redir = null) {
 function print_errors(errors, action) {
     for (var property in errors) {
         field = action + property;
-        var error_element = document.getElementById(field);
-        error_element.classList.add('is-invalid');
-
-        var error_element = 'error-' + field;
-        var error_element = document.getElementById(error_element);
-        error_element.innerText = '';
-
         errors_views = '';
 
         for (var i = errors[property].length-1; i >= 0 ; i--) {
             errors_views += errors[property][i] + '<br>';
         }
-
-        error_element.innerHTML = errors_views;
+        print_error(field, errors_views);
     }
+}
+
+function print_error(field, error){
+    error_element = document.getElementById(field);
+    error_element.classList.add('is-invalid');
+    error_element = 'error-' + field;
+    error_element = document.getElementById(error_element);
+    error_element.innerHTML = error;
 }
 
 function rm_class(in_class, rm_class, element = document) {
@@ -170,6 +170,15 @@ function set_value_modal(modal, button, atrib, id_input) {
     var Input = modal.querySelector('#' + id_input);
     if(recipient) {
         Input.value = recipient;
+    } else {
+        Input.value = null;
+    }
+}
+
+function set_value_input_modal(val, id_input) {
+    var Input = document.querySelector('#' + id_input);
+    if(val) {
+        Input.value = val;
     } else {
         Input.value = null;
     }
