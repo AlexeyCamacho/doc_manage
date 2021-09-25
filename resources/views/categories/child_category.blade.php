@@ -10,11 +10,11 @@
                 </button>
             </div>
             @if (session('editMode'))
-            <div class="col-3">
+            <div class="col-3 d-flex">
             @else
-            <div class="col-2">
+            <div class="col-2 d-flex">
             @endif
-                <div class="btn-group text-center">
+                <div class="btn-group text-center ml-auto">
                     @include('icons.categories')
                     @if ($category->categories->count())
                     <button class="btn" type="button" data-toggle="collapse" data-target="#collapse{{$category->id}}" 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Document;
+use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -61,27 +63,54 @@ class DocumentsController extends Controller
             'description' => 'sometimes|nullable|min:5|string',
             'deadline' => 'sometimes|nullable|date|after_or_equal:' . date('Y-m-d'),  
             'document_file' => 'sometimes|nullable|file|mimes:pdf,jpg,doc,docx,csv,xlsx,png',
-            'status' => 'required_unless:document_ready,on',
             'deadline_position' => 'sometimes|nullable|date|before_or_equal:deadline|after_or_equal:' . date('Y-m-d'),
             'new_status' => 'sometimes|nullable|string|unique:statuses,name',
             'new_status' => 'required_without_all:document_ready,status'
         ]);
 
-        $document = Document::make([
+        $document = Document::create([
             'name' => $req->title,
             'description' => $req->description,
             'deadline' => $req->deadline,
             'category_id' => $req->id_category 
         ]);
+      
+        if($req->document_file) {
 
-        if($req->document_file && $req->document_ready) {
-            $document->completed = 1;
+            $path = $req->document_file->store('documents');
+
+            $position = Position::make([
+                'name' => $req->document_file->getClientOriginalName(),
+                'user_id' => Auth::id(),
+                'file' => $path
+            ]);
+
+            if($req->document_ready) {
+                $document->completed = 1;
+                $document->save();
+                $position->deadline = $req->deadline;
+                $position->status_id = config('db_const.doc_ready');
+            } else {
+                $position->deadline = $req->deadline_position;
+                
+                if(!$req->new_status) {
+                    $position->status_id = $req->status;
+                } else {
+
+                    $status = Status::create([
+                        'name' => $req->new_status,
+                        'status_id' => $req->status 
+                    ]);
+
+                    $position->status_id = $status->id;
+                }
+            }
+
+            $position->document_id = $document->id;
+            $position->save();
         }
 
-        $document->save();
-
-
-
         $document->users()->attach(Auth::user());
+
     }
 }

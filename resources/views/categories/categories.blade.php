@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid border shadow bg-white rounded p-3">
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-3 mb-3">
             <h1>{{ ('Категории') }}
                 <button class="btn btn-outline-secondary btn-sm ml-4 mb-2" type="button"
                 data-toggle="tooltip" data-placement="right" title="Закрыть все категории" onclick="session_reset('openCategories'); session_reset('select_category');
@@ -31,7 +31,7 @@
                 @endif
             @endcan
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <div id="documents">
                 <div class="row">
                     <div class="col">

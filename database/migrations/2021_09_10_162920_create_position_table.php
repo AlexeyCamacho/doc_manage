@@ -13,7 +13,7 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('position', function (Blueprint $table) {
+        Schema::create('positions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('document_id');
             $table->unsignedBigInteger('user_id')->nullable();
@@ -21,7 +21,7 @@ class CreateFilesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('name');
             $table->string('file');
-            $table->timestamp('deadline')->nullable();
+            $table->date('deadline')->nullable();
             $table->unsignedBigInteger('status_id')->nullable();
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('set null');
             $table->timestamps();

@@ -30,7 +30,7 @@
                 @if ($document->completed)
                 <tr class="table-secondary">
                 @else
-                    @if ($document->deadline != null && $document->deadline < date("Y-m-d"))
+                    @if ($document->deadline && $document->deadline < date("Y-m-d"))
                         <tr class="table-danger">
                     @elseif ($document->deadline != null && $document->deadline == date("Y-m-d"))
                         <tr class="table-warning">

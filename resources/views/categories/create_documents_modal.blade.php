@@ -67,8 +67,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" class="btn btn-primary" onclick="rm_class('create', 'is-invalid');
-                    clear_class('errors-create'); 
-                    ajax_debug('document_create_form', 'documents/create', 'create-');">Создать</button>
+                    clear_class('errors-create');
+                    ajax('document_create_form', 'documents/create', 'create-');">Создать</button>
                 </div>
             </div>
         </div>

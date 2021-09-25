@@ -39,10 +39,10 @@
                     </thead>
                     <tbody>
                             @foreach ($document->files as $file)
-                                @if ($loop->last)
+                                @if ($loop->last && !$document->completed && $document->deadline)
                                     @if ($file->deadline < date("Y-m-d"))
                                         <tr class="table-danger">
-                                    @elseif (date('Y-m-d', strtotime($file->deadline)) == date("Y-m-d"))
+                                    @elseif ($file->deadline == date("Y-m-d"))
                                         <tr class="table-warning">
                                     @else
                                         <tr>
@@ -55,7 +55,13 @@
                                 <td>@include('inc.parents', ['object' => $file->status, 'name' => 'name', 'parent' => 'parent'])</td>
                                 <td>{{ $file->user->name }}</td>
                                 <td>{{ $file->created_at }}</td>
-                                <td>{{ date('Y-m-d', strtotime($file->deadline)) }}</td>
+                                <td>
+                                    @if ($file->deadline != null)
+                                    {{ $file->deadline }}
+                                    @else
+                                    Неопределён
+                                    @endif
+                                </td>
                                 @can('download-documents')<td class="text-center">
                                     <button type="button" class="btn btn-outline-secondary"><i class="bi bi-download"></i></button>
                                 </td>@endcan

@@ -9,6 +9,10 @@ class Position extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'user_id', 'file', 'deadline', 'status_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo(\App\User::class);
