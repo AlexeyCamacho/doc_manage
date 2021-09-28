@@ -25,7 +25,7 @@
 
         @include('inc.navbar')
 
-        <main class="p-3 m-5">
+        <main class="opacity-50">
             @yield('content')
         </main>
 
@@ -39,5 +39,11 @@
 </html>
 
 <script type="text/javascript" src="{{ asset('js/hint.js') }}"></script>
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function(){
+    reload_hint();
+});
+</script>
 
 @yield('running_scripts')

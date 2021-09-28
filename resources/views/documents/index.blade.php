@@ -28,7 +28,6 @@
                 <table class="table">
                     <thead class="table-light">
                         <tr>
-                            <th scope="col">№</th>
                             <th scope="col">Статус</th>
                             <th scope="col">Исполнитель</th>
                             <th scope="col">Дата загрузки</th>
@@ -51,7 +50,6 @@
                                     <tr>
                                 @endif
                                 
-                                <td scope="row">{{ $file->id }}</td>
                                 <td>@include('inc.parents', ['object' => $file->status, 'name' => 'name', 'parent' => 'parent'])</td>
                                 <td>{{ $file->user->name }}</td>
                                 <td>{{ $file->created_at }}</td>
@@ -62,9 +60,16 @@
                                     Неопределён
                                     @endif
                                 </td>
-                                @can('download-documents')<td class="text-center">
-                                    <button type="button" class="btn btn-outline-secondary"><i class="bi bi-download"></i></button>
-                                </td>@endcan
+                                <td class="text-center">
+                                @can('download-documents')
+                                <div class="btn-group text-center" role="group">
+                                    <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/preview/{{$file->id}}" data-toggle="tooltip" data-placement="left" title="Предпросмотр">
+                                        <i class="bi bi-file-earmark-text" data-toggle="tooltip" data-placement="left" title="Предпросмотр"></i></a>
+                                    <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/download/{{$file->id}}" data-toggle="tooltip" data-placement="right" title="Скачать">
+                                        <i class="bi bi-download" data-toggle="tooltip" data-placement="right" title="Скачать"></i></a>
+                                </div>
+                                @endcan
+                                </td>
                                 @if (session('editMode')) <td class="text-center"> @include('icons.documents') </td>@endif
                                 </tr>
                             @endforeach

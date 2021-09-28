@@ -70,6 +70,10 @@ Route::prefix('session')->group(function () {
     Route::post('/reset', 'SessionController@reset');
 });
 
+Route::prefix('files')->group(function () {
+   Route::get('/download/{file_id}', 'FilesController@download_preview');
+   Route::get('/preview/{file_id}', 'FilesController@preview'); 
+});
 
 /*Route::get('/mail_test', function() {
     return new App\Mail\UserPassword('name','name','name');

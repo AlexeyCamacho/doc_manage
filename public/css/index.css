@@ -103,3 +103,8 @@ a.underline:after {
 a.underline:hover:after, a.underline:focus:after {
 	width: 100%;
 }
+
+main {
+	background: url(/doc_manage/storage/arrow.png) top -0.5em left/200px 100px no-repeat;
+	padding: 5rem!important;
+}

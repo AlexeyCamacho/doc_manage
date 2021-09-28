@@ -15,7 +15,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">№</th>
             <th scope="col">Название</th>
             <th scope="col">Статус</th>
             <th scope="col">Ответственные</th>
@@ -38,7 +37,6 @@
                         <tr>
                     @endif
                 @endif
-                    <td scope="row">{{ $document->id }}</td>
                     <td><a class="underline" href="/doc_manage/documents/{{$document->id}}">{{ \Illuminate\Support\Str::limit($document->name, 25, $end='...') }}</a></td>
                     <td>
                         @if ($document->completed)
@@ -63,9 +61,17 @@
                         Неопределён
                         @endif
                     </td>
-                    @can('download-documents')<td class="text-center">
-                        <button type="button" class="btn btn-outline-secondary"><i class="bi bi-download"></i></button>
-                    </td>@endcan
+                    <td>
+                    @can('download-documents')
+                    @if($document->files->last())
+                    <div class="btn-group" role="group">
+                        <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/preview/{{$document->files->last()->id}}" data-toggle="tooltip" data-placement="left" title="Предпросмотр">
+                            <i class="bi bi-file-earmark-text" data-toggle="tooltip" data-placement="left" title="Предпросмотр"></i></a>
+                        <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/download/{{$document->files->last()->id}}" data-toggle="tooltip" data-placement="right" title="Скачать"><i class="bi bi-download" data-toggle="tooltip" data-placement="right" title="Скачать"></i></a>
+                    </div>
+                    @endif
+                    @endcan
+                    </td>
                     @if (session('editMode')) <td> @include('icons.documents') </td>@endif
                 </tr>
             @endforeach

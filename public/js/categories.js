@@ -124,7 +124,8 @@ function choice_cart(id_category) {
     var card_header = document.getElementById('heading' + id_category);
     if(card_header != null) { card_header.classList.add('bg-choose'); }
     session_set('select_category', id_category);
-    set_value_input_modal(id_category, 'create-id_category');  
+    set_value_input_modal(id_category, 'create-id_category');
+    reload_hint();  
 }
 
 function go_to_tagret(target) {
