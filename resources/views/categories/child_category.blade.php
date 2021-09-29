@@ -10,7 +10,7 @@
                 </button>
             </div>
             @if (session('editMode'))
-            <div class="col-3 d-flex">
+            <div class="col d-flex">
             @else
             <div class="col-2 d-flex">
             @endif

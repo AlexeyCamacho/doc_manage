@@ -12,6 +12,7 @@
 </div>
 
 @if (!$documents->isEmpty())
+<div class="table-responsive">
 <table class="table">
     <thead>
         <tr>
@@ -20,7 +21,7 @@
             <th scope="col">Ответственные</th>
             <th scope="col">Дата создания</th>
             <th scope="col">Дедлайн</th>
-            @can('download-documents')<th scope="col">Скачать</th>@endcan
+            @can('download-documents')<th scope="col" class="text-center">Предпр./Скачать</th>@endcan
             @if (session('editMode'))<th scope="col">Настройка</th>@endif
         </tr>
     </thead>
@@ -61,22 +62,23 @@
                         Неопределён
                         @endif
                     </td>
-                    <td>
+                    <td class="text-center">
                     @can('download-documents')
                     @if($document->files->last())
                     <div class="btn-group" role="group">
-                        <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/preview/{{$document->files->last()->id}}" data-toggle="tooltip" data-placement="left" title="Предпросмотр">
-                            <i class="bi bi-file-earmark-text" data-toggle="tooltip" data-placement="left" title="Предпросмотр"></i></a>
-                        <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/download/{{$document->files->last()->id}}" data-toggle="tooltip" data-placement="right" title="Скачать"><i class="bi bi-download" data-toggle="tooltip" data-placement="right" title="Скачать"></i></a>
+                        <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/preview/{{$document->files->last()->id}}" target="_blank">
+                            <i class="bi bi-file-earmark-text"></i></a>
+                        <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/download/{{$document->files->last()->id}}"><i class="bi bi-download"></i></a>
                     </div>
                     @endif
                     @endcan
                     </td>
-                    @if (session('editMode')) <td> @include('icons.documents') </td>@endif
+                    <td> @if (session('editMode')) @include('icons.documents') @endif </td>
                 </tr>
             @endforeach
     </tbody>
 </table>
+</div>
 @else
 <h4>Документы в данной категории не найдены</h4>
 @endif

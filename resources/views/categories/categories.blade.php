@@ -44,6 +44,8 @@
     </div>
 </div>
 
+<!-- Модальные окна -->
+
 @can('edit-categories')
     @include('categories.edit_categories_modal')
 @endcan
@@ -54,6 +56,10 @@
 
 @can('create-documents')
     @include('categories.create_documents_modal')
+@endcan
+
+@can('edit-documents')
+    @include('categories.edit_documents_modal')
 @endcan
 
 <script>    

@@ -25,6 +25,7 @@ Route::prefix('home')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/settings', 'HomeController@settings')->name('home-settings');
     Route::post('/settings/change', 'HomeController@settings_change');
+    Route::post('/settings/get', 'HomeController@settings_get');
 });
 
 Route::prefix('users')->group(function () {
@@ -61,6 +62,8 @@ Route::prefix('documents')->group(function () {
     Route::get('/{id?}', 'DocumentsController@index');
     Route::post('/select', 'DocumentsController@select');
     Route::post('/create', 'DocumentsController@create');
+    Route::post('/edit', 'DocumentsController@edit');
+    Route::post('/active', 'DocumentsController@active');
 });
 
 Route::prefix('session')->group(function () {

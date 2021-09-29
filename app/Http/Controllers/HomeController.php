@@ -45,4 +45,9 @@ class HomeController extends Controller
         }
         $user->settings([$req->setting => $value]);
     }
+
+    public function settings_get(Request $req){
+        $close_child_tabs = Auth::user()->setting($req->setting);
+        return $close_child_tabs;
+    }
 }

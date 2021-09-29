@@ -41,9 +41,11 @@
 <script type="text/javascript" src="{{ asset('js/hint.js') }}"></script>
 
 <script type="text/javascript">
+
 document.addEventListener('DOMContentLoaded', function(){
     reload_hint();
 });
+
 </script>
 
 @yield('running_scripts')

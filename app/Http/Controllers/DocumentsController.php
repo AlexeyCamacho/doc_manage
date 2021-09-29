@@ -111,6 +111,42 @@ class DocumentsController extends Controller
         }
 
         $document->users()->attach(Auth::user());
+    }
+
+    public function edit(Request $req) {
+        if (!Gate::allows('edit-documents')) {
+            return abort(403, 'Нет прав.');
+        }
+
+        $document = Document::find($req->id);
+
+        $validation = $req->validate([
+            'title' => 'required|string',
+            'description' => 'sometimes|nullable|min:5|string',
+            'deadline' => 'sometimes|nullable|date|after_or_equal:' . max(date('Y-m-d'), $document->files->max('deadline')),  
+        ]);
+
+        $document->update([
+            'name' => $req->title,
+            'description' => $req->description,
+            'deadline' => $req->deadline,
+            'category_id' => $req->category 
+        ]);
+
+        if(Auth::user()->setting('switch_category')) { 
+            $req->session()->put('select_category', $req->category); 
+        }
 
     }
+
+    public function active(Request $req) {
+        if (!Gate::allows('active-documents')) {
+            return abort(403, 'Нет прав');
+        }
+
+        $document = Document::find($req->data);
+        $document->completed = 0;
+        $document->save();
+    }
+
 }

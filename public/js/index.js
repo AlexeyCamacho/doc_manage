@@ -186,6 +186,15 @@ function set_value_input_modal(val, id_input) {
     }
 }
 
+function set_value_attribute_tag_by_id(val, id, atr) {
+    if(val) {
+        var Input = document.querySelector('#' + id);
+        if (Input) {
+            Input.setAttribute(atr, val);
+        }
+    }   
+}
+
 function set_placeholder(button, atrib, id_input) {
     var recipient = button.getAttribute(atrib);
     var div = document.querySelector('#' + id_input);

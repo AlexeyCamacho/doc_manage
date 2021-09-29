@@ -15,7 +15,13 @@
                     {{$user->name}}@if($loop->count > 1 and $loop->remaining != 0), @endif
                 @endforeach
             </h5>
-            <h5>Дедлайн: {{ date('Y-m-d', strtotime($document->deadline)) }}</h5>
+            <h5>Дедлайн: 
+                @if ($document->deadline != null)
+                    {{ $document->deadline }}
+                    @else
+                    Неопределён
+                @endif
+            </h5>
             <h5>Создан: {{$document->created_at}}</h5>
         </div>  
     </div>
@@ -32,7 +38,7 @@
                             <th scope="col">Исполнитель</th>
                             <th scope="col">Дата загрузки</th>
                             <th scope="col">Дедлайн</th>
-                            @can('download-documents')<th scope="col" class="text-center">Скачать</th>@endcan
+                            @can('download-documents')<th scope="col" class="text-center">Предпр./Скачать</th>@endcan
                             @if (session('editMode'))<th scope="col " class="text-center">Настройка</th>@endif
                         </tr>
                     </thead>
@@ -63,10 +69,10 @@
                                 <td class="text-center">
                                 @can('download-documents')
                                 <div class="btn-group text-center" role="group">
-                                    <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/preview/{{$file->id}}" data-toggle="tooltip" data-placement="left" title="Предпросмотр">
-                                        <i class="bi bi-file-earmark-text" data-toggle="tooltip" data-placement="left" title="Предпросмотр"></i></a>
-                                    <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/download/{{$file->id}}" data-toggle="tooltip" data-placement="right" title="Скачать">
-                                        <i class="bi bi-download" data-toggle="tooltip" data-placement="right" title="Скачать"></i></a>
+                                    <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/preview/{{$file->id}}" target="_blank">
+                                        <i class="bi bi-file-earmark-text"></i></a>
+                                    <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/download/{{$file->id}}">
+                                        <i class="bi bi-download" ></i></a>
                                 </div>
                                 @endcan
                                 </td>
