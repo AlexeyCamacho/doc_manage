@@ -4,7 +4,7 @@
         @if ($loop->last)
             <li class="breadcrumb-item active" aria-current="page">{{ $breadcrumb->get('name') }}</li>
         @else
-            <li class="breadcrumb-item"><a href="{{ $breadcrumb->get('href') }}">{{ $breadcrumb->get('name') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ $breadcrumb->get('href') }}" class="underline">{{ $breadcrumb->get('name') }}</a></li>
         @endif
     @endforeach
     </ol>

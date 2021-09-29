@@ -116,6 +116,7 @@ function select_documents(id_category) {
     myData.append('_token', _token.value);
     myData.append('id_category', id_category);
     var result = ajax_(myData, '/doc_manage/documents/select');
+    session_set('select_category', id_category, false);
     document.getElementById("documents").innerHTML = result;
 }
 
@@ -123,7 +124,6 @@ function choice_cart(id_category) {
     rm_class('bg-choose', 'bg-choose');
     var card_header = document.getElementById('heading' + id_category);
     if(card_header != null) { card_header.classList.add('bg-choose'); }
-    session_set('select_category', id_category);
     set_value_input_modal(id_category, 'create-id_category');
     reload_hint();  
 }
