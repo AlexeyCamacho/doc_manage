@@ -64,6 +64,8 @@ Route::prefix('documents')->group(function () {
     Route::post('/create', 'DocumentsController@create');
     Route::post('/edit', 'DocumentsController@edit');
     Route::post('/active', 'DocumentsController@active');
+    Route::post('/complete', 'DocumentsController@complete');
+    Route::post('/responsible', 'DocumentsController@responsible_edit');
 });
 
 Route::prefix('session')->group(function () {

@@ -11,12 +11,15 @@
             <div class="row">
                 <div class="col mt-1"><h5 class="mt-3">{{$document->name}}</h5></div>
                 <div class="col text-right mt-2">
-                    <a type="button" class="btn btn-outline-secondary" href="{{url()->previous();}}">
+                    <a type="button" class="btn btn-outline-secondary" href="{{route('categories');}}">
                         <i class="bi bi-arrow-left"></i>
                     </a>
-                    <button type="button" class="btn btn-outline-secondary">
-                        <i class="bi bi-three-dots"></i>
+                    @if (!$document->completed || Gate::allows('actions-completed-documents'))
+                    <button class="btn btn-outline-secondary" type="button" id="dropdownMenuFile" data-toggle="dropdown" aria-expanded="false"> 
+                        <i class="bi bi-three-dots"></i> 
                     </button>
+                        @include('icons.documents')
+                    @endif
                 </div>
             </div>
             <hr class="my-2">
@@ -37,9 +40,7 @@
                     <h5>Создан: {{$document->created_at}}</h5>
                 </div>
                 <div class="col text-right mb-2">
-                    <button type="button" class="btn btn-outline-primary">
-                        </i>Добавить файл
-                    </button>
+                    <button type="button" class="btn btn-outline-primary">Добавить файл</button>
                 </div>
             </div>
         </div>  
@@ -64,7 +65,7 @@
                     </thead>
                     <tbody>
                             @foreach ($document->files as $file)
-                                @if ($loop->last && !$document->completed && $document->deadline)
+                                @if ($loop->last && !$document->completed && $file->deadline)
                                     @if ($file->deadline < date("Y-m-d"))
                                         <tr class="table-danger">
                                     @elseif ($file->deadline == date("Y-m-d"))
@@ -96,7 +97,7 @@
                                 </div>
                                 @endcan
                                 </td>
-                                @if (session('editMode')) <td class="text-center"> @include('icons.documents') </td>@endif
+                                @if (session('editMode')) <td class="text-center"> н </td>@endif
                                 </tr>
                             @endforeach
                     </tbody>
@@ -104,7 +105,7 @@
             </div>
             @else
                 <h4 class="text-center alert">
-                    {{ ('Файлы не найдены.') }}
+                    {{ ('Файлы не найдены') }}
                 </h4>
             @endif
         </div> 
@@ -113,10 +114,16 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <h3 class="text-center alert alert-danger">
-                {{ ('Документ не найден.') }}
+                {{ ('Документ не найден') }}
             </h3>
         </div>
     </div>
     @endif
 </div>
+
+@can('edit-documents')
+    @include('documents.edit_documents_modal')
+    @include('documents.edit_users_documents_modal')
+@endcan
+
 @endsection

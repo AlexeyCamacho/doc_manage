@@ -35,7 +35,7 @@
                 <button type="button" class="btn btn-outline-primary user_add_button"
                 onclick="
                     display_block('user_add_form', 'user_add_button');">
-                    <i class="bi bi-plus-circle"></i><span class="m-1">{{ __('Добавить сотрудника') }}</span>
+                    <i class="bi bi-person-plus"></i><span class="m-1">{{ __('Добавить сотрудника') }}</span>
                 </button>
                 <button type="button" class="btn btn-outline-danger d-none user_add_form" 
                 onclick="

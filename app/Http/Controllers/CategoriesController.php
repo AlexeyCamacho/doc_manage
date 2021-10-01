@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Models\Status;
 use App\Models\Category;
 use App\Models\Document;
@@ -59,8 +60,9 @@ class CategoriesController extends Controller
             'breadcrumbs' => $breadcrumbs,
             'close_child_tabs' => Auth::user()->setting('close_child_tabs'),
             'select_category' => $select_category,
+            'allCategories' => $allCategories,
             'statuses' => $statuses,
-            'allCategories' => $allCategories
+            'users' => User::where('blocked', '0')->get()->except(Auth::id()),
         ]);
     }
 

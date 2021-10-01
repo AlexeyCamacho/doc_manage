@@ -332,3 +332,19 @@ targetPosition.bottom > windowPosition.bottom) {
     return false;
 };
 };
+
+function set_array(class_, array, arg) {
+    var list_class = document.getElementsByClassName(class_);
+    for (var i = list_class.length-1; i >= 0 ; i--) {
+        if (array.indexOf(Number(list_class[i].getAttribute(arg))) != -1) {
+            list_class[i].checked = true;
+        }
+    }
+}
+
+function clear_checked(class_) {
+    var list_class = document.getElementsByClassName(class_);
+    for (var i = list_class.length-1; i >= 0 ; i--) {
+        list_class[i].checked = false;
+    }
+}

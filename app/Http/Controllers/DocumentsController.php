@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Models\Status;
 use App\Models\Document;
+use App\Models\Category;
 use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -27,7 +29,7 @@ class DocumentsController extends Controller
         $documents = Document::where('category_id', $req->id_category)->orderBy('completed', 'asc')->latest()->get();
 
         return view('documents.documents',[
-            'documents' => $documents
+            'documents' => $documents,
         ]);
     }
 
@@ -42,9 +44,12 @@ class DocumentsController extends Controller
         if ($documents_id == null) { return redirect('categories');}
 
         $document = Document::find($documents_id);
+        $allCategories = Category::whereNull('category_id')->with('childrenCategories')->orderBy('name')->get();
 
         return view('documents.index', [
-            'document' => $document
+            'document' => $document,
+            'allCategories' => $allCategories,
+            'users' => User::all()->except(Auth::id()),
         ]);
     }
 
@@ -120,11 +125,23 @@ class DocumentsController extends Controller
 
         $document = Document::find($req->id);
 
+        if($document->completed) {
+            return abort(403, 'Нет прав.');
+        }
+
+
+
         $validation = $req->validate([
             'title' => 'required|string',
-            'description' => 'sometimes|nullable|min:5|string',
-            'deadline' => 'sometimes|nullable|date|after_or_equal:' . max(date('Y-m-d'), $document->files->max('deadline')),  
+            'description' => 'sometimes|nullable|min:5|string'  
         ]);
+
+        if($req->deadline != $document->deadline) {
+            $validation = $req->validate([
+            'deadline' => 'date|after_or_equal:' . max(date('Y-m-d'), $document->files->max('deadline')),  
+            ]);
+
+        }
 
         $document->update([
             'name' => $req->title,
@@ -140,13 +157,27 @@ class DocumentsController extends Controller
     }
 
     public function active(Request $req) {
-        if (!Gate::allows('active-documents')) {
+        if (!Gate::allows('actions-completed-documents')) {
             return abort(403, 'Нет прав');
         }
 
         $document = Document::find($req->data);
         $document->completed = 0;
         $document->save();
+    }
+
+    public function complete(Request $req) {
+        if (!Gate::allows('edit-documents')) {
+            return abort(403, 'Нет прав');
+        }
+
+        $document = Document::find($req->data);
+        $document->completed = 1;
+        $document->save();
+    }
+
+    public function responsible_edit(Request $req) {
+        
     }
 
 }

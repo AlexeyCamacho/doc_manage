@@ -73,7 +73,15 @@
                     @endif
                     @endcan
                     </td>
-                    <td> @if (session('editMode')) @include('icons.documents') @endif </td>
+                    <td> @if ( (session('editMode')) && (!$document->completed || Gate::allows('actions-completed-documents'))) 
+                        <div class="text-center">
+                        <button class="btn" type="button" id="dropdownMenuDocument" data-toggle="dropdown" aria-expanded="false"> 
+                            <i class="bi bi-gear"></i> 
+                        </button>
+                        @include('icons.documents')
+                        <div>
+                        @endif 
+                    </td>
                 </tr>
             @endforeach
     </tbody>

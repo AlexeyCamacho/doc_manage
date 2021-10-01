@@ -43,7 +43,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" class="btn btn-primary" onclick="rm_class('edit_documents', 'is-invalid');
                     clear_class('errors-edit_documents'); 
-                    ajax('documents_edit_form', 'documents/edit', 'edit_documents-');">Сохранить</button>
+                    ajax('documents_edit_form', '/doc_manage/documents/edit', 'edit_documents-');">Сохранить</button>
                 </div>
             </div>
         </div>

@@ -1,11 +1,19 @@
-@if(session('editMode') && ( Gate::allows('edit-documents') || Gate::allows('delete-documents')))
-<div class="dropdown text-center">
-<button class="btn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="false"> 
-    <i class="bi bi-gear"></i> 
-</button>
-  <ul class="dropdown-menu no-min-width" aria-labelledby="dropdownMenu3">
+@if(( Gate::allows('edit-documents') || Gate::allows('delete-documents')))
+  <ul class="dropdown-menu no-min-width" aria-labelledby="dropdownMenuDocument">
     @can('edit-documents')
     @if (!$document->completed)
+    <li>
+        <button class="dropdown-item" type="button" data-hint="true" data-placement="right" title="Завершить документ" onclick="api_get('/documents/complete', {{ $document->id }}); location.reload();">
+            <i class="bi bi-file-earmark-check" data-hint="true" data-placement="right" title="Завершить документ"></i>
+        </button>
+    </li>
+    @if (($document->users->contains(Auth::id())) || Gate::allows('edit-users-documents'))
+    <li>
+        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#editUserDocuments" data-bs-id="{{ $document->id }}" data-bs-users="{{ $document->users()->select('id')->get(); }}" data-hint="true" data-placement="right" title="Назначить ответственных">
+            <i class="bi bi-person-plus" data-hint="true" data-placement="right" title="Назначить ответственных"></i>
+        </button>
+    </li>
+    @endif
     <li>
         <button class="dropdown-item" type="button" data-bs-name="{{ $document->name }}" data-toggle="modal" data-target="#editDocuments" data-bs-id="{{ $document->id }}" data-bs-parent="{{ $document->category_id }}" data-bs-description="{{ $document->description }}" data-bs-deadline="{{ $document->deadline }}" data-bs-max_deadline="{{ max($document->files->max('deadline'), date('Y-m-d')) }}" data-hint="true" data-placement="right" title="Редактировать">
             <i class="bi bi-pencil" data-hint="true" data-placement="right" title="Редактировать"></i>
@@ -19,13 +27,15 @@
     </li>
     @endif
     @endcan
+
     @can('delete-documents')
+    @if (!$document->completed || Gate::allows('actions-completed-documents'))
     <li>
         <button class="dropdown-item" type="button" data-bs-name="" data-toggle="modal" data-target="#deleteDocuments" data-bs-id="" data-bs-parent="" data-bs-archive="22" data-hint="true" data-placement="right" title="Удалить">
             <i class="bi bi-trash" data-hint="true" data-placement="right" title="Удалить"></i>
         </button>
     </li>
+    @endif
     @endcan
   </ul>
-</div>
 @endif
