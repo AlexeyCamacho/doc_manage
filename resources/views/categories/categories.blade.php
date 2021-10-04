@@ -54,13 +54,17 @@
     @include('categories.delete_categories_modal')
 @endcan
 
+@can('create-documents')
+    @include('documents.create_documents_modal')
+@endcan
+
 @can('edit-documents')
     @include('documents.edit_documents_modal')
     @include('documents.edit_users_documents_modal')
 @endcan
 
-@can('create-documents')
-    @include('documents.create_documents_modal')
+@can('delete-documents')
+    @include('documents.delete_documents_modal')
 @endcan
 
 <script>    

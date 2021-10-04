@@ -31,7 +31,7 @@
     @can('delete-documents')
     @if (!$document->completed || Gate::allows('actions-completed-documents'))
     <li>
-        <button class="dropdown-item" type="button" data-bs-name="" data-toggle="modal" data-target="#deleteDocuments" data-bs-id="" data-bs-parent="" data-bs-archive="22" data-hint="true" data-placement="right" title="Удалить">
+        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#deleteDocuments" data-bs-id="{{ $document->id }}" data-bs-name="{{ $document->name }}" data-hint="true" data-placement="right" title="Удалить">
             <i class="bi bi-trash" data-hint="true" data-placement="right" title="Удалить"></i>
         </button>
     </li>

@@ -72,7 +72,7 @@ class UsersController extends Controller
             return abort(403, 'Нет прав');
         }
 
-        $user = User::where('id', $req->id)->first();
+        $user = User::find($req->id);
 
         if($user->blocked == 0) {
             $user->blocked = 1;
@@ -99,7 +99,7 @@ class UsersController extends Controller
             'role' => 'required|string'
         ]);
 
-        $user = User::where('id', $req->id)->first();
+        $user = User::find($req->id);
 
         $user->login = $req->login;
         $user->email = $req->email;

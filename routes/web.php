@@ -66,6 +66,7 @@ Route::prefix('documents')->group(function () {
     Route::post('/active', 'DocumentsController@active');
     Route::post('/complete', 'DocumentsController@complete');
     Route::post('/responsible', 'DocumentsController@responsible_edit');
+    Route::post('/delete', 'DocumentsController@delete');
 });
 
 Route::prefix('session')->group(function () {
@@ -79,6 +80,11 @@ Route::prefix('files')->group(function () {
    Route::get('/download/{file_id}', 'FilesController@download_preview');
    Route::get('/preview/{file_id}', 'FilesController@preview'); 
 });
+
+/*Route::get('/test', function() {
+    $a = 'documents/CtseGNeAERLhbOUPVNuif0TYaoVGIhttVtiC83l4.png';
+    dispatch(new ProcessDeleteFiles($a));
+});*/
 
 /*Route::get('/mail_test', function() {
     return new App\Mail\UserPassword('name','name','name');

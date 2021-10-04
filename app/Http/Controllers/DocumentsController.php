@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\Category;
 use App\Models\Position;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessDeleteFiles;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
@@ -177,7 +178,40 @@ class DocumentsController extends Controller
     }
 
     public function responsible_edit(Request $req) {
-        
+        $document = Document::find($req->id);
+        if ((!Gate::allows('edit-users-documents') && !$document->users->contains(Auth::id())) || $document->completed) {
+            return abort(403, 'Нет прав');
+        }
+
+        if(!$document->users->contains(Auth::id())) {
+            $validation = $req->validate([
+                'users' => 'required|array|min:1'
+            ]); 
+        }
+
+        $document->users()->detach();
+        $document->users()->attach($req->users);
+
+        if($document->users->contains(Auth::id())) {
+            $document->users()->attach(Auth::id());
+        } 
+
+    }
+
+    public function delete(Request $req) {
+        if (!Gate::allows('delete-documents')) {
+            return abort(403, 'Нет прав');
+        }
+
+        $document = Document::find($req->id);
+
+
+        foreach ($document->files as $file) {
+            dispatch(new ProcessDeleteFiles($file->file));
+        }
+
+        Document::destroy($req->id);
+
     }
 
 }

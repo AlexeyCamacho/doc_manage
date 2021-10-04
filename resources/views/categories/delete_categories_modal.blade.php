@@ -9,11 +9,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="category_delete_form" method="POST" action="categories/delete">
+                    <form id="category_delete_form">
                         @csrf
                         <input name="id" id="delete-id" type="hidden" value="">
                         <div class="mb-3">
-                            Вы собираетесь удалить категорию. После этого дейставия, восстановить категорию будет невозможно. Все дочерние категории и документы будут перенесены в другие категории.  Вы уверены, что хотите удалить категорию <span id="delete-name"></span>?
+                            Вы собираетесь удалить категорию. После этого дейставия, восстановить категорию будет невозможно. Все дочерние категории и документы будут перенесены в другие категории.  Вы уверены, что хотите удалить категорию <span id="delete-name" class="font-weight-bold"></span>?
                         </div>
                         <div class="mb-3">
                             <label for="data-bs-category" class="col-form-label">Переместить дочернии категории в</label>

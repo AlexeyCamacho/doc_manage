@@ -159,7 +159,8 @@ return [
         'document_file' => 'файл',
         'status' => 'статус',
         'new_status' => 'новый статус',
-        'document_ready' => 'документ готов'
+        'document_ready' => 'документ готов',
+        'users' => 'пользователи'
     ],
 
 ];

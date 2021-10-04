@@ -13,15 +13,12 @@
                         @csrf
                         <input name="id" id="edit_users_documents-id" type="hidden" value="">
                         <div class="mb-3">
-                            <label for="data-bs-category" class="col-form-label">Список ответственных:</label>
+                            <div><label for="data-bs-category" class="col-form-label">Список ответственных:</label></div>
+                            <select id="edit_users_documents-users" class="form-select edit_users_documents" name="users[]" multiple>
                             @foreach ($users as $user)
-                            <div class="form-check">
-                                <input class="form-check-input user_" type="checkbox" value="" user_id="{{$user->id}}">
-                                <label class="form-check-label" for="user_{{$user->id}}">
-                                {{ $user->name }}
-                              </label>
-                            </div>
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
+                            </select>
                             <x-print-errors action="edit_users_documents" field="users"></x-print-errors>
                         </div>
                     </form>
@@ -37,21 +34,22 @@
     </div>
 
 <script type="text/javascript">
+    var select_users = new vanillaSelectBox('#edit_users_documents-users', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
+
     var editUserDocumentsModal = document.getElementById('editUserDocuments');
     editUserDocumentsModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
         set_value_modal(editUserDocumentsModal, button, 'data-bs-id', 'edit_users_documents-id');
-        var list_class = JSON.parse(button.getAttribute('data-bs-users'));
+        var list_users = JSON.parse(button.getAttribute('data-bs-users'));
         var users = [];
-        for (var i = list_class.length-1; i >= 0 ; i--) {
-            users.push(list_class[i]['id']);
+        for (var i = list_users.length-1; i >= 0 ; i--) {
+            users.push(String(list_users[i]['id']));
         }
-
-        set_array('user_', users, 'user_id');
+        select_users.setValue(users);
     })
     editUserDocumentsModal.addEventListener('hide.bs.modal', function (event) {
         rm_class('edit_users_documents', 'is-invalid');
         clear_class('errors-edit_users_documents');
-        clear_checked('user_');
     })
+
 </script>

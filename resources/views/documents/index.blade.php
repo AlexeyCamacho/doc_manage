@@ -126,4 +126,8 @@
     @include('documents.edit_users_documents_modal')
 @endcan
 
+@can('delete-documents')
+    @include('documents.delete_documents_modal')
+@endcan
+
 @endsection
