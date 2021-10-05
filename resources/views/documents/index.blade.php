@@ -39,9 +39,15 @@
                 <div class="col">
                     <h5>Создан: {{$document->created_at}}</h5>
                 </div>
+                @if(!$document->completed)
+                @can('create-documents')
+                @can('loading-documents')
                 <div class="col text-right mb-2">
-                    <button type="button" class="btn btn-outline-primary">Добавить файл</button>
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createPositons" data-bs-id="{{ $document->id }}" data-bs-deadline="{{ $document->deadline }}">Добавить файл</button>
                 </div>
+                @endcan
+                @endcan
+                @endif
             </div>
         </div>  
     </div>
@@ -60,7 +66,7 @@
                             <th scope="col">Дата загрузки</th>
                             <th scope="col">Дедлайн</th>
                             @can('download-documents')<th scope="col" class="text-center">Предпр./Скачать</th>@endcan
-                            @if (session('editMode'))<th scope="col " class="text-center">Настройка</th>@endif
+                            @if((session('editMode')) && !$document->completed && (Gate::allows('edit-documents') || Gate::allows('delete-documents')))<th scope="col " class="text-center">Настройка</th>@endif
                         </tr>
                     </thead>
                     <tbody>
@@ -97,7 +103,16 @@
                                 </div>
                                 @endcan
                                 </td>
-                                @if (session('editMode')) <td class="text-center"> н </td>@endif
+                                <td class="text-center">
+                                @if((session('editMode')) && !$document->completed && (Gate::allows('edit-documents') || Gate::allows('delete-documents')))  
+                                    <div class="text-center">
+                                    <button class="btn" type="button" id="dropdownMenuDocument" data-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="bi bi-gear"></i> 
+                                    </button>
+                                    @include('icons.positions')
+                                    <div>
+                                @endif
+                                </td>
                                 </tr>
                             @endforeach
                     </tbody>
@@ -120,6 +135,12 @@
     </div>
     @endif
 </div>
+
+@can('create-documents')
+@can('loading-documents')
+    @include('positions.create_modal')
+@endcan
+@endcan
 
 @can('edit-documents')
     @include('documents.edit_documents_modal')

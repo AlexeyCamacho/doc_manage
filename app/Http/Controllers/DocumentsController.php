@@ -46,11 +46,13 @@ class DocumentsController extends Controller
 
         $document = Document::find($documents_id);
         $allCategories = Category::whereNull('category_id')->with('childrenCategories')->orderBy('name')->get();
+        $statuses = Status::whereNull('status_id')->with('childrenStatuses')->orderBy('name')->get();
 
         return view('documents.index', [
             'document' => $document,
             'allCategories' => $allCategories,
             'users' => User::all()->except(Auth::id()),
+            'statuses' => $statuses,
         ]);
     }
 

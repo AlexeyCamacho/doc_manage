@@ -78,7 +78,8 @@ Route::prefix('session')->group(function () {
 
 Route::prefix('files')->group(function () {
    Route::get('/download/{file_id}', 'FilesController@download_preview');
-   Route::get('/preview/{file_id}', 'FilesController@preview'); 
+   Route::get('/preview/{file_id}', 'FilesController@preview');
+   Route::post('/create', 'FilesController@create'); 
 });
 
 /*Route::get('/test', function() {
