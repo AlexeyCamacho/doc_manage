@@ -13,7 +13,7 @@
                         @csrf
                         <input name="id" id="delete_documents-id" type="hidden" value="">
                         <div class="mb-3">
-                            Вы собираетесь удалить документ. Все файлы будут удалены с сервера. После этого дейставия, восстановить документ будет невозможно. Вы уверены, что хотите удалить документ <span id="delete_documents-name" class="font-weight-bold"></span>?
+                            Вы собираетесь удалить документ. Все файлы будут удалены с сервера. После этого действия, восстановить документ будет невозможно. Вы уверены, что хотите удалить документ <span id="delete_documents-name" class="font-weight-bold"></span>?
                         </div>
                     </form>
                 </div>

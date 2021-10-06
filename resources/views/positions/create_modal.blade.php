@@ -47,7 +47,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" class="btn btn-primary" onclick="rm_class('create_positions', 'is-invalid');
                     clear_class('errors-create_positions');
-                    ajax_debug('positions_create_form', '/doc_manage/files/create', 'create_positions-');">Создать</button>
+                    ajax('positions_create_form', '/doc_manage/files/create', 'create_positions-');">Создать</button>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Models\Status;
 use App\Models\Document;
 use App\Models\Position;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessDeleteFiles;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,7 +52,7 @@ class FilesController extends Controller
         }
 
         $validation = $req->validate([
-            'deadline' => 'sometimes|nullable|date|after_or_equal:' . date('Y-m-d'),  
+            'deadline' => 'sometimes|nullable|date|after_or_equal:' . date('Y-m-d') . '|before_or_equal:' . Document::find($req->id)->deadline,  
             'file' => 'required|file|mimes:pdf,jpg,doc,docx,csv,xlsx,png',
             'new_status' => 'sometimes|nullable|string|unique:statuses,name',
             'new_status' => 'required_without_all:document_ready,status'
@@ -86,5 +87,53 @@ class FilesController extends Controller
             $document->completed = 1;
             $document->save();
         }
+    }
+
+    public function edit(Request $req) {
+        if (!Gate::allows('edit-documents')) {
+            return abort(403, 'Нет прав.');
+        }
+
+        $position = Position::find($req->id);
+
+        $validation = $req->validate([
+            'new_status' => 'sometimes|nullable|string|unique:statuses,name',
+            'new_status' => 'required_without_all:status'
+        ]);
+
+        if($req->deadline != $position->deadline) {
+            $validation = $req->validate([
+                'deadline' => 'date|after_or_equal:' . date('Y-m-d') . '|before_or_equal:' . $position->document->deadline  
+            ]);
+
+        }
+
+        $position->deadline = $req->deadline;
+
+        if(!$req->new_status) {
+            $position->status_id = $req->status;
+        } else {
+
+            $status = Status::create([
+                'name' => $req->new_status,
+                'status_id' => $req->status 
+            ]);
+
+            $position->status_id = $status->id;
+        }
+
+        $position->save();
+    }
+
+    public function delete(Request $req) {
+        if (!Gate::allows('delete-documents')) {
+            return abort(403, 'Нет прав.');
+        }
+
+        $position = Position::find($req->id);
+
+        dispatch(new ProcessDeleteFiles($position->file));
+
+        Position::destroy($req->id);
     }
 }

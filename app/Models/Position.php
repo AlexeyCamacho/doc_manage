@@ -22,4 +22,9 @@ class Position extends Model
     {
         return $this->belongsTo(Status::class);
     }
+
+    public function document()
+    {
+        return $this->belongsTo(Document::class);
+    }
 }

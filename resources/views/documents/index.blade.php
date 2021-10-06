@@ -103,16 +103,16 @@
                                 </div>
                                 @endcan
                                 </td>
-                                <td class="text-center">
-                                @if((session('editMode')) && !$document->completed && (Gate::allows('edit-documents') || Gate::allows('delete-documents')))  
+                                @if((session('editMode')) && !$document->completed && (Gate::allows('edit-documents') || Gate::allows('delete-documents'))) 
+                                <td class="text-center"> 
                                     <div class="text-center">
                                     <button class="btn" type="button" id="dropdownMenuDocument" data-toggle="dropdown" aria-expanded="false"> 
                                         <i class="bi bi-gear"></i> 
                                     </button>
                                     @include('icons.positions')
                                     <div>
-                                @endif
                                 </td>
+                                @endif
                                 </tr>
                             @endforeach
                     </tbody>
@@ -145,10 +145,12 @@
 @can('edit-documents')
     @include('documents.edit_documents_modal')
     @include('documents.edit_users_documents_modal')
+    @include('positions.edit_modal')
 @endcan
 
 @can('delete-documents')
     @include('documents.delete_documents_modal')
+    @include('positions.delete_modal')
 @endcan
 
 @endsection
