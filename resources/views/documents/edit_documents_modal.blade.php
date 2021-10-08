@@ -37,12 +37,21 @@
                             <input type="date" class="form-control edit_documents" id="edit_documents-deadline" name="deadline" min="{{ date('Y-m-d') }}">
                             <x-print-errors action="edit_documents" field="deadline"></x-print-errors>
                         </div>
+                        <div class="mb-3">
+                            <div><label for="edit_documents-tags" class="col-form-label">Тэги:</label></div>
+                            <select class="form-select edit_documents" id="edit_documents-tags" name="tags[]" multiple>
+                                @foreach ($tags as $tag)
+                                    <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                @endforeach
+                            </select>
+                            <x-print-errors action="edit_documents" field="tags"></x-print-errors>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" class="btn btn-primary" onclick="rm_class('edit_documents', 'is-invalid');
-                    clear_class('errors-edit_documents'); 
+                    clear_class('errors-edit_documents');
                     ajax('documents_edit_form', '/doc_manage/documents/edit', 'edit_documents-');">Сохранить</button>
                 </div>
             </div>
@@ -61,9 +70,13 @@
         set_placeholder(button, 'data-bs-name', 'edit_documents-title');
         var max_deadline = button.getAttribute('data-bs-max_deadline');
         set_value_attribute_tag_by_id(max_deadline, 'edit_documents-deadline', 'min');
+        tags = set_value_multiSelect(button, 'data-bs-tags', 'id');
+        select_tags.setValue(tags);
     })
     editDocumentsModal.addEventListener('hide.bs.modal', function (event) {
         rm_class('edit_documents', 'is-invalid');
         clear_class('errors-edit_documents');
     })
+
+    select_tags = new vanillaSelectBox('#edit_documents-tags', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
 </script>

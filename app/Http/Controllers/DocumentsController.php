@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Models\Tag;
 use App\Models\Status;
 use App\Models\Document;
 use App\Models\Category;
@@ -19,7 +20,7 @@ class DocumentsController extends Controller
         $this->middleware('auth');
         $this->middleware('blocked');
         $this->middleware('last_act');
-    } 
+    }
 
     public function select(Request $req) {
 
@@ -47,12 +48,14 @@ class DocumentsController extends Controller
         $document = Document::find($documents_id);
         $allCategories = Category::whereNull('category_id')->with('childrenCategories')->orderBy('name')->get();
         $statuses = Status::whereNull('status_id')->with('childrenStatuses')->orderBy('name')->get();
+        $tags = Tag::orderBy('name')->get();
 
         return view('documents.index', [
             'document' => $document,
             'allCategories' => $allCategories,
             'users' => User::all()->except(Auth::id()),
             'statuses' => $statuses,
+            'tags' => $tags
         ]);
     }
 
@@ -69,20 +72,23 @@ class DocumentsController extends Controller
         $validation = $req->validate([
             'title' => 'required|string',
             'description' => 'sometimes|nullable|min:5|string',
-            'deadline' => 'sometimes|nullable|date|after_or_equal:' . date('Y-m-d'),  
+            'deadline' => 'sometimes|nullable|date|after_or_equal:' . date('Y-m-d'),
             'document_file' => 'sometimes|nullable|file|mimes:pdf,jpg,doc,docx,csv,xlsx,png',
             'deadline_position' => 'sometimes|nullable|date|before_or_equal:deadline|after_or_equal:' . date('Y-m-d'),
             'new_status' => 'sometimes|nullable|string|unique:statuses,name',
-            'new_status' => 'required_without_all:document_ready,status'
+            'new_status' => 'required_without_all:document_ready,status',
+            'tags' => 'sometimes|nullable|array'
         ]);
 
         $document = Document::create([
             'name' => $req->title,
             'description' => $req->description,
             'deadline' => $req->deadline,
-            'category_id' => $req->id_category 
+            'category_id' => $req->id_category
         ]);
-      
+
+        $document->tags()->attach($req->tags);
+
         if($req->document_file) {
 
             $path = $req->document_file->store('documents');
@@ -100,14 +106,14 @@ class DocumentsController extends Controller
                 $position->status_id = config('db_const.doc_ready');
             } else {
                 $position->deadline = $req->deadline_position;
-                
+
                 if(!$req->new_status) {
                     $position->status_id = $req->status;
                 } else {
 
                     $status = Status::create([
                         'name' => $req->new_status,
-                        'status_id' => $req->status 
+                        'status_id' => $req->status
                     ]);
 
                     $position->status_id = $status->id;
@@ -136,12 +142,13 @@ class DocumentsController extends Controller
 
         $validation = $req->validate([
             'title' => 'required|string',
-            'description' => 'sometimes|nullable|min:5|string'  
+            'description' => 'sometimes|nullable|min:5|string',
+            'tags' => 'sometimes|nullable|array'
         ]);
 
         if($req->deadline != $document->deadline) {
             $validation = $req->validate([
-            'deadline' => 'date|after_or_equal:' . max(date('Y-m-d'), $document->files->max('deadline')),  
+            'deadline' => 'date|after_or_equal:' . max(date('Y-m-d'), $document->files->max('deadline')),
             ]);
 
         }
@@ -150,11 +157,14 @@ class DocumentsController extends Controller
             'name' => $req->title,
             'description' => $req->description,
             'deadline' => $req->deadline,
-            'category_id' => $req->category 
+            'category_id' => $req->category
         ]);
 
-        if(Auth::user()->setting('switch_category')) { 
-            $req->session()->put('select_category', $req->category); 
+        $document->tags()->detach();
+        $document->tags()->attach($req->tags);
+
+        if(Auth::user()->setting('switch_category')) {
+            $req->session()->put('select_category', $req->category);
         }
 
     }
@@ -188,7 +198,7 @@ class DocumentsController extends Controller
         if(!$document->users->contains(Auth::id())) {
             $validation = $req->validate([
                 'users' => 'required|array|min:1'
-            ]); 
+            ]);
         }
 
         $document->users()->detach();
@@ -196,7 +206,7 @@ class DocumentsController extends Controller
 
         if($document->users->contains(Auth::id())) {
             $document->users()->attach(Auth::id());
-        } 
+        }
 
     }
 

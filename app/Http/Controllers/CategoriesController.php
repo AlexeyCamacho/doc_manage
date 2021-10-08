@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Models\Tag;
 use App\Models\Status;
 use App\Models\Category;
 use App\Models\Document;
@@ -18,7 +19,7 @@ class CategoriesController extends Controller
         $this->middleware('auth');
         $this->middleware('blocked');
         $this->middleware('last_act');
-    } 
+    }
 
     public function index() {
         if (!Gate::allows('views-categories')) {
@@ -37,6 +38,7 @@ class CategoriesController extends Controller
         $categories = Category::where($where)->with('childrenCategories')->orderBy('name')->get();
         $allCategories = Category::whereNull('category_id')->with('childrenCategories')->orderBy('name')->get();
         $statuses = Status::whereNull('status_id')->with('childrenStatuses')->orderBy('name')->get();
+        $tags = Tag::orderBy('name')->get();
 
         $openCategories_array = session('openCategories');
         $openCategories = collect();
@@ -55,7 +57,7 @@ class CategoriesController extends Controller
         if ($select_category) { session()->forget('select_category'); }
 
         return view('categories.categories', [
-            'categories' => $categories, 
+            'categories' => $categories,
             'openCategories' => $openCategories,
             'breadcrumbs' => $breadcrumbs,
             'close_child_tabs' => Auth::user()->setting('close_child_tabs'),
@@ -63,6 +65,7 @@ class CategoriesController extends Controller
             'allCategories' => $allCategories,
             'statuses' => $statuses,
             'users' => User::where('blocked', '0')->get()->except(Auth::id()),
+            'tags' => $tags
         ]);
     }
 
@@ -77,9 +80,9 @@ class CategoriesController extends Controller
         ]);
 
         if ($user) {
-            return redirect()->route('categories'); 
-        } else { 
-            return abort(500); 
+            return redirect()->route('categories');
+        } else {
+            return abort(500);
         }
     }
 
@@ -199,7 +202,7 @@ class CategoriesController extends Controller
             $document->save();
         }
 
-        $cat->delete();      
+        $cat->delete();
 
     }
 }

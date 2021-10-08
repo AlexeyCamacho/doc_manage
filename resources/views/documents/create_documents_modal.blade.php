@@ -28,8 +28,18 @@
                             <x-print-errors action="create" field="deadline"></x-print-errors>
                             <small class="text-muted">Оставьте пустым, если дедлайн неопределен.</small>
                         </div>
+                        <div class="mb-3">
+                            <div><label for="create-tags" class="col-form-label">Тэги:</label></div>
+                            <select class="form-select create" id="create-tags" name="tags[]" multiple>
+                                @foreach ($tags as $tag)
+                                    <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                @endforeach
+                            </select>
+                            <x-print-errors action="create" field="tags"></x-print-errors>
+                        </div>
                         @can('loading-documents')
                         <div class="mb-3">
+                            <label for="create-deadline" class="col-form-label">Файл:</label>
                             <input class="form-control" type="file" id="create-document_file" name="document_file">
                             <x-print-errors action="create" field="document_file"></x-print-errors>
                             <small class="text-muted">Загрузите файл, если он есть.</small>
@@ -78,17 +88,17 @@
     document.getElementById('create-document_file').addEventListener('change', function(){
         if( this.value ){
             show_elem_by_id('file_true');
-        } else { 
+        } else {
             hide_elem_by_id('file_true');
-        } 
+        }
     });
 
     document.getElementById('create-document_ready').addEventListener('change', function(){
         if( this.checked ){
             hide_elem_by_id('document_not_ready');
-        } else { 
+        } else {
             show_elem_by_id('document_not_ready');
-        } 
+        }
     });
 
     var createDocumentsModal = document.getElementById('createDocuments');
@@ -97,6 +107,8 @@
         rm_class('create', 'is-invalid');
         clear_class('errors-create');
         reset_form_by_id('document_create_form');
+        hide_elem_by_id('document_not_ready');
+        hide_elem_by_id('file_true');
     });
 
     document.getElementById('create-deadline').addEventListener('change', function(){
@@ -104,4 +116,5 @@
         document.getElementById('create-deadline_position').max = deadline;
     });
 
+    new vanillaSelectBox('#create-tags', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
 </script>

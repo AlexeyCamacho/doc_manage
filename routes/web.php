@@ -39,6 +39,8 @@ Route::prefix('users')->group(function () {
 
 Route::get('/permissions', 'PermissionsController@index')->name('permissions');
 
+Route::get('/tags', 'TagsController@index')->name('tags');
+
 Route::prefix('role')->group(function () {
     Route::get('/', 'RolesController@index')->name('role');
     Route::get('/create', 'RolesController@show_create')->name('create-role');
@@ -79,9 +81,9 @@ Route::prefix('session')->group(function () {
 Route::prefix('files')->group(function () {
    Route::get('/download/{file_id}', 'FilesController@download_preview');
    Route::get('/preview/{file_id}', 'FilesController@preview');
-   Route::post('/create', 'FilesController@create'); 
-   Route::post('/edit', 'FilesController@edit'); 
-   Route::post('/delete', 'FilesController@delete'); 
+   Route::post('/create', 'FilesController@create');
+   Route::post('/edit', 'FilesController@edit');
+   Route::post('/delete', 'FilesController@delete');
 });
 
 /*Route::get('/test', function() {
@@ -93,5 +95,3 @@ Route::prefix('files')->group(function () {
     return new App\Mail\UserPassword('name','name','name');
 });
 */
-
-

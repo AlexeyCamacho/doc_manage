@@ -20,7 +20,7 @@ li[data-parent].open:not(.hidden-search){
   border:1px solid #B2B2B2;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid rgba(0,0,0,.15);
+  border: 1px solid #ced4da;
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
   border-radius:4px;
   font-size : 11px;
@@ -94,10 +94,18 @@ li.short{
 	z-index: 1;
 	color: #333;
 	background: white !important;
-	border: 1px solid #999 !important;
+	border: 1px solid #ced4da;
 	line-height:20px;
 	font-size:14px;
 	padding:6px 12px;
+}
+
+.vsb-main button:focus {
+	border-color: #8bbafe;
+	box-shadow: 0 0 0 0.2rem rgb(13 110 253 / 25%);
+	color: #495057;
+	background-color: #fff;
+	outline: 0;
 }
 
 .vsb-main button.disabled{
@@ -269,4 +277,3 @@ li.short{
 li[data-parent]{
 	padding-left: 50px !important;
 }
-

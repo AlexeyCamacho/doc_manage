@@ -33,7 +33,7 @@ function reset_form_by_class(form_class) {
             form[i].reset();
         }
     }
-    
+
 }
 
 function toggle_elem_by_id(id) {
@@ -126,7 +126,7 @@ function print_error(field, error){
     error_element = document.getElementById(error_element);
     if(error_element) {
         error_element.innerHTML = error;
-    } 
+    }
 }
 
 function rm_class(in_class, rm_class, element = document) {
@@ -154,7 +154,7 @@ function ajax_(data, url) {
     xhr.send(data);
 
     xhr.onreadystatechange = function() { // (3)
-        if (xhr.readyState != 4) return;  
+        if (xhr.readyState != 4) return;
     }
     return xhr.response;
 }
@@ -192,7 +192,7 @@ function set_value_attribute_tag_by_id(val, id, atr) {
         if (Input) {
             Input.setAttribute(atr, val);
         }
-    }   
+    }
 }
 
 function set_placeholder(button, atrib, id_input) {
@@ -205,6 +205,15 @@ function set_value_div(button, atrib, id_input) {
     var recipient = button.getAttribute(atrib);
     var div = document.querySelector('#' + id_input);
     div.textContent = recipient;
+}
+
+function set_value_multiSelect(button, atrib, val) {
+    var json = JSON.parse(button.getAttribute(atrib));
+    var result = [];
+    for (var i = json.length-1; i >= 0 ; i--) {
+        result.push(String(json[i][val]));
+    }
+    return result;
 }
 
 function ajax_debug(form, url, action, redir = null) {
@@ -223,7 +232,6 @@ function session_ajax(action, key, val = null, ajax = true, array = false) {
     if (array) { myData.append('array', true); }
 
     var xhr = new XMLHttpRequest();
-    //xhr.responseType =  "json";
 
     xhr.open('POST', '/doc_manage/session/' + action, ajax);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
@@ -232,12 +240,6 @@ function session_ajax(action, key, val = null, ajax = true, array = false) {
 
     xhr.onreadystatechange = function() { // (3)
         if (xhr.readyState != 4) return;
-
-        if (xhr.status != 200) {
-            //console.log(xhr.responseText);
-        } 
-        //console.log(xhr.responseText);
-
     }
 }
 
@@ -271,8 +273,8 @@ function api_get(url, data) {
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     xhr.send(myData);
 
-    xhr.onreadystatechange = function() { // (3)
-        if (xhr.readyState != 4) return;  
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState != 4) return;
     }
     return xhr.response;
 }
@@ -321,10 +323,10 @@ windowPosition = {
     bottom: window.pageYOffset + document.documentElement.clientHeight
 };
 
-if (targetPosition.bottom > windowPosition.top && 
-targetPosition.top > windowPosition.bottom && 
-targetPosition.top > windowPosition.top && 
-targetPosition.bottom > windowPosition.bottom) { 
+if (targetPosition.bottom > windowPosition.top &&
+targetPosition.top > windowPosition.bottom &&
+targetPosition.top > windowPosition.top &&
+targetPosition.bottom > windowPosition.bottom) {
 
     return true;
 } else {

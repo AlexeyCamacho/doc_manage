@@ -13,20 +13,21 @@ class RolesController extends Controller
 {
 
     public $role_object = [
-        'users' => 'Пользователи', 
+        'users' => 'Пользователи',
         'permissions' => 'Права',
         'roles' => 'Роли',
         'categories' => 'Категории',
-        'documents' => 'Документы'
+        'documents' => 'Документы',
+        'tags' => 'Теги'
     ];
 
     public function __construct() {
         $this->middleware('auth');
         $this->middleware('blocked');
         $this->middleware('last_act');
-    } 
+    }
 
-    public function index() {   
+    public function index() {
         if (!Gate::allows('views-roles')) {
             return view('PermError');
         }
@@ -68,7 +69,7 @@ class RolesController extends Controller
 
         $role = Role::create([
             'name' => $req->title,
-            'slug' => $req->slug, 
+            'slug' => $req->slug,
         ]);
 
         $reqPermissions = $req->except('slug', 'title', '_token');
@@ -114,8 +115,8 @@ class RolesController extends Controller
         }
 
         return view('role.edit', [
-            'role' => $role, 
-            'permissionСategories' => $permissions, 
+            'role' => $role,
+            'permissionСategories' => $permissions,
             'activePermissions' => $active_role_permissions
         ]);
     }

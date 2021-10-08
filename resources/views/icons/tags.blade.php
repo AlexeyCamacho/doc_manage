@@ -1,0 +1,10 @@
+<div class="btn-group">
+    @can('edit-users')
+        <button role="button" class="btn btn-outline-secondary" data-hint="true" data-placement="top" title="Редактировать" data-bs-name="{{ $tag->name }}" data-bs-id="{{ $tag->id }}">
+            <i class="bi bi-pencil" data-hint="true" data-placement="top" title="Редактировать"></i>
+        </button>
+        <button type="button" class="btn btn-outline-danger" data-hint="true" data-placement="top" title="Удалить" data-bs-name="{{ $tag->name }}" data-bs-id="{{ $tag->id }}">
+            <i class="bi bi-trash" data-hint="true" data-placement="top" title="Удалить"></i>
+        </button>
+    @endcan
+</div>

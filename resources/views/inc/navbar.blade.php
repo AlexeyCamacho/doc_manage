@@ -28,6 +28,7 @@
                         <li><a class="dropdown-item" href="{{ route('users') }}">{{ __('Пользователи') }}</a></li>
                         <li><a class="dropdown-item" href="{{ route('role') }}">{{ __('Роли') }}</a></li>
                         <li><a class="dropdown-item" href="{{ route('permissions') }}">{{ __('Права') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ route('tags') }}">{{ __('Теги') }}</a></li>
                         <li><a class="dropdown-item" href="#">{{ __('Логи') }}</a></li>
                     </ul>
                 </li>

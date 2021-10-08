@@ -23,4 +23,8 @@ class Document extends Model
         return $this->hasMany(Position::class, 'document_id');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'documents_tags');
+    }
 }
