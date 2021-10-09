@@ -39,7 +39,13 @@ Route::prefix('users')->group(function () {
 
 Route::get('/permissions', 'PermissionsController@index')->name('permissions');
 
-Route::get('/tags', 'TagsController@index')->name('tags');
+
+Route::prefix('tags')->group(function () {
+    Route::get('/', 'TagsController@index')->name('tags');
+    Route::post('/create', 'TagsController@create');
+    Route::post('/edit', 'TagsController@edit');
+    Route::post('/delete', 'TagsController@delete');
+});
 
 Route::prefix('role')->group(function () {
     Route::get('/', 'RolesController@index')->name('role');

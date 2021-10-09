@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
+
+  protected $fillable = [
+      'name', 'status_id', 'visible'
+  ];
+  
     use HasFactory;
 }

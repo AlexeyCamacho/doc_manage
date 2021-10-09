@@ -195,6 +195,24 @@ function set_value_attribute_tag_by_id(val, id, atr) {
     }
 }
 
+function set_value_by_id(id, val) {
+    if(val) {
+        var Input = document.querySelector('#' + id);
+        if (Input) {
+            Input.value = val;
+        }
+    }
+}
+
+function set_placeholder_by_id(id, val) {
+  if(val) {
+      var Input = document.querySelector('#' + id);
+      if (Input) {
+          Input.placeholder = val;
+      }
+  }
+}
+
 function set_placeholder(button, atrib, id_input) {
     var recipient = button.getAttribute(atrib);
     var div = document.querySelector('#' + id_input);
@@ -214,6 +232,13 @@ function set_value_multiSelect(button, atrib, val) {
         result.push(String(json[i][val]));
     }
     return result;
+}
+
+function rm_elem_by_id(id){
+  var elem = document.getElementById(id);
+  if(elem) {
+    elem.remove();
+  }
 }
 
 function ajax_debug(form, url, action, redir = null) {
