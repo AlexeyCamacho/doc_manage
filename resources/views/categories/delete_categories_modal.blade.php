@@ -12,6 +12,7 @@
                     <form id="category_delete_form">
                         @csrf
                         <input name="id" id="delete-id" type="hidden" value="">
+                        <x-print-errors action="delete" field="id"></x-print-errors>
                         <div class="mb-3">
                             Вы собираетесь удалить категорию. После этого действия, восстановить категорию будет невозможно. Все дочерние категории и документы будут перенесены в другие категории.  Вы уверены, что хотите удалить категорию <span id="delete-name" class="font-weight-bold"></span>?
                         </div>
@@ -41,7 +42,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" class="btn btn-danger" onclick="rm_class('delete', 'is-invalid');
-                    clear_class('errors-delete'); 
+                    clear_class('errors-delete');
                     ajax('category_delete_form', 'categories/delete', 'delete-');">Удалить</button>
                 </div>
             </div>

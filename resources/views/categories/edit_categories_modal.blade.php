@@ -12,6 +12,7 @@
                     <form id="category_edit_form">
                         @csrf
                         <input name="id" id="edit-id" type="hidden" value="">
+                        <x-print-errors action="edit" field="id"></x-print-errors>
                         <div class="mb-3">
                             <label for="data-bs-title" class="col-form-label">Название:</label>
                             <input type="text" class="form-control edit" id="edit-title" name="title">
@@ -33,7 +34,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" class="btn btn-primary" onclick="rm_class('edit', 'is-invalid');
-                    clear_class('errors-edit'); 
+                    clear_class('errors-edit');
                     ajax('category_edit_form', 'categories/edit', 'edit-');">Сохранить</button>
                 </div>
             </div>

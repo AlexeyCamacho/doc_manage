@@ -19,7 +19,6 @@
             <th scope="col">Название</th>
             <th scope="col">Статус</th>
             <th scope="col">Ответственные</th>
-            <th scope="col">Дата создания</th>
             <th scope="col">Дедлайн</th>
             @can('download-documents')<th scope="col" class="text-center">Предпр./Скачать</th>@endcan
             @if (session('editMode'))<th scope="col">Настройка</th>@endif
@@ -54,7 +53,6 @@
                         @endif
                         @endforeach
                     </td>
-                    <td>{{ $document->created_at }}</td>
                     <td>
                         @if ($document->deadline != null)
                         {{ $document->deadline }}
@@ -73,17 +71,17 @@
                     @endif
                     @endcan
                     </td>
-                    @if ( (session('editMode')) && (!$document->completed || Gate::allows('actions-completed-documents'))) 
+                    @if ( (session('editMode')) && (!$document->completed || Gate::allows('actions-completed-documents')))
                     <td>
                         <div class="text-center">
-                        <button class="btn" type="button" id="dropdownMenuDocument" data-toggle="dropdown" aria-expanded="false"> 
-                            <i class="bi bi-gear"></i> 
+                        <button class="btn" type="button" id="dropdownMenuDocument" data-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-gear"></i>
                         </button>
                         @include('icons.documents')
                         <div>
                     </td>
-                    @endif 
-                    
+                    @endif
+
                 </tr>
             @endforeach
     </tbody>
@@ -92,4 +90,3 @@
 @else
 <h4>Документы в данной категории не найдены</h4>
 @endif
-

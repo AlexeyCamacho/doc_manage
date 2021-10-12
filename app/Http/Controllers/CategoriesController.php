@@ -131,7 +131,8 @@ class CategoriesController extends Controller
         }
 
         $validation = $req->validate([
-            'title' => 'required|min:4|string'
+            'title' => 'required|min:4|string',
+            'id' => 'required|not_in:' . config('db_const.archive')
         ]);
 
         $req->data = $req->id;
@@ -182,9 +183,9 @@ class CategoriesController extends Controller
             return abort(403, 'Нет прав');
         }
 
-        if ($req->id == 22) {
-            return abort(403);
-        }
+        $validation = $req->validate([
+            'id' => 'required|not_in:' . config('db_const.archive')
+        ]);
 
         $cat = Category::where('id', $req->id)->first();
 

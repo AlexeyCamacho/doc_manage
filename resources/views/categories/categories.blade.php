@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid border shadow bg-white rounded p-3">
     <div class="row">
-        <div class="col-lg-3 mb-3">
+        <div class="col-lg-auto mb-3">
             <h1>{{ ('Категории') }}
                 <button class="btn btn-outline-secondary btn-sm ml-4 mb-2" type="button"
                 data-toggle="tooltip" data-placement="right" title="Закрыть все категории" onclick="session_reset('openCategories'); session_reset('select_category');
@@ -13,7 +13,7 @@
                     <i class="bi bi-arrow-clockwise" data-toggle="tooltip" data-placement="right" title="Закрыть все категории"></i>
                 </button>
             </h1>
-            
+
             @if (Route::current()->parameter('id'))
                 @include('inc.breadcrumb', ['breadcrumbs' => $breadcrumbs])
             @endif
@@ -27,11 +27,11 @@
                 @if (session('editMode'))
                 <div class="d-flex flex-row-reverse mt-4">
                     <button type="button" class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="right" title="Добавить категорию" onclick="view_block_add_category(0);"><i class="bi bi-plus-circle" data-toggle="tooltip" data-placement="right" title="Добавить категорию"></i></button>
-                </div>  
+                </div>
                 @endif
             @endcan
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg">
             <div id="documents">
                 <div class="row">
                     <div class="col">
@@ -67,7 +67,7 @@
     @include('documents.delete_documents_modal')
 @endcan
 
-<script>    
+<script>
     var close_child_tabs = {!! json_encode($close_child_tabs) !!};
 </script>
 

@@ -13,15 +13,17 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
         <!-- Styles -->
-       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/tableSort.css') }}">
         <link rel="stylesheet" href="{{ asset('css/vanillaSelectBox.css') }}">
 
-        
+
         <!-- Scripts -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
         <script src="{{ asset('js/index.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/hint.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/TableSort.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/vanillaSelectBox.js') }}"></script>
     </head>
     <body class="h-100 d-flex flex-column">
@@ -37,7 +39,7 @@
         <form id="ajax-form">
             @csrf
         </form>
-        
+
     </body>
 </html>
 
