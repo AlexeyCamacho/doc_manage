@@ -13,7 +13,7 @@ class Status extends Model
         'name', 'status_id', 'visible'
     ];
 
-    public function statuses() 
+    public function statuses()
     {
         return $this->hasMany(Status::class);
     }
@@ -23,8 +23,9 @@ class Status extends Model
     return $this->hasMany(Status::class)->with('statuses');
     }
 
-    public function parent() 
+    public function parent()
     {
         return $this->belongsTo(Status::class, 'status_id');
     }
+
 }

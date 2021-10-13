@@ -359,3 +359,38 @@ targetPosition.bottom > windowPosition.bottom) {
     return false;
 };
 };
+
+function search_all_keys(json, key, name_children1, name_children2) {
+    let result = [];
+    for (let i = 0; i < json.length; i++) {
+        if(key in json[i]){
+            result.push(json[i][key]);
+        }
+
+        if(name_children1 in json[i]){
+            result = result.concat(search_all_keys(json[i][name_children1], key, name_children1, name_children2));
+        }
+
+        if(name_children2 in json[i]){
+            result = result.concat(search_all_keys(json[i][name_children2], key, name_children1, name_children2));
+        }
+
+    }
+    return result;
+}
+
+function disabled_options(select_id, id_options){
+    var select = document.getElementById(select_id);
+    for (var i = 0; i < select.children.length; i++) {
+        if(id_options.indexOf(parseInt(select.children[i].value)) != -1){
+            select.children[i].disabled = true;
+        }
+    }
+}
+
+function enabled_options(select_id) {
+    var select = document.getElementById(select_id);
+    for (var i = 0; i < select.children.length; i++) {
+        select.children[i].disabled = false;
+    }
+}

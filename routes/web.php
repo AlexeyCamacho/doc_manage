@@ -47,6 +47,13 @@ Route::prefix('tags')->group(function () {
     Route::post('/delete', 'TagsController@delete');
 });
 
+Route::prefix('statuses')->group(function () {
+    Route::get('/', 'StatusesController@index')->name('statuses');
+    Route::post('/create', 'StatusesController@create');
+    Route::post('/edit', 'StatusesController@edit');
+    Route::post('/delete', 'StatusesController@delete');
+});
+
 Route::prefix('role')->group(function () {
     Route::get('/', 'RolesController@index')->name('role');
     Route::get('/create', 'RolesController@show_create')->name('create-role');

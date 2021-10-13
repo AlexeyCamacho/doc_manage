@@ -29,6 +29,7 @@
                         @can('views-roles')<li><a class="dropdown-item" href="{{ route('role') }}">{{ __('Роли') }}</a></li>@endcan
                         {{-- <li><a class="dropdown-item" href="{{ route('permissions') }}">{{ __('Права') }}</a></li> --}}
                         @can('management-tags')<li><a class="dropdown-item" href="{{ route('tags') }}">{{ __('Теги') }}</a></li>@endcan
+                        <li><a class="dropdown-item" href="{{ route('statuses') }}">{{ __('Статусы') }}</a></li>
                         <li><a class="dropdown-item" href="#">{{ __('Логи') }}</a></li>
                     </ul>
                 </li>

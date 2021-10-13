@@ -59,26 +59,6 @@ function view_block_add_category(id_category) {
     focus_input_in_form('create-name', 'form-add-category' + id_category);
 }
 
-function disabled_children_categories(select_id, category) {
-    var childrenCategories = api_get('/categories/get_children' ,category);
-    childrenCategories = JSON.parse(childrenCategories);
-    childrenCategories.push(parseInt(category));
-    var select = document.getElementById(select_id);
-    for (var i = 0; i < select.children.length; i++) {
-        if(childrenCategories.indexOf(parseInt(select.children[i].value)) != -1){
-            select.children[i].disabled = true;
-        }
-    }
-
-}
-
-function enabled_add_children_categories(select_id) {
-    var select = document.getElementById(select_id);
-    for (var i = 0; i < select.children.length; i++) {
-        select.children[i].disabled = false;
-    }
-}
-
 function disabled_category(select_id, category) {
     var select = document.getElementById(select_id);
     for (var i = 0; i < select.children.length; i++) {
@@ -87,7 +67,6 @@ function disabled_category(select_id, category) {
             break;
         }
     }
-
 }
 
 function hide_category(id_category) {

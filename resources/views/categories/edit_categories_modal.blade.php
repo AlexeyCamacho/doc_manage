@@ -49,12 +49,13 @@
         set_value_modal(editCategoriesModal, button, 'data-bs-parent', 'edit-category');
         set_value_modal(editCategoriesModal, button, 'data-bs-id', 'edit-id');
         set_placeholder(button, 'data-bs-name', 'edit-title');
-        var category = button.getAttribute('data-bs-id');
-        disabled_children_categories('edit-category', category);
+        var json = JSON.parse(button.getAttribute('data-bs-childrens'));
+        statuses = search_all_keys(json, 'id', 'children_categories', 'categories');
+        disabled_options('edit-category', statuses);
     })
     editCategoriesModal.addEventListener('hide.bs.modal', function (event) {
         rm_class('edit', 'is-invalid');
         clear_class('errors-edit');
-        enabled_add_children_categories('edit-category');
+        enabled_options('edit-category');
     })
 </script>

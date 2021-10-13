@@ -62,7 +62,7 @@
         disabled_category('delete-doc-category', category);
     })
     deleteCategoriesModal.addEventListener('hide.bs.modal', function (event) {
-        enabled_add_children_categories('delete-category');
-        enabled_add_children_categories('delete-doc-category');
+        enabled_options('delete-category');
+        enabled_options('delete-doc-category');
     })
 </script>
