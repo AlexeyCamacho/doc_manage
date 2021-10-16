@@ -25,10 +25,7 @@
                         <div class="mb-3">
                             <label for="data-bs-category" class="col-form-label">Категория:</label>
                             <select id="edit_documents-category" class="form-select edit_documents" name="category">
-                                @foreach ($allCategories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @include('inc.optionCategories', ['category' => $category])
-                                @endforeach
+                                @include('inc.option', ['objects' => $allCategories, 'id' => 'id', 'name' => 'name', 'childrens' => 'categories'])
                             </select>
                             <x-print-errors action="edit_documents" field="category"></x-print-errors>
                         </div>

@@ -20,20 +20,14 @@
                             <label for="data-bs-category" class="col-form-label">Переместить дочернии категории в</label>
                             <select id="delete-category" class="form-select delete" name="category">
                                 <option value="null" selected>Корневой каталог</option>
-                                @foreach ($allCategories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @include('inc.optionCategories', ['category' => $category])
-                                @endforeach
+                                @include('inc.option', ['objects' => $allCategories, 'id' => 'id', 'name' => 'name', 'childrens' => 'categories'])
                             </select>
                             <x-print-errors action="delete" field="category"></x-print-errors>
                         </div>
                         <div class="mb-3">
                             <label for="data-bs-category" class="col-form-label">Переместить документы в</label>
                             <select id="delete-doc-category" class="form-select delete" name="doc_category">
-                                @foreach ($allCategories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @include('inc.optionCategories', ['category' => $category])
-                                @endforeach
+                                @include('inc.option', ['objects' => $allCategories, 'id' => 'id', 'name' => 'name', 'childrens' => 'categories'])
                             </select>
                             <x-print-errors action="delete" field="category"></x-print-errors>
                         </div>

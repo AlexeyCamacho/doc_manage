@@ -22,10 +22,7 @@
                             <label for="data-bs-category" class="col-form-label">Родительская категория:</label>
                             <select id="edit-category" class="form-select edit" name="category">
                                 <option value="null" selected>Корневой каталог</option>
-                                @foreach ($allCategories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @include('inc.optionCategories', ['category' => $category])
-                                @endforeach
+                                @include('inc.option', ['objects' => $allCategories, 'id' => 'id', 'name' => 'name', 'childrens' => 'categories'])
                             </select>
                             <x-print-errors action="edit" field="category"></x-print-errors>
                         </div>

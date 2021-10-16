@@ -6,11 +6,13 @@
     <div class="container border shadow bg-white rounded p-4">
         @if ($document)
             <div class="row">
-                @if ($document->deadline && $document->deadline < date("Y-m-d"))
-                    <div class="col-md-3 border text-center"><img src="{{asset('storage/clock-fire.jpg')}}" class="img-fluid" width="60%"></div>
-                @else
-                    <div class="col-md-3 border text-center"><img src="{{asset('storage/pdf.png')}}" class="img-fluid" width="60%"></div>
-                @endif
+                <div class="col-md-3 border text-center">
+                    <div class="row my-2">
+                        @foreach ($filesTypes as $fileType)
+                            <div class="col-md"><img src="{{asset('storage/typeFiles/' . $fileType . '.png')}}" class="img-fluid"></div>
+                        @endforeach
+                    </div>
+                </div>
                 <div class="col-md-9 border border-left-0">
                     <div class="row">
                         <div class="col mt-1"><h5 class="mt-3">{{$document->name}}</h5></div>
@@ -39,6 +41,13 @@
                                         {{ $document->deadline }}
                                     @else
                                         Неопределён
+                                    @endif
+                                    @if ($document->deadline)
+                                        @if ($document->deadline < date("Y-m-d"))
+                                            <span class="badge bg-danger">Дедлайн просрочен</span>
+                                        @elseif ($document->deadline == date("Y-m-d"))
+                                            <span class="badge bg-warning text-dark">Дедлайн сегодня</span>
+                                        @endif
                                     @endif
                                 </h5>
                                 <h5>Создан: {{$document->created_at}}</h5>

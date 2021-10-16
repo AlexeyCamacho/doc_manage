@@ -50,12 +50,20 @@ class DocumentsController extends Controller
         $statuses = Status::whereNull('status_id')->with('childrenStatuses')->orderBy('name')->get();
         $tags = Tag::orderBy('name')->get();
 
+        $filesTypes = $collection = collect([]);
+        foreach ($document->files as $file) {
+            $filesTypes->push(pathinfo($file->file)['extension']);
+        }
+
+
+
         return view('documents.index', [
             'document' => $document,
             'allCategories' => $allCategories,
             'users' => User::all()->except(Auth::id()),
             'statuses' => $statuses,
-            'tags' => $tags
+            'tags' => $tags,
+            'filesTypes' => $filesTypes
         ]);
     }
 

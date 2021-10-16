@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-4 mb-3">
                     <label for="exampleInputPassword1" class="form-label">Обозначение</label>
-                    <input name="slug" type="text" class="form-control edit" id="edit-slug" 
+                    <input name="slug" type="text" class="form-control edit" id="edit-slug"
                     value="{{$role->slug}}" placeholder="{{$role->slug}}">
                     <x-print-errors action="edit" field="slug"></x-print-errors>
                     <div class="form-text">Краткое обозначение в 1 слово на английском языке.
@@ -28,7 +28,7 @@
                 <div class="container my-4 py-2">
                     <div class="row">
                         @foreach($permissionСategories as $permissionName => $permission)
-                            <div class="col-lg-4 col-md-6 border-right border-left pl-4 pb-4">
+                            <div class="col-lg-4 col-md-6 border-right border-left pl-4 pb-4 my-3">
                                 <h3>{{ $permissionName }}</h3>
                                 @foreach($permission as $perm)
                                     <div class="form-check">
@@ -42,16 +42,16 @@
                                         <label class="form-check-label" for="{{ $perm->slug }}">
                                             {{ $perm->name }}
                                         </label>
-                                    </div>    
+                                    </div>
                                 @endforeach
-                            </div>    
+                            </div>
                         @endforeach
                     </div>
                 </div>
                 <a role="button" class="btn btn-outline-secondary" href="{{ route('role') }}">
                 {{ __('Назад') }}</a>
                 <button type="button" class="btn btn-primary" onclick="
-                rm_class('edit', 'is-invalid'); 
+                rm_class('edit', 'is-invalid');
                 clear_class('errors-edit');
                 ajax('role_edit_form', '{{ route('edit-role')}}', 'edit-', 'role');">
                 Сохранить изменения</button>

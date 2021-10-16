@@ -99,6 +99,11 @@ Route::prefix('files')->group(function () {
    Route::post('/delete', 'FilesController@delete');
 });
 
+Route::prefix('journal')->group(function () {
+   Route::get('/', 'JournalController@index')->name('journal');
+   Route::post('/select', 'JournalController@select');
+});
+
 /*Route::get('/test', function() {
     $a = 'documents/CtseGNeAERLhbOUPVNuif0TYaoVGIhttVtiC83l4.png';
     dispatch(new ProcessDeleteFiles($a));

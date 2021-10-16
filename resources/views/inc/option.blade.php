@@ -1,4 +1,4 @@
-@if (!$loop) 
+@if (!isset($loop)) 
 
 @foreach ($objects as $object)
     <option value="{{ $object->$id }}">{{ $object->$name }}</option>

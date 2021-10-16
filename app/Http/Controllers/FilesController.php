@@ -17,7 +17,7 @@ class FilesController extends Controller
         $this->middleware('auth');
         $this->middleware('blocked');
         $this->middleware('last_act');
-    } 
+    }
 
     public function download_preview($file_id, $download = true) {
 
@@ -37,7 +37,7 @@ class FilesController extends Controller
 
         if($download) {
             return response()->download('/var/www/html/example-app/storage/app/' . $position->file, $position->name);
-        } else {  
+        } else {
             return response()->file('/var/www/html/example-app/storage/app/' . $position->file);
         }
     }
@@ -52,7 +52,7 @@ class FilesController extends Controller
         }
 
         $validation = $req->validate([
-            'deadline' => 'sometimes|nullable|date|after_or_equal:' . date('Y-m-d') . '|before_or_equal:' . Document::find($req->id)->deadline,  
+            'deadline' => 'sometimes|nullable|date|after_or_equal:' . date('Y-m-d') . '|before_or_equal:' . Document::find($req->id)->deadline,
             'file' => 'required|file|mimes:pdf,jpg,doc,docx,csv,xlsx,png',
             'new_status' => 'sometimes|nullable|string|unique:statuses,name',
             'new_status' => 'required_without_all:document_ready,status'
@@ -74,7 +74,7 @@ class FilesController extends Controller
 
             $status = Status::create([
                 'name' => $req->new_status,
-                'status_id' => $req->status 
+                'status_id' => $req->status
             ]);
 
             $position->status_id = $status->id;
@@ -82,7 +82,7 @@ class FilesController extends Controller
 
         $position->save();
 
-        if($req->document_ready) { 
+        if($req->document_ready) {
             $document = Document::find($req->id);
             $document->completed = 1;
             $document->save();
@@ -103,7 +103,7 @@ class FilesController extends Controller
 
         if($req->deadline != $position->deadline) {
             $validation = $req->validate([
-                'deadline' => 'date|after_or_equal:' . date('Y-m-d') . '|before_or_equal:' . $position->document->deadline  
+                'deadline' => 'date|after_or_equal:' . date('Y-m-d') . '|before_or_equal:' . $position->document->deadline
             ]);
 
         }
@@ -116,7 +116,7 @@ class FilesController extends Controller
 
             $status = Status::create([
                 'name' => $req->new_status,
-                'status_id' => $req->status 
+                'status_id' => $req->status
             ]);
 
             $position->status_id = $status->id;
