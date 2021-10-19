@@ -78,7 +78,7 @@
                         <label class="form-check-label" for="flexSwitchCheckDefault">Только незавершенные</label>
                     </div>
                         <div class="row mt-2">
-                        <button type="submit" class="btn btn-primary" onclick="//filter_jornal('journal_filter_form');">Применить</button>
+                        <button type="submit" class="btn btn-primary">Применить</button>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,15 @@
             </div>
         </div>
     </div>
+
+    @can('edit-documents')
+        @include('documents.edit_documents_modal', ['allCategories' => $categories])
+        @include('documents.edit_users_documents_modal')
+    @endcan
+
+    @can('delete-documents')
+        @include('documents.delete_documents_modal')
+    @endcan
 
 <script type="text/javascript">
 var statuses = new vanillaSelectBox('#select-status', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
@@ -105,8 +114,9 @@ statuses.setValue(req_statuses);
 categories.setValue(req_categories);
 users.setValue(req_users);
 tags.setValue(req_tags);
+
+document.querySelectorAll('.table thead').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
 </script>
 
 
-<script src="{{ asset('js/journal.js') }}"></script>
 @endsection

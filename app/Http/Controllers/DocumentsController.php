@@ -63,7 +63,7 @@ class DocumentsController extends Controller
             'users' => User::all()->except(Auth::id()),
             'statuses' => $statuses,
             'tags' => $tags,
-            'filesTypes' => $filesTypes
+            'filesTypes' => $filesTypes->unique()
         ]);
     }
 

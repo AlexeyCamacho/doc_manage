@@ -88,91 +88,96 @@
                                             <th scope="col">Дата загрузки</th>
                                             <th scope="col">Дедлайн</th>
                                             @can('download-documents')<th scope="col" class="text-center">Предпр./Скачать</th>@endcan
-                                                @if((session('editMode')) && !$document->completed && (Gate::allows('edit-documents') || Gate::allows('delete-documents')))<th scope="col " class="text-center">Настройка</th>@endif
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($document->files as $file)
-                                                    @if ($loop->last && !$document->completed && $file->deadline)
-                                                        @if ($file->deadline < date("Y-m-d"))
-                                                            <tr class="table-danger">
-                                                            @elseif ($file->deadline == date("Y-m-d"))
-                                                                <tr class="table-warning">
-                                                                @else
-                                                                    <tr>
-                                                                    @endif
-                                                                @else
-                                                                    <tr>
-                                                                    @endif
-
-                                                                    <td>@include('inc.parents', ['object' => $file->status, 'name' => 'name', 'parent' => 'parent'])</td>
-                                                                    <td>{{ $file->user->name }}</td>
-                                                                    <td>{{ $file->created_at }}</td>
-                                                                    <td>
-                                                                        @if ($file->deadline != null)
-                                                                            {{ $file->deadline }}
-                                                                        @else
-                                                                            Неопределён
-                                                                        @endif
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        @can('download-documents')
-                                                                            <div class="btn-group text-center" role="group">
-                                                                                <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/preview/{{$file->id}}" target="_blank">
-                                                                                    <i class="bi bi-file-earmark-text"></i></a>
-                                                                                    <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/download/{{$file->id}}">
-                                                                                        <i class="bi bi-download" ></i></a>
-                                                                                    </div>
-                                                                                @endcan
-                                                                            </td>
-                                                                            @if((session('editMode')) && !$document->completed && (Gate::allows('edit-documents') || Gate::allows('delete-documents')))
-                                                                                <td class="text-center">
-                                                                                    <div class="text-center">
-                                                                                        <button class="btn" type="button" id="dropdownMenuDocument" data-toggle="dropdown" aria-expanded="false">
-                                                                                            <i class="bi bi-gear"></i>
-                                                                                        </button>
-                                                                                        @include('icons.positions')
-                                                                                        <div>
-                                                                                        </td>
-                                                                                    @endif
-                                                                                </tr>
-                                                                            @endforeach
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            @else
-                                                                <h4 class="text-center alert">
-                                                                    {{ ('Файлы не найдены') }}
-                                                                </h4>
+                                            @if((session('editMode')) && !$document->completed && (Gate::allows('edit-documents') || Gate::allows('delete-documents')))<th scope="col " class="text-center">Настройка</th>@endif
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($document->files as $file)
+                                            @if ($loop->last && !$document->completed && $file->deadline)
+                                                @if ($file->deadline < date("Y-m-d"))
+                                                    <tr class="table-danger">
+                                                    @elseif ($file->deadline == date("Y-m-d"))
+                                                        <tr class="table-warning">
+                                                        @else
+                                                            <tr>
                                                             @endif
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="row justify-content-center">
-                                                        <div class="col-md-10">
-                                                            <h3 class="text-center alert alert-danger">
-                                                                {{ ('Документ не найден') }}
-                                                            </h3>
-                                                        </div>
-                                                    </div>
-                                                @endif
+                                                        @else
+                                                            <tr>
+                                                            @endif
+
+                                                            <td>@include('inc.parents', ['object' => $file->status, 'name' => 'name', 'parent' => 'parent'])</td>
+                                                            <td>{{ $file->user->name }}</td>
+                                                            <td>{{ $file->created_at }}</td>
+                                                            <td>
+                                                                @if ($file->deadline != null)
+                                                                    {{ $file->deadline }}
+                                                                @else
+                                                                    Неопределён
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @can('download-documents')
+                                                                    <div class="btn-group text-center" role="group">
+                                                                        <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/preview/{{$file->id}}" target="_blank">
+                                                                            <i class="bi bi-file-earmark-text"></i>
+                                                                        </a>
+                                                                        <a type="button" class="btn btn-outline-secondary" href="/doc_manage/files/download/{{$file->id}}">
+                                                                            <i class="bi bi-download" ></i>
+                                                                        </a>
+                                                                    </div>
+                                                                @endcan
+                                                            </td>
+                                                                @if((session('editMode')) && !$document->completed && (Gate::allows('edit-documents') || Gate::allows('delete-documents')))
+                                                                    <td class="text-center">
+                                                                        <div class="text-center">
+                                                                            <button class="btn" type="button" id="dropdownMenuDocument" data-toggle="dropdown" aria-expanded="false">
+                                                                                <i class="bi bi-gear"></i>
+                                                                            </button>
+                                                                            @include('icons.positions')
+                                                                        <div>
+                                                                    </td>
+                                                                @endif
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
                                             </div>
+                                        @else
+                                    <h4 class="text-center alert">
+                                        {{ ('Файлы не найдены') }}
+                                    </h4>
+                                @endif
+                            </div>
+                        </div>
+                    @else
+                        <div class="row justify-content-center">
+                            <div class="col-md-10">
+                                <h3 class="text-center alert alert-danger">
+                                    {{ ('Документ не найден') }}
+                                </h3>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
 
-                                            @can('create-documents')
-                                                @can('loading-documents')
-                                                    @include('positions.create_modal')
-                                                @endcan
-                                            @endcan
+            @can('create-documents')
+                @can('loading-documents')
+                    @include('positions.create_modal')
+                @endcan
+            @endcan
 
-                                            @can('edit-documents')
-                                                @include('documents.edit_documents_modal')
-                                                @include('documents.edit_users_documents_modal')
-                                                @include('positions.edit_modal')
-                                            @endcan
+            @can('edit-documents')
+                @include('documents.edit_documents_modal')
+                @include('documents.edit_users_documents_modal')
+                @include('positions.edit_modal')
+            @endcan
 
-                                            @can('delete-documents')
-                                                @include('documents.delete_documents_modal')
-                                                @include('positions.delete_modal')
-                                            @endcan
+            @can('delete-documents')
+                @include('documents.delete_documents_modal')
+                @include('positions.delete_modal')
+            @endcan
 
-                                        @endsection
+        </div>
+
+    @endsection
