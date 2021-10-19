@@ -101,7 +101,7 @@ Route::prefix('files')->group(function () {
 
 Route::prefix('journal')->group(function () {
    Route::get('/', 'JournalController@index')->name('journal');
-   Route::post('/select', 'JournalController@select');
+   // Route::get('/select', 'JournalController@select');
 });
 
 /*Route::get('/test', function() {

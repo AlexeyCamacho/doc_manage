@@ -6,9 +6,10 @@
     <div class="container border shadow bg-white rounded p-4">
         <div class="row">
             <h2>{{ ('Журнал') }}</h2>
+            {{$req->flashOnly(['statuses']);}}
         </div>
         <hr/>
-        <form class="row my-3 journal_filter_form" id="journal_filter_form">
+        <form class="row my-3 journal_filter_form" id="journal_filter_form" method="get" action="journal/">
             <div class="row my-1">
                 @csrf
                 <div class="col">
@@ -40,18 +41,18 @@
                     </select>
                 </div>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-4">
                 <div class="col">
                     <div class="row"><div class="col">Дата создания</div></div>
                     <hr class="my-1">
                     <div class="row">
                         <div class="col">
                             <label for="select-status" class="form-label">От</label>
-                            <input name="date_from" id="select-date_from" type="date" class="form-control select" >
+                            <input name="date_from" id="select-date_from" type="date" class="form-control select" value="{{$req->date_from}}">
                         </div>
                         <div class="col">
                             <label for="select-status" class="form-label">До</label>
-                            <input name="date_before" id="select-date_before" type="date" class="form-control select" >
+                            <input name="date_before" id="select-date_before" type="date" class="form-control select" value="{{$req->date_before}}">
                         </div>
                     </div>
                 </div>
@@ -61,11 +62,11 @@
                     <div class="row">
                         <div class="col">
                             <label for="select-status" class="form-label">От</label>
-                            <input name="deadline_from" id="select-deadline_from" type="date" class="form-control select" >
+                            <input name="deadline_from" id="select-deadline_from" type="date" class="form-control select" value="{{$req->deadline_from}}">
                         </div>
                         <div class="col">
                             <label for="select-status" class="form-label">До</label>
-                            <input name="deadline_before" id="select-deadline_before" type="date" class="form-control select" >
+                            <input name="deadline_before" id="select-deadline_before" type="date" class="form-control select" value="{{$req->deadline_from}}">
                         </div>
                     </div>
                 </div>
@@ -73,27 +74,37 @@
             <div class="row mt-4 d-flex justify-content-end">
                 <div class="col-auto">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
+                        <input class="form-check-input" type="checkbox" name="only_not_completed" @if(isset($req->only_not_completed)) checked @endif>
                         <label class="form-check-label" for="flexSwitchCheckDefault">Только незавершенные</label>
                     </div>
                         <div class="row mt-2">
-                        <button type="button" class="btn btn-primary" onclick="filter_jornal('journal_filter_form');">Применить</button>
+                        <button type="submit" class="btn btn-primary" onclick="//filter_jornal('journal_filter_form');">Применить</button>
                     </div>
                 </div>
             </div>
         </form>
         <div class="row">
             <div id="table">
-
+              @include('journal.table')
             </div>
         </div>
     </div>
 
 <script type="text/javascript">
-new vanillaSelectBox('#select-status', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
-new vanillaSelectBox('#select-category', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
-new vanillaSelectBox('#select-users', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
-new vanillaSelectBox('#select-tags', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
+var statuses = new vanillaSelectBox('#select-status', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
+var categories = new vanillaSelectBox('#select-category', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
+var users = new vanillaSelectBox('#select-users', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
+var tags = new vanillaSelectBox('#select-tags', {"translations": { "all": "Все", "items": "предметы","selectAll":"Выбрать все","clearAll":"Очистить все"}});
+
+var req_statuses = {!! json_encode($req->statuses) !!};
+var req_categories = {!! json_encode($req->categories) !!};
+var req_users = {!! json_encode($req->users) !!};
+var req_tags = {!! json_encode($req->tags) !!};
+
+statuses.setValue(req_statuses);
+categories.setValue(req_categories);
+users.setValue(req_users);
+tags.setValue(req_tags);
 </script>
 
 

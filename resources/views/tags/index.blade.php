@@ -86,7 +86,7 @@
       <button type="button" class="btn btn-outline-success tag_edit_form"
       onclick="rm_class('edit', 'is-invalid');
       clear_class('errors-edit');
-      ajax('tag_edit_form', '/doc_manage/tags/edit', 'edit-');"">
+      ajax('tag_edit_form', '/doc_manage/tags/edit', 'edit-');">
           <i class="bi bi-check-lg"></i>
       </button>
       </div>
