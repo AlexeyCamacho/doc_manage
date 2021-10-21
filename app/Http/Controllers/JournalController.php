@@ -88,7 +88,7 @@ class JournalController extends Controller
         $tags = Tag::orderBy('name')->get();
         $users = User::all();
 
-        $documents = $documents->paginate(10)->withQueryString();;
+        $documents = $documents->paginate(10)->withQueryString();
 
         return view('journal.index', compact('categories', 'statuses', 'tags', 'users', 'documents', 'req'));
     }

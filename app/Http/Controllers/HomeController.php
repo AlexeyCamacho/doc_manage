@@ -38,10 +38,10 @@ class HomeController extends Controller
 
     public function settings_change(Request $req){
         $user = User::where('id', $req->user_id)->first();
-        if($user->setting($req->setting)) { 
+        if($user->setting($req->setting)) {
             $value = 0;
-        } else { 
-            $value = 1; 
+        } else {
+            $value = 1;
         }
         $user->settings([$req->setting => $value]);
     }

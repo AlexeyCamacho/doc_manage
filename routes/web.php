@@ -60,7 +60,7 @@ Route::prefix('role')->group(function () {
     Route::post('/create', 'RolesController@create');
     Route::get('/edit/{id?}', 'RolesController@show_edit')->name('edit-role');
     Route::post('/edit', 'RolesController@edit');
-    Route::post('/role/delete', 'RolesController@delete');
+    Route::post('/delete', 'RolesController@delete');
 });
 
 Route::prefix('categories')->group(function () {
@@ -101,7 +101,10 @@ Route::prefix('files')->group(function () {
 
 Route::prefix('journal')->group(function () {
    Route::get('/', 'JournalController@index')->name('journal');
-   // Route::get('/select', 'JournalController@select');
+});
+
+Route::prefix('logs')->group(function () {
+   Route::get('/', 'LogsController@index')->name('logs');
 });
 
 /*Route::get('/test', function() {

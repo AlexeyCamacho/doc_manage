@@ -6,7 +6,6 @@
     <div class="container border shadow bg-white rounded p-4">
         <div class="row">
             <h2>{{ ('Журнал') }}</h2>
-            {{$req->flashOnly(['statuses']);}}
         </div>
         <hr/>
         <form class="row my-3 journal_filter_form" id="journal_filter_form" method="get" action="journal/">

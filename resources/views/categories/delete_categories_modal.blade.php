@@ -51,9 +51,11 @@
         set_value_modal(deleteCategoriesModal, button, 'data-bs-archive', 'delete-category');
         set_value_modal(deleteCategoriesModal, button, 'data-bs-archive', 'delete-doc-category');
         set_value_div(button, 'data-bs-name', 'delete-name');
-        var category = button.getAttribute('data-bs-id');
-        disabled_children_categories('delete-category', category);
-        disabled_category('delete-doc-category', category);
+        var json = JSON.parse(button.getAttribute('data-bs-childrens'));
+        statuses = search_all_keys(json, 'id', 'children_categories', 'categories');
+        statuses.push(parseInt(button.getAttribute('data-bs-id')));
+        disabled_options('delete-category', statuses);
+        disabled_options('delete-doc-category', [parseInt(button.getAttribute('data-bs-id'))]);
     })
     deleteCategoriesModal.addEventListener('hide.bs.modal', function (event) {
         enabled_options('delete-category');

@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Position extends Model
 {
     use HasFactory;
+
+    use LogsActivity;
+
+    protected static $logFillable = true;
+    protected static $logOnlyDirty = true;
 
     protected $fillable = [
         'name', 'user_id', 'file', 'deadline', 'status_id', 'document_id'

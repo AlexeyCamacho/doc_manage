@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Category extends Model
 {
+    use LogsActivity;
+
+    protected static $logFillable = true;
+    protected static $logOnlyDirty = true;
+    
     protected $fillable = [
         'name', 'category_id'
     ];
-    
+
     public function categories()
     {
         return $this->hasMany(Category::class);

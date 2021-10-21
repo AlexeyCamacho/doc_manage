@@ -35,7 +35,7 @@
     @endcan
     @can('delete-categories')
     <li>
-        <button class="dropdown-item" type="button" data-bs-name="{{ $category->name }}" data-toggle="modal" data-target="#deleteCategories" data-bs-id="{{ $category->id }}" data-bs-parent="{{ $category->category_id }}" data-bs-archive="22" data-hint="true" data-placement="right" title="Удалить">
+        <button class="dropdown-item" type="button" data-bs-name="{{ $category->name }}" data-toggle="modal" data-target="#deleteCategories" data-bs-id="{{ $category->id }}" data-bs-parent="{{ $category->category_id }}" data-bs-childrens="{{ $category->categories()->with('childrenCategories')->select('id')->get(); }}" data-bs-archive="22" data-hint="true" data-placement="right" title="Удалить">
             <i class="bi bi-trash" data-hint="true" data-placement="right" title="Удалить"></i>
         </button>
     </li>

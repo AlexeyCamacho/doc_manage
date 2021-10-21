@@ -48,6 +48,7 @@
         set_placeholder(button, 'data-bs-name', 'edit-title');
         var json = JSON.parse(button.getAttribute('data-bs-childrens'));
         statuses = search_all_keys(json, 'id', 'children_categories', 'categories');
+        statuses.push(parseInt(button.getAttribute('data-bs-id')));
         disabled_options('edit-category', statuses);
     })
     editCategoriesModal.addEventListener('hide.bs.modal', function (event) {

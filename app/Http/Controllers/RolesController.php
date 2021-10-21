@@ -20,7 +20,8 @@ class RolesController extends Controller
         'documents' => 'Документы',
         'tags' => 'Теги',
         'statuses' => 'Статусы',
-        'journal' => 'Журнал'
+        'journal' => 'Журнал',
+        'logs' => 'Логи'
     ];
 
     public function __construct() {
