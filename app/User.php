@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\ResetPassword;
 
 class User extends Authenticatable
 {
@@ -57,6 +58,10 @@ class User extends Authenticatable
         $this->settings = array_merge($this->settings, $revisions);    if ($save) {
             $this->save();
         }    return $this;
+    }
+
+    public function sendPasswordResetNotification($token) {
+      $this->notify(new ResetPassword($token));
     }
 
 }

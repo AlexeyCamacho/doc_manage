@@ -22,7 +22,7 @@ class UsersController extends Controller
         $this->middleware('auth');
         $this->middleware('blocked');
         $this->middleware('last_act');
-    } 
+    }
 
     public function index()
     {
@@ -30,7 +30,7 @@ class UsersController extends Controller
             return view('PermError');
         }
 
-        return view('users', ['users' => User::orderBy('blocked')->paginate(10), 
+        return view('users', ['users' => User::orderBy('blocked')->paginate(10),
             'roles' => Role::orderBy('id', 'desc')->get()]);
     }
 
@@ -120,7 +120,7 @@ class UsersController extends Controller
             return abort(403, 'Нет прав');
         }
 
-       User::destroy($req->id); 
+       User::destroy($req->id);
     }
 
 }
