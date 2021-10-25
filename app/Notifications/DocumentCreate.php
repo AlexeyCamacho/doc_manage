@@ -3,23 +3,27 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use App\Mail\DocumentCreate as Mailable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Mail\ResetPassword as Mailable;
 
-class ResetPasswordNotification extends Notification
+class DocumentCreate extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    protected $document;
+    protected $user;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($document, $user)
     {
-        //
+        $this->document = $document;
+        $this->user = $user;
     }
 
     /**
@@ -30,7 +34,11 @@ class ResetPasswordNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        $via = [];
+        if($notifiable->settings['notifications_by_email']) $via[] = 'mail';
+        if($notifiable->settings['notifications_by_websocket']) $via[] = 'database';
+
+        return $via;
     }
 
     /**
@@ -39,10 +47,11 @@ class ResetPasswordNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-     public function toMail($notifiable) {
-         $subject = 'Восстановление пароля';
-         return (new ResetPassword($this->token, $notifiable))->subject($subject)->to($notifiable->email);
-     }
+    public function toMail($notifiable)
+    {
+        $subject = 'Документ создан';
+        return (new Mailable($notifiable, $this->document, $this->user))->subject($subject)->to($notifiable->email);
+    }
 
     /**
      * Get the array representation of the notification.
@@ -53,7 +62,7 @@ class ResetPasswordNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'text' => 'Пользователь ' . $this->user->name . ' создал документ ' . $this->document->name
         ];
     }
 }

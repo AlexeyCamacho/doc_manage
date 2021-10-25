@@ -3,18 +3,22 @@
 namespace App;
 
 use Spatie\Activitylog\LogOptions;
+
+use App\Notifications\ResetPassword;
+use App\Notifications\DocumentCreate;
+use App\Notifications\DocumentDelete;
+use App\Notifications\DocumentDeadline;
+
 use App\Traits\HasRolesAndPermissions;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Notifications\ResetPassword;
 
 class User extends Authenticatable
 {
     use Notifiable, HasRolesAndPermissions, LogsActivity;
 
-    //protected static $logFillable = true;
     protected static $logOnlyDirty = true;
     protected static $submitEmptyLogs = false;
     protected static $logAttributes = ['name', 'email', 'login'];
@@ -62,6 +66,18 @@ class User extends Authenticatable
 
     public function sendPasswordResetNotification($token) {
       $this->notify(new ResetPassword($token));
+    }
+
+    public function sendDocumentCreateNotification($document, $user) {
+      $this->notify(new DocumentCreate($document, $user));
+    }
+
+    public function DocumentDeleteNotification($document, $user) {
+      $this->notify(new DocumentDelete($document, $user));
+    }
+
+    public function DocumentDeadlineNotification() {
+      $this->notify(new DocumentDeadline());
     }
 
 }

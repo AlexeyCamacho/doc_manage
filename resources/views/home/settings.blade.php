@@ -10,7 +10,7 @@
                 <div class="card-header"><h4>{{ __('Настройки') }}</h4></div>
                 <div class="card-body">
                     @foreach(config('default_user_settings.keys') as $setting)
-                    <div class="form-check form-switch">
+                    <div class="form-check form-switch my-2">
                         @if (Auth::user()->setting($setting))
                         <input class="form-check-input" type="checkbox" onchange="changeSetting('{{$setting}}', {{Auth::user()->id}})" checked>
                         @else

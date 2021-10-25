@@ -8,6 +8,7 @@ use App\Models\Status;
 use App\Models\Document;
 use App\Models\Category;
 use App\Models\Position;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Jobs\ProcessDeleteFiles;
 use Illuminate\Support\Facades\Gate;
@@ -133,6 +134,14 @@ class DocumentsController extends Controller
         }
 
         $document->users()->attach(Auth::user());
+
+        $users = User::where('blocked', 0)->get();
+        foreach ($users as $user) {
+            if($user->hasPermissionTo(Permission::firstWhere('slug', 'documents-notifications'))) {
+                $user->sendDocumentCreateNotification($document, Auth::user());
+            }
+        }
+
     }
 
     public function edit(Request $req) {
@@ -231,6 +240,13 @@ class DocumentsController extends Controller
         }
 
         Document::destroy($req->id);
+
+        $users = User::where('blocked', 0)->get();
+        foreach ($users as $user) {
+            if($user->hasPermissionTo(Permission::firstWhere('slug', 'documents-notifications'))) {
+                $user->DocumentDeleteNotification($document, Auth::user());
+            }
+        }
 
     }
 

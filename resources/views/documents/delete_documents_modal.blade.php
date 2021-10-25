@@ -20,7 +20,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                     <button type="button" class="btn btn-danger" onclick="rm_class('delete_documents', 'is-invalid');
-                    clear_class('errors-delete'); 
+                    clear_class('errors-delete');
                     ajax('documents_delete_form', '/doc_manage/documents/delete', 'delete_documents-', 'categories');">Удалить</button>
                 </div>
             </div>
